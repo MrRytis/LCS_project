@@ -1,3 +1,31 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+index:
+  path: /
+  controller: App\Controller\IndexController::index
+
+main:
+  path: /main
+  controller: App\Controller\IndexController::main
+
+login:
+  path: /login
+  controller: App\Controller\UsersController::login
+
+register:
+  path: /register
+  controller: App\Controller\UsersController::register
+
+profile:
+  path: /user
+  controller: App\Controller\UsersController::index
+
+pending-accounts:
+  path: /pending
+  controller: App\Controller\UsersController::pending
+
+inventory-show:
+  path: /inventory
+  controller: App\Controller\UsersController::index

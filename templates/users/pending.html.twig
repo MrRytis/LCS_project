@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="row bg-primary text-light rounded-top">
+        <div class="col border-right">Vardas</div>
+        <div class="col border-right">Pavardė</div>
+        <div class="col border-right">El. paštas</div>
+        <div class="col border-right">Tipas</div>
+        <div class="col-4">Veiksmas</div>
+    </div>
+    <div class="row border-primary rounded-top mt-1">
+        <div class="col border-right">Vardas</div>
+        <div class="col border-right">Pavardė</div>
+        <div class="col border-right">El. paštas</div>
+        <div class="col border-right">Tipas</div>
+        <div class="col">
+            <a class="btn btn-outline-success" href="#">Patvirtinti</a>
+        </div>
+        <div class="col">
+            <a class="btn btn-outline-danger" href="#">Atmesti</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
