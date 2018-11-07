@@ -55,3 +55,28 @@ inventory-report:
   controller: App\Controller\InventoryController::report
 
 # end of inventory subsystem
+# transportation subsystem
+
+transportation:
+  path: /transportation
+  controller: App\Controller\TransportationController::index
+
+# end of transportation subsystem
+# admin part
+
+admin-dimensions:
+  path: /admin/dimensions
+  controller: App\Controller\AdminController::dimensions
+
+admin-filler:
+  path: /admin/filler
+  controller: App\Controller\AdminController::filler
+
+admin-shipping_methods:
+  path: /admin/shipping_methods
+  controller: App\Controller\AdminController::shipping_methods
+
+admin-report:
+  path: /admin/report
+  controller: App\Controller\AdminController::report
+# end of admin part
