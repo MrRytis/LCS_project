@@ -32,7 +32,7 @@ h4 { font-size:12px; line-height:14px; text-transform: uppercase; color:#000; }
 h1#logo { font-size:0; line-height:0; width:156px; height:64px; float:left; }
 h1#logo a{ color: #cccccc; background:#ff6600; }
 
-.shell { width:1400px; margin:0 auto; padding:10px; background:#fff; }
+.shell { width:1600px; margin:0 auto; padding:10px; background:#fff; }
 
 #header { height:64px; background:#ff6600; position:relative;}
 
