@@ -1,3 +1,57 @@
 #index:
 #    path: /
 #    controller: App\Controller\DefaultController::index
+
+index:
+  path: /
+  controller: App\Controller\IndexController::index
+
+main:
+  path: /main
+  controller: App\Controller\IndexController::main
+
+# User subsystem
+login:
+  path: /login
+  controller: App\Controller\UsersController::login
+
+register:
+  path: /register
+  controller: App\Controller\UsersController::register
+
+profile:
+  path: /user
+  controller: App\Controller\UsersController::index
+
+pending-accounts:
+  path: /pending
+  controller: App\Controller\UsersController::pending
+
+# end of user subsystem
+# inventory subsystem
+
+inventory-show:
+  path: /inventory
+  controller: App\Controller\InventoryController::index
+
+inventory-item-show:
+  path: /inventory/item
+  controller: App\Controller\InventoryController::show
+
+inventory-item-edit:
+  path: /inventory/item/form
+  controller: App\Controller\InventoryController::form
+
+inventory-category-show:
+  path: /inventory/category
+  controller: App\Controller\InventoryController::category
+
+inventory-status-show:
+  path: /inventory/status
+  controller: App\Controller\InventoryController::status
+
+inventory-report:
+  path: /inventory/report
+  controller: App\Controller\InventoryController::report
+
+# end of inventory subsystem

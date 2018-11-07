@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div id="main-content">
+    <form method="get" action="/inventory">
+        <div>
+            <label class="user-form" for="name">Pavadinimas</label>
+            <input class="user-form" type="text" id="name" />
+        </div>
+        <div>
+            <label class="user-form" for="price">Vertė</label>
+            <input class="user-form" type="decimal" id="price" />
+        </div>
+        <div>
+            <label class="user-form" for="category">Kategorija</label>
+            <select class="user-form" id="category">
+                <option selected>Baldai</option>
+                <option selected>Technika</option>
+                <option selected>Sukvežimiai</option>
+            <select/>
+        </div>
+        <div>
+            <label class="user-form" for="status">Būsena</label>
+            <select class="user-form" id="status">
+                <option selected>Laisvas</option>
+                <option selected>Naudojamas</option>
+            <select/>
+        </div>
+        <button type="submit" class="btn login">Patvirtinti</button>
+    </form>
+</div>
+<!-- Sidebar -->
+<div id="sidebar">
+{{ include ('inventory/side_menu.html.twig') }}
+</div>
+<!-- End Sidebar -->
+<div class="cl">&nbsp;</div>
+{% endblock %}
