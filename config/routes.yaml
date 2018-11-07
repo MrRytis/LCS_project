@@ -80,3 +80,52 @@ admin-report:
   path: /admin/report
   controller: App\Controller\AdminController::report
 # end of admin part
+# produkt subsystem
+
+produkt-produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::produkt
+
+produkt-tiek:
+  path: /produkt
+  controller: App\Controller\ProduktController::tiek
+
+produkt-medz_gr:
+  path: /produkt
+  controller: App\Controller\ProduktController::medz_gr
+
+produkt-ataskaita:
+  path: /produkt
+  controller: App\Controller\ProduktController::ataskaita
+
+produkt-add_tiek:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_tiek
+
+produkt-add_medz_gr:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_medz_gr
+
+produkt-add_produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_produkt
+
+produkt-add_tiek_produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_tiek_produkt
+# end of produkt subsystem
+#order subsystem
+
+orders-payment:
+  path: /orders/payment
+  controller: App\Controller\OrderController::payment
+
+orders-list:
+  path: /orders/list
+  controller: App\Controller\OrderController::list
+
+orders-edit:
+  path: /orders/edit
+  controller: App\Controller\OrderController::edit
+
+#end of order subsystem

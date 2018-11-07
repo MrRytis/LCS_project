@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="cl">&nbsp;</div>
+    <div id="content">
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <h2>Medžiagų grupės Duomenys</h2>
+                </div>
+                <div class="container">
+                    <form action="/action_page.php">
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="fname"><i class="fa fa-user"></i> Medžiagų grupė</label>
+                                <input type="text" id="fname" name="firstname" placeholder="Tipas">
+                            </div>
+                        </div>
+                        <input type="submit" value="Išsaugti" class="btn">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+    <div class="cl">&nbsp;</div>
+{% endblock %}

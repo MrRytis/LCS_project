@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <h2>Tiekėjo Duomenys</h2>
+                </div>
+                <div class="container">
+                    <form action="/action_page.php">
+
+                        <div class="row">
+                            <div class="col-50">
+                                <label for="faktur">Fakturos nr.</label>
+                                <input type="number" id="faktur" name="faktur" placeholder="534375374">
+                                <label for="fname"><i class="fa fa-user"></i> Tiekėjas</label>
+                                <input type="text" id="fname" name="firstname" placeholder="Vardas Pavardenis">
+                                <label for="firm"><i class="fa fa-user"></i> Firma</label>
+                                <input type="text" id="firm" name="firm" placeholder="UAB Firma">
+                                <label for="email"><i class="fa fa-envelope"></i> El. pastas</label>
+                                <input type="email" id="email" name="email" placeholder="vardenis@example.com">
+                                <label for="vadyb"><i class="fa fa-user"></i> Vadybininkas</label>
+                                <input type="text" id="vadyb" name="vadybin" placeholder="Vardas Pavardenis">
+                                <label for="vadybemail"><i class="fa fa-envelope"></i> Vadybininko El. pastas</label>
+                                <input type="email" id="vadybemail" name="vadybinemail" placeholder="vardenis@example.com">
+                            </div>
+                        </div>
+                        <input type="submit" value="Išsaugti" class="btn">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End Content -->
+    <div class="cl">&nbsp;</div>
+{% endblock %}

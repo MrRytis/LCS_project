@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+        <h2>Medžiagų grupės:</h2>
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/LCS/templates/produkt/add_medz_gr.html.twig'">Pridėti</button>
+
+        <table>
+            <tr>
+                <th>Pavadinimas</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>Kėdės</td>
+                <td>
+                    <ul>
+                        <a href="add_medz_gr.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="medz_gr.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Stalai</td>
+                <td>
+                    <ul>
+                        <a href="add_medz_gr.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="medz_gr.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Stalažai</td>
+                <td>
+                    <ul>
+                        <a href="add_medz_gr.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="medz_gr.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>Pjaustytos lentos</td>
+                <td>
+                    <ul>
+                        <a href="add_medz_gr.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="medz_gr.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- End Content -->
+    <div class="cl">&nbsp;</div>
+{% endblock %}
