@@ -55,3 +55,19 @@ inventory-report:
   controller: App\Controller\InventoryController::report
 
 # end of inventory subsystem
+
+#order subsystem
+
+orders-payment:
+  path: /orders/payment
+  controller: App\Controller\OrderController::payment
+
+orders-list:
+  path: /orders/list
+  controller: App\Controller\OrderController::list
+
+orders-edit:
+  path: /orders/edit
+  controller: App\Controller\OrderController::edit
+
+#end of order subsystem
