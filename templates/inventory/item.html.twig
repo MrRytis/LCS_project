@@ -3,74 +3,33 @@
 {% block content %}
 <div id="main-content">
     <table class="table-simple">
-        <thead class="table-simple-row">
+        <tr class="table-simple-row">
             <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-header">Vertė</td>
-            <td class="table-simple-header">Būsena</td>
-            <td class="table-simple-header">Kategorija</td>
-            <td class="table-simple-header">Veiksmas</td>
-        </thead>
-        <tr class="table-simple-row">
             <td class="table-simple-cell">Stalas</td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-header">Vertė</td>
             <td class="table-simple-cell">50</td>
-            <td class="table-simple-cell">Naudojamas</td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-header">Pridėta</td>
+            <td class="table-simple-cell">2018-02-31</td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-header">Kategorija</td>
             <td class="table-simple-cell">Baldai</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
         </tr>
         <tr class="table-simple-row">
-            <td class="table-simple-cell">Kėdė</td>
-            <td class="table-simple-cell">20</td>
+            <td class="table-simple-header">Būsena</td>
             <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Baldai</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
         </tr>
         <tr class="table-simple-row">
-            <td class="table-simple-cell">Kompiuteris</td>
-            <td class="table-simple-cell">500</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Technika</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz Atego 1517 </td>
-            <td class="table-simple-cell">10000</td>
-            <td class="table-simple-cell">Laisvas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz 2644 Actros</td>
-            <td class="table-simple-cell">15000</td>
-            <td class="table-simple-cell">Laisvas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz 2644 Actros</td>
-            <td class="table-simple-cell">15000</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-            <td class="table-simple-cell">
-                <a class="table-action" href="#">Redaguoti</a>
-                <a class="table-action" href="#">Pašalinti</a>
-            </td>
+            <td class="table-simple-header">Vartotojas</td>
+            <td class="table-simple-cell">Vardenis Pavardenis</td>
         </tr>
     </table>
+    <a class="btn" href="/inventory/item/form">Redaguoti</a>
+    <a class="btn" href="/inventory">Pašalinti</a>
 </div>
 <!-- Sidebar -->
 <div id="sidebar">
