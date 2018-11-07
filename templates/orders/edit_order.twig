@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="main-content">
+        <table class="table-simple">
+            <thead class="table-simple-row">
+            <td class="table-simple-header">Preke</td>
+            <td class="table-simple-header">Kaina</td>
+            <td class="table-simple-header">Kiekis</td>
+            </thead>
+            <tr class="table-simple-row">
+                <td class="table-simple-cell"><a href="/inventory/item">Stalas</a></td>
+                <td class="table-simple-cell">50 EUR</td>
+                <td class="table-simple-cell">1</td>
+            <tr class="table-simple-row">
+                <td class="table-simple-cell"><a href="/inventory/item">Kėdė</a></td>
+                <td class="table-simple-cell">20 EUR</td>
+                <td class="table-simple-cell">1</td>
+            </tr>
+            <tr class="table-simple-row">
+                <td class="table-simple-cell"><a href="/inventory/item">Kompiuteris</a></td>
+                <td class="table-simple-cell">500 EUR</td>
+                <td class="table-simple-cell">1</td>
+            </tr>
+            <tr class="table-simple-row">
+                <td class="table-simple-cell"><a href="/inventory/item">Mercedes-Benz Atego 1517</a></td>
+                <td class="table-simple-cell">10000 EUR</td>
+                <td class="table-simple-cell">1</td>
+            </tr>
+        </table>
+        <button type="button" onclick="window.location.href='/orders/list'">Redaguoti</button>
+    </div>
+{% endblock %}
