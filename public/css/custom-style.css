@@ -37,11 +37,20 @@ input.user-form {
     margin-bottom: 20px;
 }
 
+input.user-form {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    width: 25%;
+}
+
 select.user-form {
     display: block;
     margin-left: auto;
     margin-right: auto;
     margin-bottom: 20px;
+    width: 25%;
 }
 
 .logout {
@@ -61,6 +70,7 @@ select.user-form {
     width: 100%;
     text-align: center;
     border-collapse: collapse;
+    margin-bottom: 20px;
 }
 
 .table-simple-row {
@@ -90,4 +100,14 @@ select.user-form {
 #main-content {
     width: 80%;
     float: right;
+}
+
+.table-total-value {
+    text-align: left;
+    font-weight: bold;
+}
+
+.table-total-label {
+    text-align: right;
+    font-weight: bold;
 }
