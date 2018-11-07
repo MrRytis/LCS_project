@@ -55,3 +55,37 @@ inventory-report:
   controller: App\Controller\InventoryController::report
 
 # end of inventory subsystem
+# produkt subsystem
+
+produkt-produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::produkt
+
+produkt-tiek:
+  path: /produkt
+  controller: App\Controller\ProduktController::tiek
+
+produkt-medz_gr:
+    path: /produkt
+    controller: App\Controller\ProduktController::medz_gr
+
+produkt-ataskaita:
+  path: /produkt
+  controller: App\Controller\ProduktController::ataskaita
+
+produkt-add_tiek:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_tiek
+
+produkt-add_medz_gr:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_medz_gr
+
+produkt-add_produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_produkt
+
+produkt-add_tiek_produkt:
+  path: /produkt
+  controller: App\Controller\ProduktController::add_tiek_produkt
+# end of produkt subsystem

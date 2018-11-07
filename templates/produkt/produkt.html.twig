@@ -1,0 +1,55 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<div class="cl">&nbsp;</div>
+    <div class="cl">&nbsp;</div>
+    <!-- Content -->
+    <div id="content">
+        <h2>Produktai:</h2>
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/LCS/templates/produkt/add_produkt.html.twig'">Pridėti</button>
+
+        <table>
+            <tr>
+                <th>Data</th>
+                <th>Pavadinimas</th>
+                <th>Medžiagų grupė</th>
+                <th></th>
+            </tr>
+            <tr>
+                <td>2018-10-05</td>
+                <td>HENRIKSDAL</td>
+                <td>Kėdės</td>
+                <td>
+                    <ul>
+                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>2017-09-05</td>
+                <td>GAMLARED</td>
+                <td>Stalai</td>
+                <td>
+                    <ul>
+                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+            <tr>
+                <td>2018-05-06</td>
+                <td>INGATORP</td>
+                <td>Stalai</td>
+                <td>
+                    <ul>
+                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <!-- End Content -->
+    <div class="cl">&nbsp;</div>
+{% endblock %}
