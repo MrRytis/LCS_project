@@ -1,53 +1,53 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
+{% block content %}
 <div class="cl">&nbsp;</div>
     <div class="cl">&nbsp;</div>
     <!-- Content -->
-    <div id="content">
+    <div>
         <h2>Produktai:</h2>
-        <button class="btn" style="width: 100px;" onclick="window.location.href='/LCS/templates/produkt/add_produkt.html.twig'">Pridėti</button>
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/add_produkt'">Pridėti</button>
 
-        <table>
-            <tr>
-                <th>Data</th>
-                <th>Pavadinimas</th>
-                <th>Medžiagų grupė</th>
-                <th></th>
-            </tr>
-            <tr>
-                <td>2018-10-05</td>
-                <td>HENRIKSDAL</td>
-                <td>Kėdės</td>
-                <td>
+        <table class="table-simple">
+            <thead class="table-simple-row">
+                <td class="table-simple-header">Data</td>
+                <td class="table-simple-header">Pavadinimas</td>
+                <td class="table-simple-header">Medžiagų grupė</td>
+                <td class="table-simple-header"></td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2018-10-05</td>
+                <td class="table-simple-cell">HENRIKSDAL</td>
+                <td class="table-simple-cell">Kėdės</td>
+                <td class="table-simple-cell">
                     <ul>
-                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
                     </ul>
                 </td>
-            </tr>
-            <tr>
-                <td>2017-09-05</td>
-                <td>GAMLARED</td>
-                <td>Stalai</td>
-                <td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2017-09-05</td>
+                <td class="table-simple-cell">GAMLARED</td>
+                <td class="table-simple-cell">Stalai</td>
+                <td class="table-simple-cell">
                     <ul>
-                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
                     </ul>
                 </td>
-            </tr>
-            <tr>
-                <td>2018-05-06</td>
-                <td>INGATORP</td>
-                <td>Stalai</td>
-                <td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2018-05-06</td>
+                <td class="table-simple-cell">INGATORP</td>
+                <td class="table-simple-cell">Stalai</td>
+                <td class="table-simple-cell">
                     <ul>
-                        <a href="add_produkt.html.twig"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="produkt.html.twig"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
                     </ul>
                 </td>
-            </tr>
+            </thead>
         </table>
     </div>
     <!-- End Content -->

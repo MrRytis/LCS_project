@@ -87,31 +87,31 @@ produkt-produkt:
   controller: App\Controller\ProduktController::produkt
 
 produkt-tiek:
-  path: /produkt
+  path: /tiek
   controller: App\Controller\ProduktController::tiek
 
 produkt-medz_gr:
-  path: /produkt
+  path: /medz_gr
   controller: App\Controller\ProduktController::medz_gr
 
 produkt-ataskaita:
-  path: /produkt
+  path: /produkt/ataskaita
   controller: App\Controller\ProduktController::ataskaita
 
 produkt-add_tiek:
-  path: /produkt
+  path: /produkt/add_tiek
   controller: App\Controller\ProduktController::add_tiek
 
 produkt-add_medz_gr:
-  path: /produkt
+  path: /produkt/add_medz_gr
   controller: App\Controller\ProduktController::add_medz_gr
 
 produkt-add_produkt:
-  path: /produkt
+  path: /produkt/add_produkt
   controller: App\Controller\ProduktController::add_produkt
 
 produkt-add_tiek_produkt:
-  path: /produkt
+  path: /produkt/add_tiek_produkt
   controller: App\Controller\ProduktController::add_tiek_produkt
 # end of produkt subsystem
 #order subsystem

@@ -233,3 +233,34 @@ span.price {
 		margin-bottom: 20px;
 	}
 }
+
+input[type=number] {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+input[type=email] {
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+
+input[type=date] {
+	width: 20%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
+.custom-select{
+	width: 100%;
+	margin-bottom: 20px;
+	padding: 12px;
+	border: 1px solid #ccc;
+	border-radius: 3px;
+}
