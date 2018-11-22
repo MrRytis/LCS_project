@@ -1,27 +1,28 @@
-<!-- Header -->
-<div id="header">
-    <h1 id="logo"><a href="/">LCS</a></h1>
-    <!-- Cart -->
-    <div id="cart"> <a href="/new_order" class="cart-link">Jusu uzsakymas</a>
-    <div class="cl">&nbsp;</div>
-    <span>Prekes: <strong>4</strong></span> &nbsp;<span>Cost: <strong>EUR 250.99</strong></span> </div>
-    <!-- End Cart -->
-    <!-- Navigation -->
-    <div id="navigation">
-    <ul>
-        <li><a href="/main">Prekes</a></li>
-        <li><a href="/transportation">Transportavimas</a></li>
-        <li><a href="/orders/list">Mano uzsakymai</a></li>
-        <li><a href="/inventory">Inventorius</a></li>
-        <li><a href="/pending">Paskyros</a></li>
-        <li><a href="/user">Profilis</a></li>
-        <li><a href="/medz_gr">Medžiagų grupės</a></li>
-        <li><a href="/tiek">Tiekėjai</a></li>
-        <li><a href="/produkt">Produktai</a></li>
-        <li><a href="/admin">Valdiklis</a></li>
-        <li><a href="/login">Atsijungti</a></li>
-    </ul>
+<nav class="navbar navbar-inverse">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <a class="navbar-brand" href="/">LCS</a>
+        </div>
+        <ul class="nav navbar-nav">
+            <li class="nav-item active"><a class="nav-link" href="/main">Prekes</a></li>
+            <li class="nav-item"><a class="nav-link" href="/transportation">Transportavimas</a></li>
+            <li class="nav-item"><a class="nav-link" href="/orders/list">Mano uzsakymai</a></li>
+            <li><a href="/inventory">Inventorius</a></li>
+            <li><a href="/pending">Paskyros</a></li>
+            <li><a href="/user">Profilis</a></li>
+            <li><a href="/medz_gr">Medžiagų grupės</a></li>
+            <li><a href="/tiek">Tiekėjai</a></li>
+            <li><a href="/produkt">Produktai</a></li>
+            <li><a href="/admin">Valdiklis</a></li>
+            <li><a href="/login">Atsijungti</a></li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            {#<div id="cart"> <a href="/new_order" class="cart-link">Jusu uzsakymas</a>#}
+                {#<div class="cl">&nbsp;</div>#}
+                {#<span>Prekes: <strong>4</strong></span> &nbsp;<span>Cost: <strong>EUR 250.99</strong></span>#}
+            {#</div>#}
+            <li class="nav-item"><a class="nav-link" href="/login"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li class="nav-item"><a class="nav-link" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
     </div>
-    <!-- End Navigation -->
-</div>
-<!-- End Header -->
+</nav>
