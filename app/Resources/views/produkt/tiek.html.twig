@@ -1,0 +1,111 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="cl">&nbsp;</div>
+
+    <!-- Content -->
+    <div>
+        <h2>Tiekėjai:</h2>
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/add_tiek'">Pridėti</button>
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/ataskaita'">Kurti ataskaita</button>
+        <table class="table-simple">
+            <thead class="table-simple-row">
+                <td class="table-simple-header">Data</td>
+                <td class="table-simple-header">Tiekėjas</td>
+                <td class="table-simple-header">Firma</td>
+                <td class="table-simple-header">E. paštas</td>
+                <td class="table-simple-header">Vadybininkas</td>
+                <td class="table-simple-header">Vadybininko E. paštas</td>
+                <td class="table-simple-header"></td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2018-10-05</td>
+                <td class="table-simple-cell">Petras</td>
+                <td class="table-simple-cell">UAB "Worm"</td>
+                <td class="table-simple-cell">petras@worm.com</td>
+                <td class="table-simple-cell">Pietra</td>
+                <td class="table-simple-cell">pirtis@worm.com</td>
+                <td class="table-simple-cell">
+                    <ul>
+                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                    <ul>
+                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                    </ul>
+                </td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2017-09-05</td>
+                <td class="table-simple-cell">Jonas</td>
+                <td class="table-simple-cell">UAB "Cat"</td>
+                <td class="table-simple-cell">jonas@cat.com</td>
+                <td class="table-simple-cell">Aistė</td>
+                <td class="table-simple-cell">aiste@cat.com</td>
+                <td class="table-simple-cell">
+                    <ul>
+                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                    <ul>
+                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                    </ul>
+                </td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2019-01-04</td>
+                <td class="table-simple-cell">Benas</td>
+                <td class="table-simple-cell">UAB "Dog"</td>
+                <td class="table-simple-cell">ben@dga.com</td>
+                <td class="table-simple-cell">Robert</td>
+                <td class="table-simple-cell">rb_rt@dga.com</td>
+                <td class="table-simple-cell">
+                    <ul>
+                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                    <ul>
+                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                    </ul>
+                </td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2018-05-06</td>
+                <td class="table-simple-cell">Laima</td>
+                <td class="table-simple-cell">UAB "Cow"</td>
+                <td class="table-simple-cell">lm_ml@des.com</td>
+                <td class="table-simple-cell">Rita</td>
+                <td class="table-simple-cell">rita@des.com</td>
+                <td class="table-simple-cell">
+                    <ul>
+                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                    <ul>
+                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                    </ul>
+                </td>
+            </thead>
+            <thead class="table-simple-row">
+                <td class="table-simple-cell">2016-04-03</td>
+                <td class="table-simple-cell">Laura</td>
+                <td class="table-simple-cell">UAB "Pig"</td>
+                <td class="table-simple-cell">lr123@cr.com</td>
+                <td class="table-simple-cell">Rita</td>
+                <td class="table-simple-cell">rt1245asd@cr.com</td>
+                <td class="table-simple-cell">
+                    <ul>
+                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
+                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                    </ul>
+                    <ul>
+                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                    </ul>
+                </td>
+            </thead>
+        </table>
+    </div>
+    <!-- End Content -->
+
+    <div class="cl">&nbsp;</div>
+{% endblock %}

@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div id="main-content">
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-50">
+                            <h3>Duomenys</h3>
+                            <label for="fname"><i class="fa fa-user"></i> Vardas, pavarde</label>
+                            <input type="text" id="fname" name="firstname" placeholder="Vardenis Pavardenis">
+                            <label for="email"><i class="fa fa-envelope"></i> El. pastas</label>
+                            <input type="text" id="email" name="email" placeholder="vardenis@example.com">
+                            <label for="adr"><i class="fa fa-address-card-o"></i> Adresas</label>
+                            <input type="text" id="adr" name="address" placeholder="Kalnieciu 19a">
+                            <label for="city"><i class="fa fa-institution"></i> City</label>
+                            <input type="text" id="city" name="city" placeholder="Kaunas">
+                            <label for="zip">Zip</label>
+                            <input type="text" id="zip" name="zip" placeholder="10001">
+                        </div>
+
+                        <div class="col-50">
+                            <h3>Apmokejimas</h3>
+                            <label for="cname">Koreteles vartotojo vardas</label>
+                            <input type="text" id="cname" name="cardname" placeholder="Vardenis Pavardenis">
+                            <label for="ccnum">Koreteles numeris</label>
+                            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+                            <label for="expmonth">Galiojimo data</label>
+                            <input type="text" id="expmonth" name="expmonth" placeholder="05-02">
+                            <div class="row">
+                                <div class="col-50">
+                                    <label for="expyear">Galiojimo metai</label>
+                                    <input type="text" id="expyear" name="expyear" placeholder="2018">
+                                </div>
+                                <div class="col-50">
+                                    <label for="cvv">CVV       </label>
+                                    <input type="text" id="cvv" name="cvv" placeholder="352">
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    <label>
+                        <input type="checkbox" checked="checked" name="sameadr"> Transportavimo adresas toks pats kaip atsiskaitymo
+                    </label>
+                    <input type="submit" value="Pabaigti" class="btn" onclick="window.location.href='/orders/list'">
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
