@@ -6,15 +6,21 @@
 
 {% block content %}
 <div class="container">
-    <form method="get" action="/main">
+    <form method="post" action="/login">
+        {% if error %}
+        <div>
+            <span>Neteisingas prisijungimo el. paštas arba slaptažodis</span>
+        </div>
+        {% endif %}
         <div>
             <label class="user-form" for="user-email">El. paštas</label>
-            <input class="user-form" type="email" id="user-email" placeholder="elpastas@pastas.lt" />
+            <input class="user-form" type="email" id="_username" id="user-email" value="{{ last_username }}" />
         </div>
         <div>
             <label class="user-form" for="password">Slatažodis</label>
-            <input class="user-form" type="password" id="password" />
+            <input class="user-form" type="password" name="_password" id="password" />
         </div>
+        <input type="hidden" name="_target_path" value="/main" />
         <button type="submit" class="btn login">Prisijungti</button>
         <a href="/register" class="btn login">Registruotis</a>
 </form>

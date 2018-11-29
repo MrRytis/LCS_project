@@ -4,8 +4,11 @@ security:
 
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
-        in_memory:
-            memory: ~
+        user:
+            id: AppBundle\Security\UserProvider
+
+    encoders:
+        AppBundle\Security\LCSUser: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
@@ -15,6 +18,15 @@ security:
 
         main:
             anonymous: ~
+            logout:
+                path: /logout
+                target: /
+            form_login:
+                login_path: login
+                check_path: login
+
+    access_control:
+        - { path: /user, roles: ROLE_USER }
             # activate different ways to authenticate
 
             # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
