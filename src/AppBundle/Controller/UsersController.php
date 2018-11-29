@@ -7,9 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class UsersController extends AbstractController
 {
-    /**
-     * @Route("/users", name="users")
-     */
     public function indexAction()
     {
         return $this->render('users/index.html.twig', [
