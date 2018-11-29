@@ -1,14 +1,17 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div id="main-content">
-    <table class="table-simple">
+<div class="col-lg-3 panel-group">
+    {% include 'inventory/side_menu.html.twig' %}
+</div>
+<div class="col-lg-9">
+    <table class="table table-bordered">
         <thead class="table-simple-row">
-            <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-header">Vertė</td>
-            <td class="table-simple-header">Būsena</td>
-            <td class="table-simple-header">Kategorija</td>
-            <td class="table-simple-header">Veiksmas</td>
+        <td class="table-simple-header">Pavadinimas</td>
+        <td class="table-simple-header">Vertė</td>
+        <td class="table-simple-header">Būsena</td>
+        <td class="table-simple-header">Kategorija</td>
+        <td class="table-simple-header">Veiksmas</td>
         </thead>
         <tr class="table-simple-row">
             <td class="table-simple-cell"><a href="/inventory/item">Stalas</a></td>
@@ -72,38 +75,4 @@
         </tr>
     </table>
 </div>
-<!-- Sidebar -->
-<div id="sidebar">
-<!-- Search -->
-<div class="box search">
-    <h2>Paieska<span></span></h2>
-    <div class="box-content">
-    <form action="#" method="post">
-        <input type="text" class="field" />
-        <input type="submit" class="search-submit" value="Ieskoti" />
-    </form>
-    </div>
-</div>
-<!-- End Search -->
-<!-- Categories -->
-<div class="box categories">
-    <h2>Kategorijos<span></span></h2>
-    <div class="box-content">
-    <form action="#" method="post">
-        <ul>
-            <li><input type="checkbox" id="Naudojamas" name="Naudojamas" value="Naudojamas"/>Naudojamas</li>
-            <li><input type="checkbox" id="Laisvas" name="Laisvas" value="Laisvas" />Laisvas</li>
-            <li><input type="checkbox" id="Baldai" name="Baldai" value="Baldai" />Baldai</li>
-            <li><input type="checkbox" id="Technika" name="Technika" value="Technika" />Technika</li>
-            <li><input type="checkbox" id="Sukvežimiai" name="Sukvežimiai" value="Sukvežimiai" />Sukvežimiai</li>
-        </ul>
-        <input type="submit" class="search-submit" value="Filtruoti" />
-    </form>
-    </div>
-</div>
-<!-- End Categories -->
-{{ include ('inventory/side_menu.html.twig') }}
-</div>
-<!-- End Sidebar -->
-<div class="cl">&nbsp;</div>
 {% endblock %}
