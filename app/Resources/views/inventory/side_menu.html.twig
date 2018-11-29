@@ -1,11 +1,51 @@
-<div class="box categories">
-    <h2>Veiksmai<span></span></h2>
-    <div class="box-content">
-        <ul>
-            <li><a href="/inventory/item/form">Naujas Daiktas</a></li>
-            <li><a href="/inventory/report">Ataskaitos</a></li>
-            <li><a href="/inventory/status">Būsenos</a></li>
-            <li><a href="/inventory/category">Kategorijos</a></li>
-        </ul>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="my-4">Paieska</h2>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            <form action="#" method="post">
+                <input type="text" class="field" />
+                <input type="submit" class="bnt btn-primary" value="Ieskoti" />
+            </form>
+        </div>
+    </div>
+</div>
+<!-- End Search -->
+<!-- Categories -->
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="my-4">Kategorijos</h2>
+    </div>
+    <div class="panel-body">
+        <div class="list-group">
+            <form action="#" method="post">
+                <ul>
+                    <li><input type="checkbox" id="Naudojamas" name="Naudojamas" value="Naudojamas"/>Naudojamas</li>
+                    <li><input type="checkbox" id="Laisvas" name="Laisvas" value="Laisvas" />Laisvas</li>
+                    <li><input type="checkbox" id="Baldai" name="Baldai" value="Baldai" />Baldai</li>
+                    <li><input type="checkbox" id="Technika" name="Technika" value="Technika" />Technika</li>
+                    <li><input type="checkbox" id="Sukvežimiai" name="Sukvežimiai" value="Sukvežimiai" />Sukvežimiai</li>
+                </ul>
+                <input type="submit" class="search-submit" value="Filtruoti" />
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h2 class="my-4">Veiksmaia</h2>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body">
+            <div class="list-group">
+                <a href="/inventory/item/form" class="list-group-item">Naujas Daiktas</a>
+                <a href="/inventory/report" class="list-group-item">Ataskaito</a>
+                <a href="/inventory/report" class="list-group-item">Būsenos</a>
+                <a href="/inventory/category" class="list-group-item">Kategorijos</a>
+            </div>
+        </div>
     </div>
 </div>
