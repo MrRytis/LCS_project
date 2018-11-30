@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.4
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 22, 2018 at 08:41 AM
--- Server version: 10.1.30-MariaDB
--- PHP Version: 7.2.1
+-- Generation Time: Nov 30, 2018 at 11:55 PM
+-- Server version: 10.1.36-MariaDB
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,16 +25,16 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `ataskaita`
+-- Table structure for table `ataskaitos`
 --
 
-CREATE TABLE `ataskaita` (
+CREATE TABLE `ataskaitos` (
   `Ataskaitos_numeris` int(11) NOT NULL,
   `Nuo_kada` date DEFAULT NULL,
   `Iki_kada` date DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
-  `Tipas` int(5) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Tipas` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -43,111 +43,117 @@ CREATE TABLE `ataskaita` (
 --
 
 CREATE TABLE `ataskaitos_tipai` (
-  `id` int(5) NOT NULL,
-  `at_tipas` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `name` char(9) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `ataskaitos_tipai`
 --
 
-INSERT INTO `ataskaitos_tipai` (`id`, `at_tipas`) VALUES
-(1, 'Transporto');
+INSERT INTO `ataskaitos_tipai` (`id`, `name`) VALUES
+(1, 'Trasporto');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `atsiskaitymas`
+-- Table structure for table `atsiskaitymai`
 --
 
-CREATE TABLE `atsiskaitymas` (
+CREATE TABLE `atsiskaitymai` (
   `Suma` double DEFAULT NULL,
   `Korteles_nr` varchar(255) DEFAULT NULL,
   `Data` date DEFAULT NULL,
   `id` int(11) NOT NULL,
-  `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `fk_Uzsakymasid` int(11) NOT NULL,
+  `fk_Klientasid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `busena`
+-- Table structure for table `busenos`
 --
 
-CREATE TABLE `busena` (
-  `Pavadinimas` varchar(255) DEFAULT NULL,
-  `id` int(11) NOT NULL,
-  `fk_Daiktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `daiktas`
---
-
-CREATE TABLE `daiktas` (
-  `Pavadinimas` varchar(255) DEFAULT NULL,
-  `Pridejimo_data` date DEFAULT NULL,
-  `Nurasymo_Data` date DEFAULT NULL,
-  `Verte` double DEFAULT NULL,
+CREATE TABLE `busenos` (
+  `Pavadinimas` varchar(255) NOT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `darbuotojas`
+-- Table structure for table `daiktai`
 --
 
-CREATE TABLE `darbuotojas` (
+CREATE TABLE `daiktai` (
+  `Pavadinimas` varchar(255) NOT NULL,
+  `Pridejimo_data` date NOT NULL,
+  `Nurasymo_Data` date DEFAULT NULL,
+  `Verte` double NOT NULL,
+  `id` int(11) NOT NULL,
+  `fk_Kategorijaid` int(11) DEFAULT NULL,
+  `fk_Busenaid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `darbuotojai`
+--
+
+CREATE TABLE `darbuotojai` (
   `Atlyginimas` double DEFAULT NULL,
+  `id` int(11) NOT NULL,
   `fk_Paskyraid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `itrauktas_i`
+-- Table structure for table `itraukti_i`
 --
 
-CREATE TABLE `itrauktas_i` (
+CREATE TABLE `itraukti_i` (
   `fk_AtaskaitaAtaskaitos_numeris` int(11) NOT NULL,
   `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kategorija`
+-- Table structure for table `kategorijos`
 --
 
-CREATE TABLE `kategorija` (
-  `Pavadinimas` varchar(255) DEFAULT NULL,
-  `id` int(11) NOT NULL,
-  `fk_Daiktasid` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `kategorijos` (
+  `Pavadinimas` varchar(255) NOT NULL,
+  `id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `kiekis`
+-- Table structure for table `kiekiai`
 --
 
-CREATE TABLE `kiekis` (
+CREATE TABLE `kiekiai` (
   `Kiekis` int(11) DEFAULT NULL,
-  `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `fk_Uzsakymasid` int(11) NOT NULL,
+  `fk_Uzsakymasid1` int(11) NOT NULL,
+  `fk_Produktasid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `klientas`
+-- Table structure for table `klientai`
 --
 
-CREATE TABLE `klientas` (
-  `fk_Paskyra_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `klientai` (
+  `id` int(11) NOT NULL,
+  `fk_Paskyraid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -156,84 +162,96 @@ CREATE TABLE `klientas` (
 --
 
 CREATE TABLE `matmenys` (
-  `id` int(5) NOT NULL,
-  `matmuo` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `name` char(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `matmenys`
 --
 
-INSERT INTO `matmenys` (`id`, `matmuo`) VALUES
+INSERT INTO `matmenys` (`id`, `name`) VALUES
 (1, '200x200x60'),
-(2, '340x300x60');
+(2, '340x300x60'),
+(3, '400x300x60'),
+(4, '300x220x155'),
+(5, '300x300x100'),
+(6, '400x300x250'),
+(7, '450x340x375');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `medziagu_grupe`
+-- Table structure for table `medziagu_grupes`
 --
 
-CREATE TABLE `medziagu_grupe` (
+CREATE TABLE `medziagu_grupes` (
   `Pavadinimas` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `naudojamas_daiktas`
+-- Table structure for table `naudojami_daiktai`
 --
 
-CREATE TABLE `naudojamas_daiktas` (
-  `Paimtas` date DEFAULT NULL,
+CREATE TABLE `naudojami_daiktai` (
+  `Paimtas` date NOT NULL,
   `Padetas` date DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `fk_Darbuotojasid` int(11) NOT NULL,
   `fk_Daiktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `paskyra`
+-- Table structure for table `paskyros`
 --
 
-CREATE TABLE `paskyra` (
+CREATE TABLE `paskyros` (
+  `Vardas` varchar(255) NOT NULL,
+  `Pavarde` varchar(255) NOT NULL,
+  `E_pastas` varchar(255) NOT NULL,
+  `Slaptazodis` varchar(255) NOT NULL,
+  `Registracijos_data` date NOT NULL,
+  `Paskutinio_prisijungimo_data` date DEFAULT NULL,
+  `Tipas` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
+  `fk_Paskyros_prasymasid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `paskyru_prasymai`
+--
+
+CREATE TABLE `paskyru_prasymai` (
   `Vardas` varchar(255) DEFAULT NULL,
   `Pavarde` varchar(255) DEFAULT NULL,
   `E_pastas` varchar(255) DEFAULT NULL,
-  `Slaptazodis` varchar(255) DEFAULT NULL,
-  `Registracijos_data` date DEFAULT NULL,
-  `Paskutinio_prisijungimo_data` date DEFAULT NULL,
+  `Uzpildymo_data` date DEFAULT NULL,
   `Patvirtinta` tinyint(1) DEFAULT NULL,
-  `Tipas` int(5) DEFAULT NULL,
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Tipas` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `fk_Darbuotojasid` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `prisijungimas`
+-- Table structure for table `produktai`
 --
 
-CREATE TABLE `prisijungimas` (
-  `Sausainelis` varchar(255) NOT NULL,
-  `Pasibaigimo_data` date DEFAULT NULL,
-  `fk_Paskyraid` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `produktas`
---
-
-CREATE TABLE `produktas` (
+CREATE TABLE `produktai` (
   `Pavadinimas` varchar(255) DEFAULT NULL,
   `Kaina` double DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Medziagu_grupeid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -242,17 +260,25 @@ CREATE TABLE `produktas` (
 --
 
 CREATE TABLE `siuntimo_budai` (
-  `id` int(5) NOT NULL,
-  `budas` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `name` char(8) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `siuntimo_budai`
+--
+
+INSERT INTO `siuntimo_budai` (`id`, `name`) VALUES
+(1, 'paštu'),
+(2, 'kurjeriu');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiekejas`
+-- Table structure for table `tiekejai`
 --
 
-CREATE TABLE `tiekejas` (
+CREATE TABLE `tiekejai` (
   `Vardas` varchar(255) DEFAULT NULL,
   `Firmos_pav` varchar(255) DEFAULT NULL,
   `E_pastas` varchar(255) DEFAULT NULL,
@@ -261,43 +287,34 @@ CREATE TABLE `tiekejas` (
   `Vadybininko_e_pastas` varchar(255) DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `tiekejo_produktas`
+-- Table structure for table `tiekejo_produktai`
 --
 
-CREATE TABLE `tiekejo_produktas` (
+CREATE TABLE `tiekejo_produktai` (
   `Sukurimo_data` date DEFAULT NULL,
-  `fk_Tiekejasid` int(11) NOT NULL,
-  `fk_Produktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `fk_Produktasid` int(11) NOT NULL,
+  `fk_Tiekejasid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `transportavimas`
+-- Table structure for table `transportavimai`
 --
 
-CREATE TABLE `transportavimas` (
+CREATE TABLE `transportavimai` (
   `Pristatymo_adresas` varchar(255) DEFAULT NULL,
-  `Išsiuntimo_adresas` varchar(255) DEFAULT NULL,
-  `Siuntimo_budas` int(5) DEFAULT NULL,
+  `Issiuntimo_adresas` varchar(255) DEFAULT NULL,
+  `Siuntimo_budas` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
--- --------------------------------------------------------
-
---
--- Table structure for table `turi`
---
-
-CREATE TABLE `turi` (
-  `fk_Produktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
@@ -306,65 +323,66 @@ CREATE TABLE `turi` (
 --
 
 CREATE TABLE `uzpildai` (
-  `id` int(5) NOT NULL,
-  `uzpildymo_tipas` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `id` int(11) NOT NULL,
+  `name` char(17) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `uzpildai`
 --
 
-INSERT INTO `uzpildai` (`id`, `uzpildymo_tipas`) VALUES
-(1, 'Be užpildo'),
-(2, 'Granules'),
-(6, 'Burbuline_plevele');
+INSERT INTO `uzpildai` (`id`, `name`) VALUES
+(1, 'be_užpido'),
+(2, 'granulės'),
+(3, 'burbulinė_plėvelė');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `uzsakymas`
+-- Table structure for table `uzsakymai`
 --
 
-CREATE TABLE `uzsakymas` (
+CREATE TABLE `uzsakymai` (
   `Data` date DEFAULT NULL,
   `Apmokejima_busena` tinyint(1) DEFAULT NULL,
   `Draudimas` tinyint(1) DEFAULT NULL,
   `Sekimas` tinyint(1) DEFAULT NULL,
-  `Pakuotes_ismatavimai` int(5) DEFAULT NULL,
-  `Pakuotes_uzpildas` int(5) DEFAULT NULL,
-  `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  `Pakuotes_ismatavimai` int(11) DEFAULT NULL,
+  `Pakuotes_uzpildas` int(11) DEFAULT NULL,
+  `id` int(11) NOT NULL,
+  `fk_Klientasid` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `vartotoju_tipai`
+-- Table structure for table `vartotoju_roles`
 --
 
-CREATE TABLE `vartotoju_tipai` (
-  `id` int(5) NOT NULL,
-  `tipas_pav` varchar(30) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+CREATE TABLE `vartotoju_roles` (
+  `id` int(11) NOT NULL,
+  `name` char(21) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Dumping data for table `vartotoju_tipai`
+-- Dumping data for table `vartotoju_roles`
 --
 
-INSERT INTO `vartotoju_tipai` (`id`, `tipas_pav`) VALUES
-(1, 'Klientas'),
-(2, 'Darbuotojas'),
-(3, 'Administratorius');
+INSERT INTO `vartotoju_roles` (`id`, `name`) VALUES
+(1, 'ROLE_KLIENTAS'),
+(2, 'ROLE_DARBUOTOJAS'),
+(3, 'ROLE_ADMINISTRATORIUS');
 
 --
 -- Indexes for dumped tables
 --
 
 --
--- Indexes for table `ataskaita`
+-- Indexes for table `ataskaitos`
 --
-ALTER TABLE `ataskaita`
+ALTER TABLE `ataskaitos`
   ADD PRIMARY KEY (`Ataskaitos_numeris`),
-  ADD KEY `fk_ataskaitos_tipas` (`Tipas`);
+  ADD KEY `Tipas` (`Tipas`);
 
 --
 -- Indexes for table `ataskaitos_tipai`
@@ -373,55 +391,61 @@ ALTER TABLE `ataskaitos_tipai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `atsiskaitymas`
+-- Indexes for table `atsiskaitymai`
 --
-ALTER TABLE `atsiskaitymas`
+ALTER TABLE `atsiskaitymai`
   ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `fk_Uzsakymasid` (`fk_Uzsakymasid`);
+  ADD UNIQUE KEY `fk_Uzsakymasid` (`fk_Uzsakymasid`),
+  ADD UNIQUE KEY `fk_Klientasid` (`fk_Klientasid`);
 
 --
--- Indexes for table `busena`
+-- Indexes for table `busenos`
 --
-ALTER TABLE `busena`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `Turi_3` (`fk_Daiktasid`);
-
---
--- Indexes for table `daiktas`
---
-ALTER TABLE `daiktas`
+ALTER TABLE `busenos`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `darbuotojas`
+-- Indexes for table `daiktai`
 --
-ALTER TABLE `darbuotojas`
+ALTER TABLE `daiktai`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Priklauso1` (`fk_Kategorijaid`),
+  ADD KEY `Turi7` (`fk_Busenaid`);
+
+--
+-- Indexes for table `darbuotojai`
+--
+ALTER TABLE `darbuotojai`
+  ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `fk_Paskyraid` (`fk_Paskyraid`);
 
 --
--- Indexes for table `itrauktas_i`
+-- Indexes for table `itraukti_i`
 --
-ALTER TABLE `itrauktas_i`
+ALTER TABLE `itraukti_i`
   ADD PRIMARY KEY (`fk_AtaskaitaAtaskaitos_numeris`,`fk_Uzsakymasid`);
 
 --
--- Indexes for table `kategorija`
+-- Indexes for table `kategorijos`
 --
-ALTER TABLE `kategorija`
+ALTER TABLE `kategorijos`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `kiekiai`
+--
+ALTER TABLE `kiekiai`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Priklauso` (`fk_Daiktasid`);
+  ADD UNIQUE KEY `fk_Uzsakymasid1` (`fk_Uzsakymasid1`),
+  ADD KEY `Turi_tiek` (`fk_Uzsakymasid`),
+  ADD KEY `Turi6` (`fk_Produktasid`);
 
 --
--- Indexes for table `kiekis`
+-- Indexes for table `klientai`
 --
-ALTER TABLE `kiekis`
-  ADD KEY `Turi_tiek` (`fk_Uzsakymasid`);
-
---
--- Indexes for table `klientas`
---
-ALTER TABLE `klientas`
-  ADD UNIQUE KEY `fk_Paskyra_id` (`fk_Paskyra_id`);
+ALTER TABLE `klientai`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `fk_Paskyraid` (`fk_Paskyraid`);
 
 --
 -- Indexes for table `matmenys`
@@ -430,35 +454,39 @@ ALTER TABLE `matmenys`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `medziagu_grupe`
+-- Indexes for table `medziagu_grupes`
 --
-ALTER TABLE `medziagu_grupe`
+ALTER TABLE `medziagu_grupes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `naudojamas_daiktas`
+-- Indexes for table `naudojami_daiktai`
 --
-ALTER TABLE `naudojamas_daiktas`
+ALTER TABLE `naudojami_daiktai`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Naudoja` (`fk_Darbuotojasid`),
   ADD KEY `Paimtas` (`fk_Daiktasid`);
 
 --
--- Indexes for table `paskyra`
+-- Indexes for table `paskyros`
 --
-ALTER TABLE `paskyra`
+ALTER TABLE `paskyros`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `Var_Tipas` (`Tipas`);
+  ADD UNIQUE KEY `fk_Paskyros_prasymasid` (`fk_Paskyros_prasymasid`),
+  ADD KEY `Tipas` (`Tipas`);
 
 --
--- Indexes for table `prisijungimas`
+-- Indexes for table `paskyru_prasymai`
 --
-ALTER TABLE `prisijungimas`
-  ADD PRIMARY KEY (`Sausainelis`),
-  ADD KEY `Turi` (`fk_Paskyraid`);
+ALTER TABLE `paskyru_prasymai`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Tipas` (`Tipas`),
+  ADD KEY `Patvirtina` (`fk_Darbuotojasid`);
 
 --
--- Indexes for table `produktas`
+-- Indexes for table `produktai`
 --
-ALTER TABLE `produktas`
+ALTER TABLE `produktai`
   ADD PRIMARY KEY (`id`),
   ADD KEY `Apibudina` (`fk_Medziagu_grupeid`);
 
@@ -469,31 +497,26 @@ ALTER TABLE `siuntimo_budai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tiekejas`
+-- Indexes for table `tiekejai`
 --
-ALTER TABLE `tiekejas`
+ALTER TABLE `tiekejai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `tiekejo_produktas`
+-- Indexes for table `tiekejo_produktai`
 --
-ALTER TABLE `tiekejo_produktas`
-  ADD KEY `Tiekia` (`fk_Tiekejasid`),
-  ADD KEY `Itraukta_i` (`fk_Produktasid`);
-
---
--- Indexes for table `transportavimas`
---
-ALTER TABLE `transportavimas`
+ALTER TABLE `tiekejo_produktai`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `turi_priskirta` (`fk_Uzsakymasid`),
-  ADD KEY `fk_transportavimo_tipas` (`Siuntimo_budas`);
+  ADD KEY `Itraukta_i` (`fk_Produktasid`),
+  ADD KEY `Tiekia` (`fk_Tiekejasid`);
 
 --
--- Indexes for table `turi`
+-- Indexes for table `transportavimai`
 --
-ALTER TABLE `turi`
-  ADD PRIMARY KEY (`fk_Produktasid`);
+ALTER TABLE `transportavimai`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `Siuntimo_budas` (`Siuntimo_budas`),
+  ADD KEY `turi_priskirta` (`fk_Uzsakymasid`);
 
 --
 -- Indexes for table `uzpildai`
@@ -502,215 +525,118 @@ ALTER TABLE `uzpildai`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `uzsakymas`
+-- Indexes for table `uzsakymai`
 --
-ALTER TABLE `uzsakymas`
+ALTER TABLE `uzsakymai`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `fk_pakuotes_uzpildas` (`Pakuotes_uzpildas`),
-  ADD KEY `fk_pakuotes_matmenys` (`Pakuotes_ismatavimai`);
+  ADD KEY `Pakuotes_ismatavimai` (`Pakuotes_ismatavimai`),
+  ADD KEY `Pakuotes_uzpildas` (`Pakuotes_uzpildas`),
+  ADD KEY `Priklauso2` (`fk_Klientasid`);
 
 --
--- Indexes for table `vartotoju_tipai`
+-- Indexes for table `vartotoju_roles`
 --
-ALTER TABLE `vartotoju_tipai`
+ALTER TABLE `vartotoju_roles`
   ADD PRIMARY KEY (`id`);
-
---
--- AUTO_INCREMENT for dumped tables
---
-
---
--- AUTO_INCREMENT for table `ataskaita`
---
-ALTER TABLE `ataskaita`
-  MODIFY `Ataskaitos_numeris` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `ataskaitos_tipai`
---
-ALTER TABLE `ataskaitos_tipai`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `atsiskaitymas`
---
-ALTER TABLE `atsiskaitymas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `busena`
---
-ALTER TABLE `busena`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `daiktas`
---
-ALTER TABLE `daiktas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `kategorija`
---
-ALTER TABLE `kategorija`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `matmenys`
---
-ALTER TABLE `matmenys`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- AUTO_INCREMENT for table `medziagu_grupe`
---
-ALTER TABLE `medziagu_grupe`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `paskyra`
---
-ALTER TABLE `paskyra`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `produktas`
---
-ALTER TABLE `produktas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `tiekejas`
---
-ALTER TABLE `tiekejas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `transportavimas`
---
-ALTER TABLE `transportavimas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `uzpildai`
---
-ALTER TABLE `uzpildai`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
-
---
--- AUTO_INCREMENT for table `uzsakymas`
---
-ALTER TABLE `uzsakymas`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
--- AUTO_INCREMENT for table `vartotoju_tipai`
---
-ALTER TABLE `vartotoju_tipai`
-  MODIFY `id` int(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- Constraints for dumped tables
 --
 
 --
--- Constraints for table `ataskaita`
+-- Constraints for table `ataskaitos`
 --
-ALTER TABLE `ataskaita`
-  ADD CONSTRAINT `fk_ataskaitos_tipas` FOREIGN KEY (`Tipas`) REFERENCES `ataskaitos_tipai` (`id`);
+ALTER TABLE `ataskaitos`
+  ADD CONSTRAINT `ataskaitos_ibfk_1` FOREIGN KEY (`Tipas`) REFERENCES `ataskaitos_tipai` (`id`);
 
 --
--- Constraints for table `atsiskaitymas`
+-- Constraints for table `atsiskaitymai`
 --
-ALTER TABLE `atsiskaitymas`
-  ADD CONSTRAINT `Susijas` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymas` (`id`);
+ALTER TABLE `atsiskaitymai`
+  ADD CONSTRAINT `Susijas` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymai` (`id`),
+  ADD CONSTRAINT `Turi_buti_apmoketas` FOREIGN KEY (`fk_Klientasid`) REFERENCES `klientai` (`id`);
 
 --
--- Constraints for table `busena`
+-- Constraints for table `daiktai`
 --
-ALTER TABLE `busena`
-  ADD CONSTRAINT `Turi_3` FOREIGN KEY (`fk_Daiktasid`) REFERENCES `daiktas` (`id`);
+ALTER TABLE `daiktai`
+  ADD CONSTRAINT `Priklauso1` FOREIGN KEY (`fk_Kategorijaid`) REFERENCES `kategorijos` (`id`),
+  ADD CONSTRAINT `Turi7` FOREIGN KEY (`fk_Busenaid`) REFERENCES `busenos` (`id`);
 
 --
--- Constraints for table `darbuotojas`
+-- Constraints for table `darbuotojai`
 --
-ALTER TABLE `darbuotojas`
-  ADD CONSTRAINT `Turi_4` FOREIGN KEY (`fk_Paskyraid`) REFERENCES `paskyra` (`id`);
+ALTER TABLE `darbuotojai`
+  ADD CONSTRAINT `Turi3` FOREIGN KEY (`fk_Paskyraid`) REFERENCES `paskyros` (`id`);
 
 --
--- Constraints for table `itrauktas_i`
+-- Constraints for table `itraukti_i`
 --
-ALTER TABLE `itrauktas_i`
-  ADD CONSTRAINT `Itrauktas_i` FOREIGN KEY (`fk_AtaskaitaAtaskaitos_numeris`) REFERENCES `ataskaita` (`Ataskaitos_numeris`);
+ALTER TABLE `itraukti_i`
+  ADD CONSTRAINT `Itrauktas_i` FOREIGN KEY (`fk_AtaskaitaAtaskaitos_numeris`) REFERENCES `ataskaitos` (`Ataskaitos_numeris`);
 
 --
--- Constraints for table `kategorija`
+-- Constraints for table `kiekiai`
 --
-ALTER TABLE `kategorija`
-  ADD CONSTRAINT `Priklauso` FOREIGN KEY (`fk_Daiktasid`) REFERENCES `daiktas` (`id`);
+ALTER TABLE `kiekiai`
+  ADD CONSTRAINT `Turi6` FOREIGN KEY (`fk_Produktasid`) REFERENCES `produktai` (`id`),
+  ADD CONSTRAINT `Turi_tiek` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymai` (`id`),
+  ADD CONSTRAINT `kiekiai_ibfk_1` FOREIGN KEY (`fk_Uzsakymasid1`) REFERENCES `uzsakymai` (`id`);
 
 --
--- Constraints for table `kiekis`
+-- Constraints for table `klientai`
 --
-ALTER TABLE `kiekis`
-  ADD CONSTRAINT `Turi_tiek` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymas` (`id`);
+ALTER TABLE `klientai`
+  ADD CONSTRAINT `Turi2` FOREIGN KEY (`fk_Paskyraid`) REFERENCES `paskyros` (`id`);
 
 --
--- Constraints for table `klientas`
+-- Constraints for table `naudojami_daiktai`
 --
-ALTER TABLE `klientas`
-  ADD CONSTRAINT `Turi_2` FOREIGN KEY (`fk_Paskyra_id`) REFERENCES `paskyra` (`id`);
+ALTER TABLE `naudojami_daiktai`
+  ADD CONSTRAINT `Naudoja` FOREIGN KEY (`fk_Darbuotojasid`) REFERENCES `darbuotojai` (`id`),
+  ADD CONSTRAINT `Paimtas` FOREIGN KEY (`fk_Daiktasid`) REFERENCES `daiktai` (`id`);
 
 --
--- Constraints for table `naudojamas_daiktas`
+-- Constraints for table `paskyros`
 --
-ALTER TABLE `naudojamas_daiktas`
-  ADD CONSTRAINT `Paimtas` FOREIGN KEY (`fk_Daiktasid`) REFERENCES `daiktas` (`id`);
+ALTER TABLE `paskyros`
+  ADD CONSTRAINT `Turi1` FOREIGN KEY (`fk_Paskyros_prasymasid`) REFERENCES `paskyru_prasymai` (`id`),
+  ADD CONSTRAINT `paskyros_ibfk_1` FOREIGN KEY (`Tipas`) REFERENCES `vartotoju_roles` (`id`);
 
 --
--- Constraints for table `paskyra`
+-- Constraints for table `paskyru_prasymai`
 --
-ALTER TABLE `paskyra`
-  ADD CONSTRAINT `Var_Tipas` FOREIGN KEY (`Tipas`) REFERENCES `vartotoju_tipai` (`id`);
+ALTER TABLE `paskyru_prasymai`
+  ADD CONSTRAINT `Patvirtina` FOREIGN KEY (`fk_Darbuotojasid`) REFERENCES `darbuotojai` (`id`),
+  ADD CONSTRAINT `paskyru_prasymai_ibfk_1` FOREIGN KEY (`Tipas`) REFERENCES `vartotoju_roles` (`id`);
 
 --
--- Constraints for table `prisijungimas`
+-- Constraints for table `produktai`
 --
-ALTER TABLE `prisijungimas`
-  ADD CONSTRAINT `Turi` FOREIGN KEY (`fk_Paskyraid`) REFERENCES `paskyra` (`id`);
+ALTER TABLE `produktai`
+  ADD CONSTRAINT `Apibudina` FOREIGN KEY (`fk_Medziagu_grupeid`) REFERENCES `medziagu_grupes` (`id`);
 
 --
--- Constraints for table `produktas`
+-- Constraints for table `tiekejo_produktai`
 --
-ALTER TABLE `produktas`
-  ADD CONSTRAINT `Apibudina` FOREIGN KEY (`fk_Medziagu_grupeid`) REFERENCES `medziagu_grupe` (`id`);
+ALTER TABLE `tiekejo_produktai`
+  ADD CONSTRAINT `Itraukta_i` FOREIGN KEY (`fk_Produktasid`) REFERENCES `produktai` (`id`),
+  ADD CONSTRAINT `Tiekia` FOREIGN KEY (`fk_Tiekejasid`) REFERENCES `tiekejai` (`id`);
 
 --
--- Constraints for table `tiekejo_produktas`
+-- Constraints for table `transportavimai`
 --
-ALTER TABLE `tiekejo_produktas`
-  ADD CONSTRAINT `Itraukta_i` FOREIGN KEY (`fk_Produktasid`) REFERENCES `produktas` (`id`),
-  ADD CONSTRAINT `Tiekia` FOREIGN KEY (`fk_Tiekejasid`) REFERENCES `tiekejas` (`id`);
+ALTER TABLE `transportavimai`
+  ADD CONSTRAINT `transportavimai_ibfk_1` FOREIGN KEY (`Siuntimo_budas`) REFERENCES `siuntimo_budai` (`id`),
+  ADD CONSTRAINT `turi_priskirta` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymai` (`id`);
 
 --
--- Constraints for table `transportavimas`
+-- Constraints for table `uzsakymai`
 --
-ALTER TABLE `transportavimas`
-  ADD CONSTRAINT `fk_transportavimo_tipas` FOREIGN KEY (`Siuntimo_budas`) REFERENCES `siuntimo_budai` (`id`),
-  ADD CONSTRAINT `turi_priskirta` FOREIGN KEY (`fk_Uzsakymasid`) REFERENCES `uzsakymas` (`id`);
-
---
--- Constraints for table `turi`
---
-ALTER TABLE `turi`
-  ADD CONSTRAINT `Tur_5` FOREIGN KEY (`fk_Produktasid`) REFERENCES `produktas` (`id`);
-
---
--- Constraints for table `uzsakymas`
---
-ALTER TABLE `uzsakymas`
-  ADD CONSTRAINT `fk_pakuotes_matmenys` FOREIGN KEY (`Pakuotes_ismatavimai`) REFERENCES `matmenys` (`id`),
-  ADD CONSTRAINT `fk_pakuotes_uzpildas` FOREIGN KEY (`Pakuotes_uzpildas`) REFERENCES `uzpildai` (`id`);
+ALTER TABLE `uzsakymai`
+  ADD CONSTRAINT `Priklauso2` FOREIGN KEY (`fk_Klientasid`) REFERENCES `klientai` (`id`),
+  ADD CONSTRAINT `uzsakymai_ibfk_1` FOREIGN KEY (`Pakuotes_ismatavimai`) REFERENCES `matmenys` (`id`),
+  ADD CONSTRAINT `uzsakymai_ibfk_2` FOREIGN KEY (`Pakuotes_uzpildas`) REFERENCES `uzpildai` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
