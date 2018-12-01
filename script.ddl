@@ -146,12 +146,13 @@ CREATE TABLE Daiktai
 
 CREATE TABLE Paskyru_prasymai
 (
-	Vardas varchar (255),
-	Pavarde varchar (255),
-	E_pastas varchar (255),
-	Uzpildymo_data date,
+	Vardas varchar (255) NOT NULL,
+	Pavarde varchar (255) NOT NULL,
+	E_pastas varchar (255) NOT NULL,
+	Slaptazodis varchar (255) NOT NULL,
+	Uzpildymo_data date NOT NULL,
 	Patvirtinta boolean,
-	Tipas integer,
+	Tipas integer NOT NULL,
 	id integer,
 	fk_Darbuotojasid integer,
 	PRIMARY KEY(id),
