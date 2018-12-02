@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Worker;
+use AppBundle\Entity\Item;
 
 /**
  * NaudojamiDaiktai
@@ -10,21 +12,21 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="naudojami_daiktai", indexes={@ORM\Index(name="Naudoja", columns={"fk_Darbuotojasid"}), @ORM\Index(name="Paimtas", columns={"fk_Daiktasid"})})
  * @ORM\Entity
  */
-class NaudojamiDaiktai
+class ItemUse
 {
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="Paimtas", type="date", nullable=false)
      */
-    private $paimtas;
+    private $taken;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(name="Padetas", type="date", nullable=true)
      */
-    private $padetas;
+    private $returned;
 
     /**
      * @var integer
@@ -36,25 +38,73 @@ class NaudojamiDaiktai
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Darbuotojai
+     * @var \AppBundle\Entity\Worker
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Darbuotojai")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Darbuotojasid", referencedColumnName="id")
      * })
      */
-    private $fkDarbuotojasid;
+    private $worker;
 
     /**
-     * @var \AppBundle\Entity\Daiktai
+     * @var \AppBundle\Entity\Item
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Daiktai")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Daiktasid", referencedColumnName="id")
      * })
      */
-    private $fkDaiktasid;
+    private $item;
 
+    public function setTaken($value)
+    {
+        $this->taken = $value;
+    }
 
+    public function getTaken()
+    {
+        return $this->taken;
+    }
+
+    public function setReturned($value)
+    {
+        $this->returned = $value;
+    }
+
+    public function getReturned()
+    {
+        return $this->returned;
+    }
+
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setWorker($value)
+    {
+        $this->worker = $value;
+    }
+
+    public function getWorker()
+    {
+        return $this->worker;
+    }
+
+    public function setItem($value)
+    {
+        $this->item = $value;
+    }
+
+    public function getItem()
+    {
+        return $this->item;
+    }
 }
 

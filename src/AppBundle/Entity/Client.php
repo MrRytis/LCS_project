@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\LcsUser;
 
 /**
  * Klientai
@@ -10,7 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="klientai", uniqueConstraints={@ORM\UniqueConstraint(name="fk_Paskyraid", columns={"fk_Paskyraid"})})
  * @ORM\Entity
  */
-class Klientai
+class Client
 {
     /**
      * @var integer
@@ -22,15 +23,33 @@ class Klientai
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Paskyros
+     * @var \AppBundle\Entity\LcsUser
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Paskyros")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LcsUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyraid", referencedColumnName="id")
      * })
      */
-    private $fkPaskyraid;
+    private $account;
 
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
 
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setAccount($value)
+    {
+        $this->account = $value;
+    }
+
+    public function getAccount()
+    {
+        return $this->account;
+    }
 }
 

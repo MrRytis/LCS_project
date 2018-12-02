@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\UserRole;
+use AppBundle\Entity\Worker;
 
 /**
  * PaskyruPrasymai
@@ -15,28 +17,35 @@ class AccountRequest
     /**
      * @var string
      *
-     * @ORM\Column(name="Vardas", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Vardas", type="string", length=255, nullable=false)
      */
     private $name;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="Pavarde", type="string", length=255, nullable=true)
+     * @ORM\Column(name="Pavarde", type="string", length=255, nullable=false)
      */
     private $surname;
 
     /**
      * @var string
      *
-     * @ORM\Column(name="E_pastas", type="string", length=255, nullable=true)
+     * @ORM\Column(name="E_pastas", type="string", length=255, nullable=false)
      */
     private $email;
 
     /**
+     * @var string
+     *
+     * @ORM\Column(name="Slaptazodis", type="string", length=255, nullable=false)
+     */
+    private $password;
+
+    /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Uzpildymo_data", type="date", nullable=true)
+     * @ORM\Column(name="Uzpildymo_data", type="date", nullable=false)
      */
     private $applyDate;
 
@@ -57,7 +66,7 @@ class AccountRequest
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Darbuotojai
+     * @var \AppBundle\Entity\Worker
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Darbuotojai")
      * @ORM\JoinColumns({
@@ -67,7 +76,7 @@ class AccountRequest
     private $worker;
 
     /**
-     * @var \AppBundle\Entity\VartotojuRoles
+     * @var \AppBundle\Entity\UserRole
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VartotojuRoles")
      * @ORM\JoinColumns({
@@ -76,44 +85,84 @@ class AccountRequest
      */
     private $type;
 
-    public function SetName($value)
+    public function setName($value)
     {
         $this->name = $value;
     }
 
-    public function SetSurname($value)
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setSurname($value)
     {
         $this->surname = $value;
     }
 
-    public function SetEmail($value)
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setEmail($value)
     {
         $this->email = $value;
     }
 
-    public function SetPassword($value)
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setPassword($value)
     {
         $this->password = $value;
     }
 
-    public function SetType($value)
+    public function getPassword()
     {
-        $this->type = $value;
+        return $this->password;
     }
 
-    public function SetApplyDate($value)
+    public function setApplyDate($value)
     {
         $this->applyDate = $value;
     }
 
-    public function SetAccepted($value)
+    public function getApplyDate()
     {
-        $this->accepted = $value;
+        return $this->applyDate;
     }
 
-    public function SetWorker($value)
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setWorker($value)
     {
         $this->worker = $value;
+    }
+
+    public function getWorker()
+    {
+        return $this->worker;
+    }
+
+    public function setType($value)
+    {
+        $this->type = $value;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 }
 

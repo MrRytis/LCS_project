@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\LcsUser;
 
 /**
  * Darbuotojai
@@ -17,7 +18,7 @@ class Darbuotojai
      *
      * @ORM\Column(name="Atlyginimas", type="float", precision=10, scale=0, nullable=true)
      */
-    private $atlyginimas;
+    private $salary;
 
     /**
      * @var integer
@@ -29,14 +30,14 @@ class Darbuotojai
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Paskyros
+     * @var \AppBundle\Entity\LcsUser
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Paskyros")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyraid", referencedColumnName="id")
      * })
      */
-    private $fkPaskyraid;
+    private $account;
 
 
 }

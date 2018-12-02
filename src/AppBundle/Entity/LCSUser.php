@@ -5,6 +5,8 @@ namespace AppBundle\Entity;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\EquatableInterface;
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\UserRole;
+use AppBundle\Entity\AccountRequest;
 
 /**
  * Paskyros
@@ -12,7 +14,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="paskyros", uniqueConstraints={@ORM\UniqueConstraint(name="fk_Paskyros_prasymasid", columns={"fk_Paskyros_prasymasid"})}, indexes={@ORM\Index(name="Tipas", columns={"Tipas"})})
  * @ORM\Entity
  */
-class LCSUser implements UserInterface, EquatableInterface
+class LcsUser implements UserInterface, EquatableInterface
 {
     /**
      * @var string
@@ -47,7 +49,7 @@ class LCSUser implements UserInterface, EquatableInterface
      *
      * @ORM\Column(name="Registracijos_data", type="date", nullable=false)
      */
-    private $registrationDate;
+    private $registration;
 
     /**
      * @var \DateTime
@@ -66,7 +68,7 @@ class LCSUser implements UserInterface, EquatableInterface
     private $id;
 
     /**
-     * @var \AppBundle\Entity\PaskyruPrasymai
+     * @var \AppBundle\Entity\AccountRequest
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PaskyruPrasymai")
      * @ORM\JoinColumns({
@@ -76,14 +78,14 @@ class LCSUser implements UserInterface, EquatableInterface
     private $accountRequest;
 
     /**
-     * @var \AppBundle\Entity\VartotojuRoles
+     * @var \AppBundle\Entity\UserRole
      *
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VartotojuRoles")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipas", referencedColumnName="id")
      * })
      */
-    private $role;
+    private $type;
 
     public function __construct()
     {
@@ -94,12 +96,113 @@ class LCSUser implements UserInterface, EquatableInterface
     {
         $this->email = $email;
         $this->password = $password;
-        $this->role = $roles[0];
+
+        $type = $roles[0];
+
+        $repository = $this->getDoctrine()->getRepository(UserRole::class);
+        $result = $repository->createQueryBuilder('u')
+            ->where('p.name = :type')
+            ->setParameter('type', $type)
+            ->getQuery()
+            ->getResult();
+
+        $this->type = $result;
+    }
+
+    public function setName($value)
+    {
+        $this->name = $value;
+    }
+
+    public function getName()
+    {
+        return $this->name;
+    }
+ 
+    public function setSurname($value)
+    {
+        $this->surname = $value;
+    }
+
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    public function setEmail($value)
+    {
+        $this->email = $value;
+    }
+
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    public function setPassword($value)
+    {
+        $this->password = $value;
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function setRegistration($value)
+    {
+        $this->registration = $value;
+    }
+
+    public function getRegistration()
+    {
+        return $this->registration;
+    }
+
+    public function setLastLogin($value)
+    {
+        $this->lastLogin = $value;
+    }
+
+    public function getlastLogin()
+    {
+        return $this->lastLogin;
+    }
+
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setAccountRequest($value)
+    {
+        $this->accountRequest = $value;
+    }
+
+    public function getAccountRequest()
+    {
+        return $this->accountRequest;
+    }
+
+    public function setType($value)
+    {
+        $this->type = $value;
+    }
+
+    public function getType()
+    {
+        return $this->type;
     }
 
     public function getRoles()
     {
-        return array($this->role);
+        $role = $this->type->getName();
+        return array($role);
     }
 
     public function getPassword()

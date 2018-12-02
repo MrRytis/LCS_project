@@ -10,7 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="vartotoju_roles")
  * @ORM\Entity
  */
-class VartotojuRoles
+class UserRole
 {
     /**
      * @var string
@@ -28,6 +28,24 @@ class VartotojuRoles
      */
     private $id;
 
+    public function setName($value)
+    {
+        $this->name = $value;
+    }
 
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
 }
 
