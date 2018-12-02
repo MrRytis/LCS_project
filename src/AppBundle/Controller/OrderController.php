@@ -40,4 +40,11 @@ class OrderController extends AbstractController
             'controller_name' => 'OrderController',
         ]);
     }
+
+    public function newOrderAction()
+    {
+        return $this->render('orders/new_order.twig', [
+            'controller_name' => 'OrderController',
+        ]);
+    }
 }

@@ -128,4 +128,8 @@ orders-edit:
   path: /orders/edit
   defaults: { _controller: AppBundle:Order:edit }
 
+orders-new_order:
+  path: /orders/new_order
+  defaults: { _controller: AppBundle:Order:newOrder}
+
 #end of order subsystem
