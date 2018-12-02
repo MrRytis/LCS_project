@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2018 at 11:55 PM
+-- Generation Time: Dec 02, 2018 at 01:28 PM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -229,12 +229,13 @@ CREATE TABLE `paskyros` (
 --
 
 CREATE TABLE `paskyru_prasymai` (
-  `Vardas` varchar(255) DEFAULT NULL,
-  `Pavarde` varchar(255) DEFAULT NULL,
-  `E_pastas` varchar(255) DEFAULT NULL,
-  `Uzpildymo_data` date DEFAULT NULL,
+  `Vardas` varchar(255) NOT NULL,
+  `Pavarde` varchar(255) NOT NULL,
+  `E_pastas` varchar(255) NOT NULL,
+  `Slaptazodis` varchar(255) NOT NULL,
+  `Uzpildymo_data` date NOT NULL,
   `Patvirtinta` tinyint(1) DEFAULT NULL,
-  `Tipas` int(11) DEFAULT NULL,
+  `Tipas` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `fk_Darbuotojasid` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
