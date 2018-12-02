@@ -13,9 +13,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OrderController extends AbstractController
 {
-    /**
-     * @Route("/new_order", name="new_order")
-     */
     public function indexAction()
     {
         return $this->render('orders/new_order.twig', [

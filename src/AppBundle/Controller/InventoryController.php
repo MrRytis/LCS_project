@@ -7,9 +7,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class InventoryController extends AbstractController
 {
-    /**
-     * @Route("/inventory", name="inventory")
-     */
     public function indexAction()
     {
         return $this->render('inventory/index.html.twig', [
