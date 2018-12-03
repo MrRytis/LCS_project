@@ -13,12 +13,12 @@
         </div>
         {% endif %}
         <div>
-            <label class="user-form" for="user-email">El. paštas</label>
-            <input class="user-form" type="email" id="_username" id="user-email" value="{{ last_username }}" />
+            <label class="user-form" for="_username">El. paštas</label>
+            <input class="user-form" type="email" name="_username" id="_username" value="{{ last_username }}" />
         </div>
         <div>
-            <label class="user-form" for="password">Slatažodis</label>
-            <input class="user-form" type="password" name="_password" id="password" />
+            <label class="user-form" for="_password">Slatažodis</label>
+            <input class="user-form" type="password" name="_password" id="_password" />
         </div>
         <input type="hidden" name="_target_path" value="/main" />
         <button type="submit" class="btn login">Prisijungti</button>

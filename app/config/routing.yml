@@ -15,6 +15,9 @@ login:
   path: /login
   defaults: { _controller: AppBundle:Users:login }
 
+logout:
+  path: /logout
+
 register:
   path: /register
   defaults: { _controller: AppBundle:Users:register }

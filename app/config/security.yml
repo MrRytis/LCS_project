@@ -5,7 +5,9 @@ security:
     # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
     providers:
         user:
-            id: AppBundle\Security\UserProvider
+            entity:
+                class: AppBundle:LcsUser
+                property: email
 
     encoders:
         AppBundle\Entity\LcsUser: bcrypt
@@ -26,11 +28,4 @@ security:
                 check_path: login
 
     access_control:
-        - { path: /user, roles: ROLE_USER }
-            # activate different ways to authenticate
-
-            # https://symfony.com/doc/current/security.html#a-configuring-how-your-users-will-authenticate
-            #http_basic: ~
-
-            # https://symfony.com/doc/current/security/form_login_setup.html
-            #form_login: ~
+        - { path: /user, roles: ROLE_KLIENTAS }
