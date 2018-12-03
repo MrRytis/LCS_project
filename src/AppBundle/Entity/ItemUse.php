@@ -40,7 +40,7 @@ class ItemUse
     /**
      * @var \AppBundle\Entity\Worker
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Darbuotojai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Worker")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Darbuotojasid", referencedColumnName="id")
      * })
@@ -50,7 +50,7 @@ class ItemUse
     /**
      * @var \AppBundle\Entity\Item
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Daiktai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Item")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Daiktasid", referencedColumnName="id")
      * })

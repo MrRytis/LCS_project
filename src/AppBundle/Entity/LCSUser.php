@@ -70,7 +70,7 @@ class LcsUser implements UserInterface, EquatableInterface
     /**
      * @var \AppBundle\Entity\AccountRequest
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\PaskyruPrasymai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AccountRequest")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyros_prasymasid", referencedColumnName="id")
      * })
@@ -80,34 +80,12 @@ class LcsUser implements UserInterface, EquatableInterface
     /**
      * @var \AppBundle\Entity\UserRole
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VartotojuRoles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipas", referencedColumnName="id")
      * })
      */
     private $type;
-
-    public function __construct()
-    {
-        //
-    }
-
-    public function __construct($email, $password, $salt, $roles)
-    {
-        $this->email = $email;
-        $this->password = $password;
-
-        $type = $roles[0];
-
-        $repository = $this->getDoctrine()->getRepository(UserRole::class);
-        $result = $repository->createQueryBuilder('u')
-            ->where('p.name = :type')
-            ->setParameter('type', $type)
-            ->getQuery()
-            ->getResult();
-
-        $this->type = $result;
-    }
 
     public function setName($value)
     {
@@ -142,11 +120,6 @@ class LcsUser implements UserInterface, EquatableInterface
     public function setPassword($value)
     {
         $this->password = $value;
-    }
-
-    public function getPassword()
-    {
-        return $this->password;
     }
 
     public function setRegistration($value)

@@ -54,7 +54,7 @@ class Item
     /**
      * @var \AppBundle\Entity\Category
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Kategorijos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Category")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Kategorijaid", referencedColumnName="id")
      * })
@@ -64,7 +64,7 @@ class Item
     /**
      * @var \AppBundle\Entity\Status
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Busenos")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Status")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Busenaid", referencedColumnName="id")
      * })

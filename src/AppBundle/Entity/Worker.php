@@ -11,7 +11,7 @@ use AppBundle\Entity\LcsUser;
  * @ORM\Table(name="darbuotojai", uniqueConstraints={@ORM\UniqueConstraint(name="fk_Paskyraid", columns={"fk_Paskyraid"})})
  * @ORM\Entity
  */
-class Darbuotojai
+class Worker
 {
     /**
      * @var float
@@ -32,7 +32,7 @@ class Darbuotojai
     /**
      * @var \AppBundle\Entity\LcsUser
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Paskyros")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LcsUser")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyraid", referencedColumnName="id")
      * })

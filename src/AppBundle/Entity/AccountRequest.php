@@ -68,7 +68,7 @@ class AccountRequest
     /**
      * @var \AppBundle\Entity\Worker
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Darbuotojai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Worker")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Darbuotojasid", referencedColumnName="id")
      * })
@@ -78,7 +78,7 @@ class AccountRequest
     /**
      * @var \AppBundle\Entity\UserRole
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\VartotojuRoles")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipas", referencedColumnName="id")
      * })
@@ -143,6 +143,16 @@ class AccountRequest
     public function getId()
     {
         return $this->id;
+    }
+
+    public function setAccepted($value)
+    {
+        $this->accepted = $value;
+    }
+
+    public function getAccepted()
+    {
+        return $this->accepted;
     }
 
     public function setWorker($value)
