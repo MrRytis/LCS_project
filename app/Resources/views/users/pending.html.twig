@@ -7,67 +7,29 @@
         <td class="table-simple-header">Pavardė</td>
         <td class="table-simple-header">El. paštas</td>
         <td class="table-simple-header">Tipas</td>
+        <td class="table-simple-header">Data</td>
         <td class="table-simple-header">Veiksmas</td>
     </thead>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis1</td>
-        <td class="table-simple-cell">Pavardenis1</td>
-        <td class="table-simple-cell">pastas1@pastas.com</td>
+    {% for request in requests %}
+    <tr>
+        <td class="table-simple-cell">{{ request.name }}</td>
+        <td class="table-simple-cell">{{ request.surname }}</td>
+        <td class="table-simple-cell">{{ request.email }}</td>
+        {% if request.type.name == "ROLE_DARBUOTOJAS" %}
+        <td class="table-simple-cell">Darbuotojas</td>
+        {% endif %}
+        {% if request.type.name == "ROLE_ADMINISTRATORIUS" %}
         <td class="table-simple-cell">Administratorius</td>
+        {% endif %}
+        <td class="table-simple-cell">{{ request.applyDate|date("Y-m-d") }}</td>
         <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
+            <form method="post" action="/pending">
+                <input type="hidden" name="id" id="id" value="{{ request.id }}" />
+                <input type="submit" name="accept" value="Patvirtinti" />
+                <input type="submit" name="reject" value="Atmesti" />
+            </form>
         </td>
     </tr>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis2</td>
-        <td class="table-simple-cell">Pavardenis2</td>
-        <td class="table-simple-cell">pastas2@pastas.com</td>
-        <td class="table-simple-cell">Darbuotojas</td>
-        <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
-        </td>
-    </tr>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis3</td>
-        <td class="table-simple-cell">Pavardenis3</td>
-        <td class="table-simple-cell">pastas3@pastas.com</td>
-        <td class="table-simple-cell">Administratorius</td>
-        <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
-        </td>
-    </tr>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis4</td>
-        <td class="table-simple-cell">Pavardenis4</td>
-        <td class="table-simple-cell">pastas4@pastas.com</td>
-        <td class="table-simple-cell">Darbuotojas</td>
-        <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
-        </td>
-    </tr>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis5</td>
-        <td class="table-simple-cell">Pavardenis5</td>
-        <td class="table-simple-cell">pastas5@pastas.com</td>
-        <td class="table-simple-cell">Darbuotojas</td>
-        <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
-        </td>
-    </tr>
-    <tr class="table-simple-row">
-        <td class="table-simple-cell">Vardenis6</td>
-        <td class="table-simple-cell">Pavardenis6</td>
-        <td class="table-simple-cell">pastas6@pastas.com</td>
-        <td class="table-simple-cell">Darbuotojas</td>
-        <td class="table-simple-cell">
-            <a class="table-action" href="#">Patvirtinti</a>
-            <a class="table-action" href="#">Atmesti</a>
-        </td>
-    </tr>
+    {% endfor %}
 </table>
 {% endblock %}
