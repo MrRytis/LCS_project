@@ -8,7 +8,9 @@
             <li><a  href="/transportation">Transportavimas</a></li>
             <li><a href="/orders/list">Mano uzsakymai</a></li>
             <li><a href="/inventory">Inventorius</a></li>
+            {% if is_granted('ROLE_ADMINISTRATORIUS') %}
             <li><a href="/pending">Paskyros</a></li>
+            {% endif %}
             <li><a href="/user">Profilis</a></li>
             <li><a href="/medz_gr">Medžiagų grupės</a></li>
             <li><a href="/tiek">Tiekėjai</a></li>

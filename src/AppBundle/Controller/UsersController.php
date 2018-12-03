@@ -15,15 +15,22 @@ class UsersController extends AbstractController
 {
     public function indexAction()
     {
+        $user = $this->getUser();
+
+        $role = $user->getType()->getName() === 'ROLE_KLIENTAS' ? 'Klientas' : '';
+        $role = $user->getType()->getName() === 'ROLE_DARBUOTOJAS' ? 'Darbuotojas' : $role;
+        $role = $user->getType()->getName() === 'ROLE_ADMINISTRATORIUS' ? 'Administratorius' : $role;
+
+
         return $this->render('users/index.html.twig', [
-            'controller_name' => 'UsersController',
+            'user' => $user,
+            'role' => $role
         ]);
     }
 
     public function loginAction(AuthenticationUtils $authenticationUtils)
     {
         $error = $authenticationUtils->getLastAuthenticationError();
-        echo($error);
 
         $email = $authenticationUtils->getLastUsername();
 
@@ -146,6 +153,15 @@ class UsersController extends AbstractController
 
     public function pendingAction()
     {
-        return $this->render('users/pending.html.twig');
+        $repository = $this->getDoctrine()->getRepository(AccountRequest::class);
+        $pendingAccounts = $repository->createQueryBuilder('u')
+            ->where('u.accepted = false')
+            ->orderBy('u.applyDate', 'DESC')
+            ->getQuery()
+            ->getResult();
+
+        return $this->render('users/pending.html.twig', [
+            'requests' => $pendingAccounts
+        ]);
     }
 }
