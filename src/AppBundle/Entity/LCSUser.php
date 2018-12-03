@@ -196,7 +196,7 @@ class LcsUser implements UserInterface, EquatableInterface
 
     public function isEqualTo($user)
     {
-        if(!$user instanceof LCSUser)
+        if(!$user instanceof LcsUser)
         {
             return false;
         }
