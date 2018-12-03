@@ -2,7 +2,7 @@
 
 namespace AppBundle\Security;
 
-use AppBundle\Entity\LCSUser;
+use AppBundle\Entity\LcsUser;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
@@ -31,7 +31,7 @@ class UserProvider extends EntityRepository implements UserProviderInterface
 
     public function supportsClass($class)
     {
-        return LCSUser::class === $class;
+        return LcsUser::class === $class;
     }
 
     private function getUser($username)
