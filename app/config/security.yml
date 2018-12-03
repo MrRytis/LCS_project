@@ -8,7 +8,7 @@ security:
             id: AppBundle\Security\UserProvider
 
     encoders:
-        AppBundle\Security\LCSUser: bcrypt
+        AppBundle\Entity\LcsUser: bcrypt
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
