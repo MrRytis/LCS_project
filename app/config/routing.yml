@@ -1,0 +1,134 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+index:
+  path: /
+  defaults: { _controller: AppBundle:Index:index }
+
+main:
+  path: /main
+  defaults: { _controller: AppBundle:Index:main }
+
+# User subsystem
+login:
+  path: /login
+  defaults: { _controller: AppBundle:Users:login }
+
+logout:
+  path: /logout
+
+register:
+  path: /register
+  defaults: { _controller: AppBundle:Users:register }
+
+profile:
+  path: /user
+  defaults: { _controller: AppBundle:Users:index }
+
+pending-accounts:
+  path: /pending
+  defaults: { _controller: AppBundle:Users:pending }
+
+# end of user subsystem
+# inventory subsystem
+
+inventory-show:
+  path: /inventory
+  defaults: { _controller: AppBundle:Inventory:index }
+
+inventory-item-show:
+  path: /inventory/item
+  defaults: { _controller: AppBundle:Inventory:show }
+
+inventory-item-edit:
+  path: /inventory/item/form
+  defaults: { _controller: AppBundle:Inventory:form }
+
+inventory-category-show:
+  path: /inventory/category
+  defaults: { _controller: AppBundle:Inventory:category }
+
+inventory-status-show:
+  path: /inventory/status
+  defaults: { _controller: AppBundle:Inventory:status }
+
+inventory-report:
+  path: /inventory/report
+  defaults: { _controller: AppBundle:Inventory:report }
+
+# end of inventory subsystem
+# transportation subsystem
+
+transportation:
+  path: /transportation
+  defaults: { _controller: AppBundle:Transportation:index }
+
+# end of transportation subsystem
+# admin part
+
+admin-dimensions:
+  path: /admin/dimensions
+  defaults: { _controller: AppBundle:Admin:dimensions }
+
+admin-filler:
+  path: /admin/filler
+  defaults: { _controller: AppBundle:Admin:filler }
+
+admin-shipping_methods:
+  path: /admin/shipping_methods
+  defaults: { _controller: AppBundle:Admin:shipping_methods }
+
+admin-report:
+  path: /admin/report
+  defaults: { _controller: AppBundle:Admin:report }
+# end of admin part
+# produkt subsystem
+
+produkt-produkt:
+  path: /produkt
+  defaults: { _controller: AppBundle:Produkt:produkt }
+
+produkt-tiek:
+  path: /tiek
+  defaults: { _controller: AppBundle:Produkt:tiek }
+
+produkt-medz_gr:
+  path: /medz_gr
+  defaults: { _controller: AppBundle:Produkt:medz_gr }
+
+produkt-ataskaita:
+  path: /produkt/ataskaita
+  defaults: { _controller: AppBundle:Produkt:ataskaita }
+
+produkt-add_tiek:
+  path: /produkt/add_tiek
+  defaults: { _controller: AppBundle:Produkt:add_tiek }
+
+produkt-add_medz_gr:
+  path: /produkt/add_medz_gr
+  defaults: { _controller: AppBundle:Produkt:add_medz_gr }
+
+produkt-add_produkt:
+  path: /produkt/add_produkt
+  defaults: { _controller: AppBundle:Produkt:add_produkt }
+
+produkt-add_tiek_produkt:
+  path: /produkt/add_tiek_produkt
+  defaults: { _controller: AppBundle:Produkt:add_tiek_produkt }
+# end of produkt subsystem
+#order subsystem
+
+orders-payment:
+  path: /orders/payment
+  defaults: { _controller: AppBundle:Order:payment }
+
+orders-list:
+  path: /orders/list
+  defaults: { _controller: AppBundle:Order:list }
+
+orders-edit:
+  path: /orders/edit
+  defaults: { _controller: AppBundle:Order:edit }
+
+#end of order subsystem

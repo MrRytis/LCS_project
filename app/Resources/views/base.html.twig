@@ -1,0 +1,110 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        {%block title %}<title>LCS sistema</title>{% endblock %}
+
+        <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+
+        {% block stylesheets %}
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="{{ asset('css/custom-style.css') }}" type="text/css" media="all" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        {% endblock %}
+        
+        {#<link rel="stylesheet" href="css/ie6.css" type="text/css" media="all" />#}
+        
+        {% block javascripts %}
+        <script src="{{ asset('js/jquery-1.4.1.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery.jcarousel.pack.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('js/jquery-func.js') }}" type="text/javascript"></script>
+        {% endblock %}
+    </head>
+    <body>
+        <!-- Shell -->
+        {% block menu %}
+            {{ include ('menu.html.twig') }}
+        {% endblock %}
+        <!-- Page Content -->
+        <div class="container">
+            <div class="row">
+                {% block content %}
+                <div class="col-lg-3 panel-group">
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="my-4">Paieska</h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <form action="#" method="post">
+                                    <input type="text" class="field" />
+                                    <div class="inline-field">
+                                        <label>Kaina</label>
+                                        <select class="field small-field">
+                                            <option value="">EUR 10</option>
+                                        </select>
+                                        <label>iki:</label>
+                                        <select class="field small-field">
+                                            <option value="">EUR 50</option>
+                                        </select>
+                                    </div>
+                                    <input type="submit" class="bnt btn-primary" value="Ieskoti" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h2 class="my-4">Filtrai </h2>
+                        </div>
+                        <div class="panel-body">
+                            <div class="list-group">
+                                <a href="#" class="list-group-item">Pagal kaina didejimo tvarka</a>
+                                <a href="#" class="list-group-item">Pagal kaina mazejimo tvarka</a>
+                                <a href="#" class="list-group-item">Pagal naujausias prekes</a>
+                                <a href="#" class="list-group-item">Pagal populiariausias prekes</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- /.col-lg-3 -->
+                <div class="col-lg-9">
+                    <table class="table">
+                        <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Pavadinimas</th>
+                            <th scope="col">Tipas</th>
+                            <th scope="col">Kaina</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <th scope="row">1</th>
+                            <td>Striukė</td>
+                            <td>Moteriška</td>
+                            <td>EUR 58.99</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">2</th>
+                            <td>Striukė</td>
+                            <td>Vyriška</td>
+                            <td>EUR 58.99</td>
+                        </tr>
+                        <tr>
+                            <th scope="row">3</th>
+                            <td>Striukė</td>
+                            <td>Vyriška</td>
+                            <td>EUR 58.99</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <!-- /.col-lg-9 -->
+                {% endblock %}
+            </div>
+        </div>
+    </body>
+</html>

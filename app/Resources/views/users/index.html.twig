@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="cl">&nbsp;</div>
+<div id="content">
+    <div class="row">
+        <div>Vardas:</div>
+        <div>{{ user.name }}</div>
+    </div>
+    <div class="row">
+        <div>pavardė:</div>
+        <div>{{ user.surname }}</div>
+    </div>
+    <div class="row">
+        <div>El. paštas:</div>
+        <div>{{ user.email }}</div>
+    </div>
+    <div class="row">
+        <div>Tipas:</div>
+        <div>{{ role }}</div>
+    </div>
+    <div class="row">
+        <div>Užsiregistruota:</div>
+        <div>{{ user.registration|date("Y-m-d") }}</div>
+    </div>
+</div>
+<div class="cl">&nbsp;</div>
+{% endblock %}

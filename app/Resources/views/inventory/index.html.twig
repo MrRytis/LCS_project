@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+<div class="col-lg-3 panel-group">
+    {% include 'inventory/side_menu.html.twig' %}
+</div>
+<div class="col-lg-9">
+    <table class="table table-bordered">
+        <thead class="table-simple-row">
+        <td class="table-simple-header">Pavadinimas</td>
+        <td class="table-simple-header">Vertė</td>
+        <td class="table-simple-header">Būsena</td>
+        <td class="table-simple-header">Kategorija</td>
+        <td class="table-simple-header">Veiksmas</td>
+        </thead>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Stalas</a></td>
+            <td class="table-simple-cell">50</td>
+            <td class="table-simple-cell">Naudojamas</td>
+            <td class="table-simple-cell">Baldai</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Kėdė</a></td>
+            <td class="table-simple-cell">20</td>
+            <td class="table-simple-cell">Naudojamas</td>
+            <td class="table-simple-cell">Baldai</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Kompiuteris</a></td>
+            <td class="table-simple-cell">500</td>
+            <td class="table-simple-cell">Naudojamas</td>
+            <td class="table-simple-cell">Technika</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Mercedes-Benz Atego 1517</a></td>
+            <td class="table-simple-cell">10000</td>
+            <td class="table-simple-cell">Laisvas</td>
+            <td class="table-simple-cell">Sukvežimiai</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Mercedes-Benz 2644 Actros</a></td>
+            <td class="table-simple-cell">15000</td>
+            <td class="table-simple-cell">Laisvas</td>
+            <td class="table-simple-cell">Sukvežimiai</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+        <tr class="table-simple-row">
+            <td class="table-simple-cell"><a href="/inventory/item">Mercedes-Benz 2644 Actros</a></td>
+            <td class="table-simple-cell">15000</td>
+            <td class="table-simple-cell">Naudojamas</td>
+            <td class="table-simple-cell">Sukvežimiai</td>
+            <td class="table-simple-cell">
+                <a class="table-action" href="#">Redaguoti</a>
+                <a class="table-action" href="#">Pašalinti</a>
+            </td>
+        </tr>
+    </table>
+</div>
+{% endblock %}

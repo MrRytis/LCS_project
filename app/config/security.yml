@@ -1,0 +1,40 @@
+# To get started with security, check out the documentation:
+# https://symfony.com/doc/current/security.html
+security:
+
+    # https://symfony.com/doc/current/security.html#b-configuring-how-users-are-loaded
+    providers:
+        user:
+            entity:
+                class: AppBundle:LcsUser
+                property: email
+
+    encoders:
+        AppBundle\Entity\LcsUser: bcrypt
+
+    firewalls:
+        # disables authentication for assets and the profiler, adapt it according to your needs
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+
+        main:
+            anonymous: ~
+            logout:
+                path: /logout
+                target: /
+            form_login:
+                login_path: login
+                check_path: login
+
+    access_control:
+        - { path: /main, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /user, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /pending, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /inventory, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /transportation, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /admin, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /produkt, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /tiek, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /medz_gr, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /orders, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }

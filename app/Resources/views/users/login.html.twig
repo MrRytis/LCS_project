@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block menu %}
+<h1 class="login-logo">LCS</h1>
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <form method="post" action="/login">
+        {% if error %}
+        <div>
+            <span>Neteisingas prisijungimo el. paštas arba slaptažodis</span>
+        </div>
+        {% endif %}
+        <div>
+            <label class="user-form" for="_username">El. paštas</label>
+            <input class="user-form" type="email" name="_username" id="_username" value="{{ last_username }}" />
+        </div>
+        <div>
+            <label class="user-form" for="_password">Slatažodis</label>
+            <input class="user-form" type="password" name="_password" id="_password" />
+        </div>
+        <input type="hidden" name="_target_path" value="/main" />
+        <button type="submit" class="btn login">Prisijungti</button>
+        <a href="/register" class="btn login">Registruotis</a>
+</form>
+</div>
+{% endblock %}
