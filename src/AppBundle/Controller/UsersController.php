@@ -100,7 +100,7 @@ class UsersController extends AbstractController
                     'SELECT u
                     FROM AppBundle:UserRole u
                     WHERE u.name = :type'
-                )->setParameter('type', $foundType)->getQuery()->getOneOrNullResult();
+                )->setParameter('type', $foundType)->getOneOrNullResult();
 
                 $user = new LcsUser();
                 $encoded = $encoder->encodePassword($user, $password);
