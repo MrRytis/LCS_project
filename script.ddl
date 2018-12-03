@@ -83,34 +83,34 @@ CREATE TABLE Tiekejai
 	Fakturos_Nr int,
 	Vadybininko_e_pastas varchar (255),
 	Sukurimo_data date,
-	id integer,
+	id integer AUTO_INCREMENT,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE Medziagu_grupes
 (
 	Pavadinimas varchar (255),
-	id integer,
+	id integer AUTO_INCREMENT,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE Kategorijos
 (
 	Pavadinimas varchar (255) NOT NULL,
-	id integer NOT NULL,
+	id integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE Busenos
 (
 	Pavadinimas varchar (255) NOT NULL,
-	id integer NOT NULL,
+	id integer NOT NULL AUTO_INCREMENT,
 	PRIMARY KEY(id)
 );
 
 CREATE TABLE Ataskaitos
 (
-	Ataskaitos_numeris int,
+	Ataskaitos_numeris int AUTO_INCREMENT,
 	Nuo_kada date,
 	Iki_kada date,
 	Sukurimo_data date,
@@ -124,7 +124,7 @@ CREATE TABLE Produktai
 	Pavadinimas varchar (255),
 	Kaina double,
 	Sukurimo_data date,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Medziagu_grupeid integer NOT NULL,
 	PRIMARY KEY(id),
 	CONSTRAINT Apibudina FOREIGN KEY(fk_Medziagu_grupeid) REFERENCES Medziagu_grupes (id)
@@ -136,7 +136,7 @@ CREATE TABLE Daiktai
 	Pridejimo_data date NOT NULL,
 	Nurasymo_Data date,
 	Verte double NOT NULL,
-	id integer NOT NULL,
+	id integer NOT NULL AUTO_INCREMENT,
 	fk_Kategorijaid integer,
 	fk_Busenaid integer,
 	PRIMARY KEY(id),
@@ -153,9 +153,10 @@ CREATE TABLE Paskyru_prasymai
 	Uzpildymo_data date NOT NULL,
 	Patvirtinta boolean,
 	Tipas integer NOT NULL,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Darbuotojasid integer,
 	PRIMARY KEY(id),
+	UNIQUE(E_pastas),
 	FOREIGN KEY(Tipas) REFERENCES vartotoju_roles (id),
 	CONSTRAINT Patvirtina FOREIGN KEY(fk_Darbuotojasid) REFERENCES Darbuotojai (id)
 );
@@ -169,17 +170,18 @@ CREATE TABLE Paskyros
 	Registracijos_data date NOT NULL,
 	Paskutinio_prisijungimo_data date,
 	Tipas integer NOT NULL,
-	id integer NOT NULL,
+	id integer NOT NULL AUTO_INCREMENT,
 	fk_Paskyros_prasymasid integer NOT NULL,
 	PRIMARY KEY(id),
 	UNIQUE(fk_Paskyros_prasymasid),
+	UNIQUE(E_pastas),
 	FOREIGN KEY(Tipas) REFERENCES vartotoju_roles (id),
 	CONSTRAINT Turi1 FOREIGN KEY(fk_Paskyros_prasymasid) REFERENCES Paskyru_prasymai (id)
 );
 
 CREATE TABLE Klientai
 (
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Paskyraid integer NOT NULL,
 	PRIMARY KEY(id),
 	UNIQUE(fk_Paskyraid),
@@ -194,7 +196,7 @@ CREATE TABLE Uzsakymai
 	Sekimas boolean,
 	Pakuotes_ismatavimai integer,
 	Pakuotes_uzpildas integer,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Klientasid integer NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY(Pakuotes_ismatavimai) REFERENCES matmenys (id),
@@ -205,7 +207,7 @@ CREATE TABLE Uzsakymai
 CREATE TABLE Darbuotojai
 (
 	Atlyginimas double,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Paskyraid integer NOT NULL,
 	PRIMARY KEY(id),
 	UNIQUE(fk_Paskyraid),
@@ -215,7 +217,7 @@ CREATE TABLE Darbuotojai
 CREATE TABLE Tiekejo_produktai
 (
 	Sukurimo_data date,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Produktasid integer NOT NULL,
 	fk_Tiekejasid integer NOT NULL,
 	PRIMARY KEY(id),
@@ -235,7 +237,7 @@ CREATE TABLE Naudojami_daiktai
 (
 	Paimtas date NOT NULL,
 	Padetas date,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Darbuotojasid integer NOT NULL,
 	fk_Daiktasid integer NOT NULL,
 	PRIMARY KEY(id),
@@ -248,7 +250,7 @@ CREATE TABLE Atsiskaitymai
 	Suma double,
 	Korteles_nr varchar (255),
 	Data date,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Uzsakymasid integer NOT NULL,
 	fk_Klientasid integer NOT NULL,
 	PRIMARY KEY(id),
@@ -263,7 +265,7 @@ CREATE TABLE Transportavimai
 	Pristatymo_adresas varchar (255),
 	Issiuntimo_adresas varchar (255),
 	Siuntimo_budas integer,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Uzsakymasid integer NOT NULL,
 	PRIMARY KEY(id),
 	FOREIGN KEY(Siuntimo_budas) REFERENCES siuntimo_budai (id),
@@ -273,7 +275,7 @@ CREATE TABLE Transportavimai
 CREATE TABLE Kiekiai
 (
 	Kiekis int,
-	id integer,
+	id integer AUTO_INCREMENT,
 	fk_Uzsakymasid integer NOT NULL,
 	fk_Uzsakymasid1 integer NOT NULL,
 	fk_Produktasid integer NOT NULL,

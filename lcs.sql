@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 30, 2018 at 11:55 PM
+-- Generation Time: Dec 03, 2018 at 01:34 AM
 -- Server version: 10.1.36-MariaDB
 -- PHP Version: 7.2.10
 
@@ -34,7 +34,7 @@ CREATE TABLE `ataskaitos` (
   `Iki_kada` date DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `Tipas` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -45,7 +45,7 @@ CREATE TABLE `ataskaitos` (
 CREATE TABLE `ataskaitos_tipai` (
   `id` int(11) NOT NULL,
   `name` char(9) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ataskaitos_tipai`
@@ -67,7 +67,7 @@ CREATE TABLE `atsiskaitymai` (
   `id` int(11) NOT NULL,
   `fk_Uzsakymasid` int(11) NOT NULL,
   `fk_Klientasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -78,7 +78,7 @@ CREATE TABLE `atsiskaitymai` (
 CREATE TABLE `busenos` (
   `Pavadinimas` varchar(255) NOT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -94,7 +94,7 @@ CREATE TABLE `daiktai` (
   `id` int(11) NOT NULL,
   `fk_Kategorijaid` int(11) DEFAULT NULL,
   `fk_Busenaid` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -106,7 +106,7 @@ CREATE TABLE `darbuotojai` (
   `Atlyginimas` double DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Paskyraid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -117,7 +117,7 @@ CREATE TABLE `darbuotojai` (
 CREATE TABLE `itraukti_i` (
   `fk_AtaskaitaAtaskaitos_numeris` int(11) NOT NULL,
   `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -128,7 +128,7 @@ CREATE TABLE `itraukti_i` (
 CREATE TABLE `kategorijos` (
   `Pavadinimas` varchar(255) NOT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -142,7 +142,7 @@ CREATE TABLE `kiekiai` (
   `fk_Uzsakymasid` int(11) NOT NULL,
   `fk_Uzsakymasid1` int(11) NOT NULL,
   `fk_Produktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -153,7 +153,7 @@ CREATE TABLE `kiekiai` (
 CREATE TABLE `klientai` (
   `id` int(11) NOT NULL,
   `fk_Paskyraid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -164,7 +164,7 @@ CREATE TABLE `klientai` (
 CREATE TABLE `matmenys` (
   `id` int(11) NOT NULL,
   `name` char(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `matmenys`
@@ -188,7 +188,7 @@ INSERT INTO `matmenys` (`id`, `name`) VALUES
 CREATE TABLE `medziagu_grupes` (
   `Pavadinimas` varchar(255) DEFAULT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -202,7 +202,7 @@ CREATE TABLE `naudojami_daiktai` (
   `id` int(11) NOT NULL,
   `fk_Darbuotojasid` int(11) NOT NULL,
   `fk_Daiktasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -220,7 +220,7 @@ CREATE TABLE `paskyros` (
   `Tipas` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `fk_Paskyros_prasymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -229,15 +229,16 @@ CREATE TABLE `paskyros` (
 --
 
 CREATE TABLE `paskyru_prasymai` (
-  `Vardas` varchar(255) DEFAULT NULL,
-  `Pavarde` varchar(255) DEFAULT NULL,
-  `E_pastas` varchar(255) DEFAULT NULL,
-  `Uzpildymo_data` date DEFAULT NULL,
+  `Vardas` varchar(255) NOT NULL,
+  `Pavarde` varchar(255) NOT NULL,
+  `E_pastas` varchar(255) NOT NULL,
+  `Slaptazodis` varchar(255) NOT NULL,
+  `Uzpildymo_data` date NOT NULL,
   `Patvirtinta` tinyint(1) DEFAULT NULL,
-  `Tipas` int(11) DEFAULT NULL,
+  `Tipas` int(11) NOT NULL,
   `id` int(11) NOT NULL,
   `fk_Darbuotojasid` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -251,7 +252,7 @@ CREATE TABLE `produktai` (
   `Sukurimo_data` date DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Medziagu_grupeid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -262,7 +263,7 @@ CREATE TABLE `produktai` (
 CREATE TABLE `siuntimo_budai` (
   `id` int(11) NOT NULL,
   `name` char(8) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `siuntimo_budai`
@@ -287,7 +288,7 @@ CREATE TABLE `tiekejai` (
   `Vadybininko_e_pastas` varchar(255) DEFAULT NULL,
   `Sukurimo_data` date DEFAULT NULL,
   `id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -300,7 +301,7 @@ CREATE TABLE `tiekejo_produktai` (
   `id` int(11) NOT NULL,
   `fk_Produktasid` int(11) NOT NULL,
   `fk_Tiekejasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -314,7 +315,7 @@ CREATE TABLE `transportavimai` (
   `Siuntimo_budas` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Uzsakymasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -325,7 +326,7 @@ CREATE TABLE `transportavimai` (
 CREATE TABLE `uzpildai` (
   `id` int(11) NOT NULL,
   `name` char(17) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `uzpildai`
@@ -351,7 +352,7 @@ CREATE TABLE `uzsakymai` (
   `Pakuotes_uzpildas` int(11) DEFAULT NULL,
   `id` int(11) NOT NULL,
   `fk_Klientasid` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -362,7 +363,7 @@ CREATE TABLE `uzsakymai` (
 CREATE TABLE `vartotoju_roles` (
   `id` int(11) NOT NULL,
   `name` char(21) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `vartotoju_roles`
@@ -473,6 +474,7 @@ ALTER TABLE `naudojami_daiktai`
 ALTER TABLE `paskyros`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `fk_Paskyros_prasymasid` (`fk_Paskyros_prasymasid`),
+  ADD UNIQUE KEY `E_pastas` (`E_pastas`),
   ADD KEY `Tipas` (`Tipas`);
 
 --
@@ -480,6 +482,7 @@ ALTER TABLE `paskyros`
 --
 ALTER TABLE `paskyru_prasymai`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `E_pastas` (`E_pastas`),
   ADD KEY `Tipas` (`Tipas`),
   ADD KEY `Patvirtina` (`fk_Darbuotojasid`);
 
@@ -538,6 +541,112 @@ ALTER TABLE `uzsakymai`
 --
 ALTER TABLE `vartotoju_roles`
   ADD PRIMARY KEY (`id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `ataskaitos`
+--
+ALTER TABLE `ataskaitos`
+  MODIFY `Ataskaitos_numeris` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `atsiskaitymai`
+--
+ALTER TABLE `atsiskaitymai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `busenos`
+--
+ALTER TABLE `busenos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `daiktai`
+--
+ALTER TABLE `daiktai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `darbuotojai`
+--
+ALTER TABLE `darbuotojai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kategorijos`
+--
+ALTER TABLE `kategorijos`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `kiekiai`
+--
+ALTER TABLE `kiekiai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `klientai`
+--
+ALTER TABLE `klientai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `medziagu_grupes`
+--
+ALTER TABLE `medziagu_grupes`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `naudojami_daiktai`
+--
+ALTER TABLE `naudojami_daiktai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `paskyros`
+--
+ALTER TABLE `paskyros`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `paskyru_prasymai`
+--
+ALTER TABLE `paskyru_prasymai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `produktai`
+--
+ALTER TABLE `produktai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tiekejai`
+--
+ALTER TABLE `tiekejai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `tiekejo_produktai`
+--
+ALTER TABLE `tiekejo_produktai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `transportavimai`
+--
+ALTER TABLE `transportavimai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `uzsakymai`
+--
+ALTER TABLE `uzsakymai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Constraints for dumped tables
