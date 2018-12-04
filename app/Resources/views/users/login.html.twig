@@ -1,28 +1,28 @@
 {% extends 'base.html.twig' %}
 
 {% block menu %}
-<h1 class="login-logo">LCS</h1>
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div style="width: 30%; margin-left: auto; margin-right: auto;" class="p-3 mx-auto">
+    <h1 class="text-center">LCS</h1>
     <form method="post" action="/login">
         {% if error %}
-        <div>
+        <div class="alert alert-danger text-left">
             <span>Neteisingas prisijungimo el. paštas arba slaptažodis</span>
         </div>
         {% endif %}
-        <div>
-            <label class="user-form" for="_username">El. paštas</label>
-            <input class="user-form" type="email" name="_username" id="_username" value="{{ last_username }}" />
+        <div class="form-group">
+            <label for="_username">El. paštas</label>
+            <input class="form-control" type="email" name="_username" id="_username" value="{{ last_username }}" required />
         </div>
-        <div>
-            <label class="user-form" for="_password">Slatažodis</label>
-            <input class="user-form" type="password" name="_password" id="_password" />
+        <div class="form-group">
+            <label for="_password">Slatažodis</label>
+            <input class="form-control" type="password" name="_password" id="_password" required />
         </div>
         <input type="hidden" name="_target_path" value="/main" />
-        <button type="submit" class="btn login">Prisijungti</button>
-        <a href="/register" class="btn login">Registruotis</a>
-</form>
+        <button type="submit" class="btn btn-secondary">Prisijungti</button>
+        <a href="/register" class="btn btn-light">Registruotis</a>
+    </form>
 </div>
 {% endblock %}

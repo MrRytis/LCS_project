@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block menu %}
-<h1 class="login-logo">LCS</h1>
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div style="width: 30%; margin-left: auto; margin-right: auto;" class="p-3 mx-auto border-danger rounded">
+    <h1 class="text-center">LCS</h1>
     {% if error %}
-    <div>
-        <ul>
+    <div class="alert alert-danger text-left">
+        <ul class="list-unstyled">
             {% for message in error_msgs %}
             <li>{{ message }}</li>
             {% endfor %}
@@ -16,35 +16,36 @@
     </div>
     {% endif %}
     <form method="post" action="/register">
-        <div>
+        <div class="form-group">
             <label for="name">Vardas</label>
-            <input type="text" id="name" name="name" value="{{ last_name }}" />
+            <input class="form-control" type="text" id="name" name="name" value="{{ last_name }}" />
         </div>
-        <div>
+        <div class="form-group">
             <label for="name">Pavardė</label>
-            <input type="text" id="surname" name="surname" value="{{ last_surname }}" />
+            <input class="form-control" type="text" id="surname" name="surname" value="{{ last_surname }}" />
         </div>
         <div class="form-group">
-            <label class="user-form" for="email">El. paštas</label>
-            <input class="user-form" type="email" class="form-control" name="email" id="email" value="{{ last_email }}" />
+            <label for="email">El. paštas</label>
+            <input class="form-control" type="email" class="form-control" name="email" id="email" value="{{ last_email }}" />
         </div>
         <div class="form-group">
-            <label class="user-form" for="password">Slatažodis</label>
-            <input class="user-form" type="password" class="form-control" name="password" id="password" />
+            <label for="password">Slatažodis</label>
+            <input class="form-control" type="password" class="form-control" name="password" id="password" />
         </div>
         <div class="form-group">
-            <label class="user-form" for="password-repeat">Pakartoti slatažodis</label>
-            <input class="user-form" type="password" class="form-control" name="password-repeat" id="password-repeat" />
+            <label for="password-repeat">Pakartoti slatažodis</label>
+            <input class="form-control" type="password" class="form-control" name="password-repeat" id="password-repeat" />
         </div>
         <div class="form-group">
-            <label class="user-form" for="user-type">Vartotojo tipas</label>
-            <select class="user-form" name="user-type" id="user-type">
+            <label for="user-type">Vartotojo tipas</label>
+            <select class="form-control" name="user-type" id="user-type">
                 <option selected>Klientas</option>
                 <option>Darbuotojas</option>
                 <option>Administratorius</option>
             </select>
         </div>
-        <button type="submit" class="btn login">Registruotis</button>
+        <button type="submit" class="btn btn-secondary">Registruotis</button>
+        <a href="/login" class="btn btn-link">Atgal</a>
     </form>
 </div>
 {% endblock %}
