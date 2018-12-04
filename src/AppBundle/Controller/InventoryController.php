@@ -4,6 +4,9 @@ namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
+use AppBundle\Entity\Category;
+use AppBundle\Entity\Status;
 
 class InventoryController extends AbstractController
 {
@@ -28,17 +31,65 @@ class InventoryController extends AbstractController
         ]);
     }
 
-    public function categoryAction()
+    public function categoryAction(Request $request)
     {
+        $error = '';
+        $success = '';
+
+        if($request->isMethod('post'))
+        {
+            $name = $request->request->get('name', '');
+
+            if($name === '')
+            {
+                $error = 'Būtina įvesti pavadinimą';
+            }
+            else
+            {
+                $entityManager = $this->getDoctrine()->getManager();
+                $category = new Category();
+                $category->setName($name);
+                $entityManager->persist($category);
+                $entityManager->flush();
+
+                $success = 'Kategorija sukurta';
+            }
+        }
+
         return $this->render('inventory/category.html.twig', [
-            'controller_name' => 'InventoryController',
+            'success' => $success,
+            'error' => $error
         ]);
     }
 
-    public function statusAction()
+    public function statusAction(Request $request)
     {
+        $error = '';
+        $success = '';
+
+        if($request->isMethod('post'))
+        {
+            $name = $request->request->get('name', '');
+
+            if($name === '')
+            {
+                $error = 'Būtina įvesti pavadinimą';
+            }
+            else
+            {
+                $entityManager = $this->getDoctrine()->getManager();
+                $status = new Status();
+                $status->setName($name);
+                $entityManager->persist($status);
+                $entityManager->flush();
+
+                $success = 'Būsena sukurta';
+            }
+        }
+
         return $this->render('inventory/status.html.twig', [
-            'controller_name' => 'InventoryController',
+            'success' => $success,
+            'error' => $error
         ]);
     }
 
