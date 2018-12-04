@@ -13,6 +13,85 @@ use Doctrine\ORM\Mapping as ORM;
 class Produktai
 {
     /**
+     * @return string
+     */
+    public function getPavadinimas()
+    {
+        return $this->pavadinimas;
+    }
+
+    /**
+     * @param string $pavadinimas
+     */
+    public function setPavadinimas($pavadinimas)
+    {
+        $this->pavadinimas = $pavadinimas;
+    }
+
+    /**
+     * @return float
+     */
+    public function getKaina()
+    {
+        return $this->kaina;
+    }
+
+    /**
+     * @param float $kaina
+     */
+    public function setKaina($kaina)
+    {
+        $this->kaina = $kaina;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSukurimoData()
+    {
+        return $this->sukurimoData;
+    }
+
+    /**
+     * @param \DateTime $sukurimoData
+     */
+    public function setSukurimoData($sukurimoData)
+    {
+        $this->sukurimoData = $sukurimoData;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return MedziaguGrupes
+     */
+    public function getFkMedziaguGrupeid()
+    {
+        return $this->fkMedziaguGrupeid;
+    }
+
+    /**
+     * @param MedziaguGrupes $fkMedziaguGrupeid
+     */
+    public function setFkMedziaguGrupeid($fkMedziaguGrupeid)
+    {
+        $this->fkMedziaguGrupeid = $fkMedziaguGrupeid;
+    }
+    /**
      * @var string
      *
      * @ORM\Column(name="Pavadinimas", type="string", length=255, nullable=true)
@@ -29,7 +108,7 @@ class Produktai
     /**
      * @var \DateTime
      *
-     * @ORM\Column(name="Sukurimo_data", type="date", nullable=true)
+     * @ORM\Column(name="Sukurimo_data", type="datetime", nullable=true)
      */
     private $sukurimoData;
 

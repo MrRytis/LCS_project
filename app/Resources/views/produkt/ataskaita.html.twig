@@ -1,24 +1,143 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+
+    <script>
+        function funcText2(id, string) {
+            document.getElementById("amount"+id).innerHTML = string;
+            return false;
+        }
+    </script>
 <div class="cl">&nbsp;</div>
     <div>
 
+        {% if not ataskaita %}
         <div class="box">
             <h2>Ataskaitos duomenys:</h2>
             <div class="box-content">
-                <form action="#" method="post">
-                    <div class="inline-field">
-                        <label>Data nuo:</label>
-                        <input type="date"/>
-                        <label>Data iki:</label>
-                        <input type="date"/>
+                <form action="/produkt/ataskaita" method="post">
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data nuo:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control"  id="datenuo" name="datenuo" required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
                     </div>
-                    <input type="submit" class="btn" style="width: 150px" value="Kurti ataskaita" />
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data iki:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="dateiki" name="dateiki" required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label for="produkt"><i class="fa fa-user"></i> Tiekėjas</label>
+                        </div>
+                        <div col-sm-3>
+                            <select id="tiekejas" name="tiekejas"  class="custom-select">
+                                    <option selected value="-1">Visi tiekėjai</option>
+                                {% for tiekejas in tiekejai %}
+                                    <option value="{{ tiekejas.id }}">{{ tiekejas.vardas }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit" value="Kurti ataskaita" class="btn">
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
     </div>
+            {% else %}
+                <h2 align="middle">Ataskaita</h2>
+                <h2 align="middle">Kiekvieno mėnesio gautų produktų kiekis ir sąrašas</h2>
+                <h3 align="middle">Laiko tarpas nuo:</h3>
+                <h4 align="middle">{{ timeFrom|date('Y-m-d') }}</h4>
+                <h3 align="middle">Laiko tarpas iki:</h3>
+                <h4 align="middle">{{ timeTo|date('Y-m-d') }}</h4>
+                {% if filtered is not null%}
+                    <h3 align="middle">Bei pasirinktas tiekėjas:</h3>
+                    <h4 align="middle">{{ filtered.vardas }}</h4>
+                {% endif %}
+                <table class="table table-bordered">
+                    <thead >
+                    <td ></td>
+                    <td >Data</td>
+                    <td >Kiekis</td>
+                    </thead>
+                    {% set amountWork = (timeTo|date('Y')*12 + timeTo|date('m') - timeFrom|date('Y')*12 - timeFrom|date('m'))%}
+                    {% set newTimePabaiga = timeFrom%}
+                    {% for i in range(0, amountWork) %}
+                        <thead >
+                            <td class="col-sm-4"><a data-toggle="collapse" href="#collapse{{ i }}"><button class="btn">Rodyti produktus</button></a></td>
+                            <td class="col-sm-4">{{ newTimePabaiga|date('Y/m') }}</td>
+                            <td class="col-sm-4"><label id="amount{{ i }}"></label></td>
+                        </thead>
+                        <thead>
+                        <td colspan="9">
+                            <div id="collapse{{ i }}" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    <table class="table table-bordered">
+                                        <thead>
+                                        <td>Data</td>
+                                        <td>Pavadinimas</td>
+                                        <td>Medžiagų grupė</td>
+                                        <td>Tiekėjas</td>
+                                        <td>Tiekėjo Firma</td>
+                                        </thead>
+                                        {% set amount = 0%}
+                                        {% for Tiekprodukt in itemData %}
+                                            {% set good = true%}
+                                            {% if filtered is not null%}
+                                                {% if filtered.id != Tiekprodukt.fkTiekejasid.id%}
+                                                    {% set good = false%}
+                                                {% endif %}
+                                            {% endif %}
+                                            {% if Tiekprodukt.sukurimoData|date("Y") ==newTimePabaiga|date("Y")  %}
+                                                {% if Tiekprodukt.sukurimoData|date("m") ==newTimePabaiga|date("m")  %}
+                                                    {% if Tiekprodukt.sukurimoData|date("Y") ==timeFrom|date("Y")  %}
+                                                        {% if Tiekprodukt.sukurimoData|date("m") ==timeFrom|date("m")  %}
+                                                            {% if Tiekprodukt.sukurimoData|date("d") <timeFrom|date("d")  %}
+                                                                {% set good = false %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                    {% if Tiekprodukt.sukurimoData|date("Y") ==timeTo|date("Y")  %}
+                                                        {% if Tiekprodukt.sukurimoData|date("m") ==timeTo|date("m")  %}
+                                                            {% if Tiekprodukt.sukurimoData|date("d") >timeTo|date("d")  %}
+                                                                {% set good = false %}
+                                                            {% endif %}
+                                                        {% endif %}
+                                                    {% endif %}
+                                                {% if good  %}
+                                                    {% set amount = amount + 1%}
+                                                <thead>
+                                                <td>{{ Tiekprodukt.sukurimoData|date("Y/m/d") }}</td>
+                                                <td>{{ Tiekprodukt.fkProduktasid.pavadinimas }}</td>
+                                                <td>{{ Tiekprodukt.fkProduktasid.fkMedziaguGrupeid.pavadinimas }}</td>
+                                                <td>{{ Tiekprodukt.fkTiekejasid.vardas }}</td>
+                                                <td>{{ Tiekprodukt.fkTiekejasid.firmosPav }}</td>
+                                                </thead>
+                                                {% endif %}
+                                            {% endif %}
+                                        {% endif %}
+                                        {% endfor %}
+                                        <script>funcText2({{ i }},{{ amount }});</script>
+                                    </table>
+                                </div>
+                            </div>
+                        </td>
+                        </thead>
+                        {% set newTimePabaiga = newTimePabaiga|date_modify("+1 month")%}
+                    {% endfor %}
+                </table>
+    {% endif %}
     <!-- End Content -->
 
     <div class="cl">&nbsp;</div>
