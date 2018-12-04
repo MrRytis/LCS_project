@@ -1,35 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<table class="table-simple">
-    <thead class="table-simple-row">
-        <td class="table-simple-header">Vardas</td>
-        <td class="table-simple-header">Pavardė</td>
-        <td class="table-simple-header">El. paštas</td>
-        <td class="table-simple-header">Tipas</td>
-        <td class="table-simple-header">Data</td>
-        <td class="table-simple-header">Veiksmas</td>
-    </thead>
-    {% for request in requests %}
-    <tr>
-        <td class="table-simple-cell">{{ request.name }}</td>
-        <td class="table-simple-cell">{{ request.surname }}</td>
-        <td class="table-simple-cell">{{ request.email }}</td>
-        {% if request.type.name == "ROLE_DARBUOTOJAS" %}
-        <td class="table-simple-cell">Darbuotojas</td>
-        {% endif %}
-        {% if request.type.name == "ROLE_ADMINISTRATORIUS" %}
-        <td class="table-simple-cell">Administratorius</td>
-        {% endif %}
-        <td class="table-simple-cell">{{ request.applyDate|date("Y-m-d") }}</td>
-        <td class="table-simple-cell">
-            <form method="post" action="/pending">
-                <input type="hidden" name="id" id="id" value="{{ request.id }}" />
-                <input type="submit" name="accept" value="Patvirtinti" />
-                <input type="submit" name="reject" value="Atmesti" />
-            </form>
-        </td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="col-lg-16">
+    <table class="table">
+        <thead class="thead-dark">
+            <th scope="col">Vardas</th>
+            <th scope="col">Pavardė</th>
+            <th scope="col">El. paštas</th>
+            <th scope="col">Tipas</th>
+            <th scope="col">Data</th>
+            <th scope="col">Veiksmas</th>
+        </thead>
+        <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.name }}</td>
+                <td>{{ request.surname }}</td>
+                <td>{{ request.email }}</td>
+                {% if request.type.name == "ROLE_DARBUOTOJAS" %}
+                <td>Darbuotojas</td>
+                {% endif %}
+                {% if request.type.name == "ROLE_ADMINISTRATORIUS" %}
+                <td>Administratorius</td>
+                {% endif %}
+                <td>{{ request.applyDate|date("Y-m-d") }}</td>
+                <td>
+                    <form method="post" action="/pending">
+                        <input type="hidden" name="id" id="id" value="{{ request.id }}" />
+                        <input class="btn-link" type="submit" name="accept" value="Patvirtinti" />
+                        <input class="btn-link" type="submit" name="reject" value="Atmesti" />
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}
