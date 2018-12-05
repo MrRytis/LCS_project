@@ -13,6 +13,69 @@ use Doctrine\ORM\Mapping as ORM;
 class TiekejoProduktai
 {
     /**
+     * @return \DateTime
+     */
+    public function getSukurimoData()
+    {
+        return $this->sukurimoData;
+    }
+
+    /**
+     * @param \DateTime $sukurimoData
+     */
+    public function setSukurimoData($sukurimoData)
+    {
+        $this->sukurimoData = $sukurimoData;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return Produktai
+     */
+    public function getFkProduktasid()
+    {
+        return $this->fkProduktasid;
+    }
+
+    /**
+     * @param Produktai $fkProduktasid
+     */
+    public function setFkProduktasid($fkProduktasid)
+    {
+        $this->fkProduktasid = $fkProduktasid;
+    }
+
+    /**
+     * @return Tiekejai
+     */
+    public function getFkTiekejasid()
+    {
+        return $this->fkTiekejasid;
+    }
+
+    /**
+     * @param Tiekejai $fkTiekejasid
+     */
+    public function setFkTiekejasid($fkTiekejasid)
+    {
+        $this->fkTiekejasid = $fkTiekejasid;
+    }
+    /**
      * @var \DateTime
      *
      * @ORM\Column(name="Sukurimo_data", type="date", nullable=true)

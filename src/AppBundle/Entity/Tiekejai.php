@@ -13,6 +13,133 @@ use Doctrine\ORM\Mapping as ORM;
 class Tiekejai
 {
     /**
+     * @return string
+     */
+    public function getVardas()
+    {
+        return $this->vardas;
+    }
+
+    /**
+     * @param string $vardas
+     */
+    public function setVardas($vardas)
+    {
+        $this->vardas = $vardas;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFirmosPav()
+    {
+        return $this->firmosPav;
+    }
+
+    /**
+     * @param string $firmosPav
+     */
+    public function setFirmosPav($firmosPav)
+    {
+        $this->firmosPav = $firmosPav;
+    }
+
+    /**
+     * @return string
+     */
+    public function getEPastas()
+    {
+        return $this->ePastas;
+    }
+
+    /**
+     * @param string $ePastas
+     */
+    public function setEPastas($ePastas)
+    {
+        $this->ePastas = $ePastas;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVadybininkas()
+    {
+        return $this->vadybininkas;
+    }
+
+    /**
+     * @param string $vadybininkas
+     */
+    public function setVadybininkas($vadybininkas)
+    {
+        $this->vadybininkas = $vadybininkas;
+    }
+
+    /**
+     * @return int
+     */
+    public function getFakturosNr()
+    {
+        return $this->fakturosNr;
+    }
+
+    /**
+     * @param int $fakturosNr
+     */
+    public function setFakturosNr($fakturosNr)
+    {
+        $this->fakturosNr = $fakturosNr;
+    }
+
+    /**
+     * @return string
+     */
+    public function getVadybininkoEPastas()
+    {
+        return $this->vadybininkoEPastas;
+    }
+
+    /**
+     * @param string $vadybininkoEPastas
+     */
+    public function setVadybininkoEPastas($vadybininkoEPastas)
+    {
+        $this->vadybininkoEPastas = $vadybininkoEPastas;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSukurimoData()
+    {
+        return $this->sukurimoData;
+    }
+
+    /**
+     * @param \DateTime $sukurimoData
+     */
+    public function setSukurimoData($sukurimoData)
+    {
+        $this->sukurimoData = $sukurimoData;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+    /**
      * @var string
      *
      * @ORM\Column(name="Vardas", type="string", length=255, nullable=true)

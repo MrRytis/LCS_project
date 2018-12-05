@@ -37,7 +37,7 @@ security:
         - { path: /inventory, roles: [ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /transportation, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /admin, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
-        - { path: /produkt, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
-        - { path: /tiek, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
-        - { path: /medz_gr, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /produkt, roles: [ ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /tiek, roles: [ ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /medz_gr, roles: [ ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /orders, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }

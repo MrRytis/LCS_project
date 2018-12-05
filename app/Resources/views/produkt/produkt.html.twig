@@ -1,55 +1,70 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    <script>
+        function funcText(id) {
+            document.getElementById('deleteID').value = id;
+            return false;
+        }
+    </script>
 <div class="cl">&nbsp;</div>
     <div class="cl">&nbsp;</div>
     <!-- Content -->
     <div>
         <h2>Produktai:</h2>
-        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/add_produkt'">Pridėti</button>
+        {% if error != "" %}
+            <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+        {% endif %}
+        <button class="btn" onclick="window.location.href='/produkt/add_produkt'">Pridėti</button>
+        <table class="table table-bordered">
+            <thead>
+                <td >Data</td>
+                <td >Pavadinimas</td>
+                <td >Medžiagų grupė</td>
+                <td ></td>
+            </thead>
 
-        <table class="table-simple">
-            <thead class="table-simple-row">
-                <td class="table-simple-header">Data</td>
-                <td class="table-simple-header">Pavadinimas</td>
-                <td class="table-simple-header">Medžiagų grupė</td>
-                <td class="table-simple-header"></td>
-            </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2018-10-05</td>
-                <td class="table-simple-cell">HENRIKSDAL</td>
-                <td class="table-simple-cell">Kėdės</td>
-                <td class="table-simple-cell">
+            {% for item in result %}
+                <thead >
+                <td >{{ item.sukurimoData|date('Y-m-d') }}</td>
+                <td >{{ item.pavadinimas }}</td>
+                <td >
+                        {{ item.fkMedziaguGrupeid.pavadinimas }}
+                <td >
                     <ul>
-                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                        <a href="/produkt/add_produkt?edit=1&id={{item.id}}">Redaguoti</a>
+
+                        {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                        {% endif %}
                     </ul>
                 </td>
-            </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2017-09-05</td>
-                <td class="table-simple-cell">GAMLARED</td>
-                <td class="table-simple-cell">Stalai</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                </td>
-            </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2018-05-06</td>
-                <td class="table-simple-cell">INGATORP</td>
-                <td class="table-simple-cell">Stalai</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                </td>
-            </thead>
+                </thead>
+            {% endfor %}
         </table>
     </div>
+    <form action="/produkt" method="Post">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Trinimo patvirtinimas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Ar tikrai norinte ištrinti objektą?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Ne/Atgal</button>
+                        <input id="deleteID" name="deleteID" value="" hidden="hidden">
+                        <input type="submit" class="btn btn-primary" value="Taip" class="btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <!-- End Content -->
     <div class="cl">&nbsp;</div>
 {% endblock %}
