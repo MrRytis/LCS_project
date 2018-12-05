@@ -36,16 +36,16 @@
     </div>
     <div class="panel-body">
         <div class="list-group">
-            <form action="#" method="post">
+            <form action="/inventory" method="get">
                 <ul class="list-unstyled">
                     {% if statuses is defined %}
                     {% for status in statuses %}
-                    <li><input type="checkbox" name="{{ status.id }}" value="{{ status.id }}" />{{ status.name }}</li>
+                    <li><input type="checkbox" name="statuses[]" value="{{ status.id }}" />{{ status.name }}</li>
                     {% endfor %}
                     {% endif %}
                     {% if categories is defined %}
                     {% for category in categories %}
-                    <li><input type="checkbox" name="{{ category.id }}" value="{{ category.id }}" />{{ category.name }}</li>
+                    <li><input type="checkbox" name="categories[]" value="{{ category.id }}" />{{ category.name }}</li>
                     {% endfor %}
                     {% endif %}
                 </ul>

@@ -14,10 +14,40 @@ class InventoryController extends AbstractController
     public function indexAction(Request $request)
     {
         $search = $request->query->get('search', '');
+        $statuses = $request->query->get('statuses', '');
+        $categories = $request->query->get('categories', '');
         $entityManager = $this->getDoctrine()->getManager();
         $items = array();
 
-        if($search === '')
+        if($statuses !== '' && $categories !== '')
+        {
+            $items = $entityManager->createQuery(
+                'SELECT i
+                FROM AppBundle:Item i
+                WHERE i.deleted IS NULL AND (i.status IN(:statuses) OR i.category IN(:categories))'
+            )->setParameter('statuses', $statuses)
+            ->setParameter('categories', $categories)
+            ->getResult();
+        }
+        else if($statuses !== '')
+        {
+            $items = $entityManager->createQuery(
+                'SELECT i
+                FROM AppBundle:Item i
+                WHERE i.deleted IS NULL AND i.status IN(:statuses)'
+            )->setParameter('statuses', $statuses)
+            ->getResult();
+        }
+        else if($categories !== '')
+        {
+            $items = $entityManager->createQuery(
+                'SELECT i
+                FROM AppBundle:Item i
+                WHERE i.deleted IS NULL AND i.category IN(:categories)'
+            )->setParameter('categories', $categories)
+            ->getResult();
+        }
+        else if($search === '')
         {
             $items = $entityManager->createQuery(
                 'SELECT i
