@@ -353,11 +353,86 @@ class InventoryController extends AbstractController
         ]);
     }
 
-    public function reportAction()
+    public function reportAction(Request $request)
     {
+        $report = $request->query->get('type', 0);
+        $year = $request->query->get('year', '2018');
+        $month = $request->query->get('month', '12');
+        $sum = 0;
+        $lines = array();
+
+        $entityManager = $this->getDoctrine()->getManager();
+
+        switch($report)
+        {
+        case 1:
+            $lines = $entityManager->createQuery(
+                'SELECT u.name AS name, u.surname AS surname, COUNT(u.name) AS times
+                FROM AppBundle:LcsUser u
+                JOIN AppBundle:Worker w WITH u.id = w.account
+                JOIN AppBundle:ItemUse i WITH w.id = i.worker
+                GROUP BY u.name, u.surname
+                ORDER BY times DESC'
+            )->getResult();
+            break;
+        case 2:
+            $lines = $entityManager->createQuery(
+                'SELECT i.name AS name, c.name AS category, i.value AS value, i.added AS added, i.deleted
+                FROM AppBundle:Item i
+                JOIN AppBundle:Category c WITH i.category = c.id
+                WHERE (i.added >= :start_date AND i.added <= :end_date) OR 
+                (i.deleted >= :start_date AND i.deleted <= :end_date)'
+            )->setParameter('start_date', $year . '-' . $month . '-01')
+            ->setParameter('end_date', $year . '-' . $month . '-31')
+            ->getResult();
+
+            $add = $entityManager->createQuery(
+                'SELECT SUM(i.value)
+                FROM AppBundle:Item i
+                WHERE i.added >= :start_date AND i.added <= :end_date'
+            )->setParameter('start_date', $year . '-' . $month . '-01')
+            ->setParameter('end_date', $year . '-' . $month . '-31')
+            ->getResult();
+
+            $substract = $entityManager->createQuery(
+                'SELECT SUM(i.value)
+                FROM AppBundle:Item i
+                WHERE i.deleted >= :start_date AND i.deleted <= :end_date'
+            )->setParameter('start_date', $year . '-' . $month . '-01')
+            ->setParameter('end_date', $year . '-' . $month . '-31')
+            ->getResult();
+
+            $sum = floatval($add[0][1]) - floatval($substract[0][1]);
+            break;
+        case 3:
+            $lines = $entityManager->createQuery(
+                'SELECT i.name AS name, c.name AS category, 
+                u.name AS username, u.surname AS usersurname, p.taken AS taken, i.value AS value
+                FROM AppBundle:ItemUse p
+                JOIN AppBundle:Item i WITH p.item = i.id
+                JOIN AppBundle:Category c WITH i.category = c.id
+                JOIN AppBundle:Worker w WITH p.worker = w.id
+                JOIN AppBundle:LcsUser u WITH w.account = u.id
+                WHERE p.returned IS NULL
+                ORDER BY p.taken DESC'
+            )->getResult();
+
+            $sum = $entityManager->createQuery(
+                'SELECT COUNT(p.id)
+                FROM AppBundle:ItemUse p
+                WHERE p.returned IS NULL'
+            )->getResult();
+            $sum = $sum[0][1];
+
+            break;
+        }
+
         return $this->render('inventory/report.html.twig', [
             'statuses' => $this->getStatuses(),
             'categories' => $this->getCategories(),
+            'report' => $report,
+            'lines' => $lines,
+            'sum' => $sum
         ]);
     }
 

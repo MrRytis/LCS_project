@@ -5,69 +5,131 @@
     {{ include('inventory/side_menu.html.twig', { 'categories': categories, 'statuses': statuses }) }}
 </div>
 <div class="col-lg-9">
-    <form method="get" action="report">
-        <div>
-            <label class="user-form" for="type">Ataskaitos tipas</label>
-            <select class="user-form" id="type">
-                <option>Pridėtų daiktų</option>
-                <option>Pašalintų daiktų</option>
+    <form method="get" action="/inventory/report" class="form-inline">
+        <div class="form-group">
+            <label for="type">Ataskaitos tipas</label>
+            <select class="form-control" id="type" name="type">
+                <option value="1">Darbuotojai daugiausiai naudojantys inventorių</option>
+                <option value="2">Mėnesio naujų ir nurašytų daiktų balansas</option>
+                <option value="3">Dabar naudojamų daiktų sąrašas</option>
             </select>
         </div>
-        <div>
-            <label class="user-form" for="date">Mėnesis</label>
-            <input class="user-form" type="date" id="date" />
-        </div>
-        <button type="submit" class="btn login">Rodyti</button>
+        <button type="submit" class="btn btn-secondary">Rodyti</button>
     </form>
-    <table class="table-simple">
-        <thead class="table-simple-row">
-            <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-header">Vertė</td>
-            <td class="table-simple-header">Būsena</td>
-            <td class="table-simple-header">Kategorija</td>
+    {% if report == 1 %}
+    <table class="table">
+        <thead>
+            <th scope="col">Vardas</th>
+            <th scope="col">Pavardė</th>
+            <th scope="col">Panaudojimų skaičius</th>
         </thead>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Stalas</td>
-            <td class="table-simple-cell">50</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Baldai</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Kėdė</td>
-            <td class="table-simple-cell">20</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Baldai</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Kompiuteris</td>
-            <td class="table-simple-cell">500</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Technika</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz Atego 1517 </td>
-            <td class="table-simple-cell">10000</td>
-            <td class="table-simple-cell">Laisvas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz 2644 Actros</td>
-            <td class="table-simple-cell">15000</td>
-            <td class="table-simple-cell">Laisvas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-cell">Mercedes-Benz 2644 Actros</td>
-            <td class="table-simple-cell">15000</td>
-            <td class="table-simple-cell">Naudojamas</td>
-            <td class="table-simple-cell">Sukvežimiai</td>
-        </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header table-total-label">Iš viso:</td>
-            <td class="table-simple-cell table-total-value">40570</td>
-            <td class="table-simple-header table-total-label">Vidutinė vertė:</td>
-            <td class="table-simple-cell table-total-value">6761.67</td>
-        </tr>
+        <tbody>
+            {% for line in lines %}
+            <tr>
+                <td>{{ line["name"] }}</td>
+                <td>{{ line["surname"] }}</td>
+                <td>{{ line["times"] }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
     </table>
+    {% endif %}
+    {% if report == 2 %}
+    <form method="get" action="/inventory/report" style="margin-top: 15px;" class="form-inline">
+        <div class="form-group">
+            <label for="year">Metai</label>
+            <select class="form-control" id="year" name="year">
+                <option value="2018">2018</option>
+                <option value="2017">2017</option>
+                <option value="2016">2016</option>
+                <option value="2015">2015</option>
+                <option value="2014">2014</option>
+                <option value="2013">2013</option>
+                <option value="2012">2012</option>
+                <option value="2011">2011</option>
+                <option value="2010">2010</option>
+                <option value="2009">2009</option>
+                <option value="2008">2008</option>
+                <option value="2007">2007</option>
+                <option value="2006">2006</option>
+                <option value="2005">2005</option>
+                <option value="2004">2004</option>
+                <option value="2003">2003</option>
+                <option value="2002">2002</option>
+                <option value="2001">2001</option>
+                <option value="2000">2000</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="month">Metai</label>
+            <select class="form-control" id="month" name="month">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+                <option value="6">6</option>
+                <option value="7">7</option>
+                <option value="8">8</option>
+                <option value="9">9</option>
+                <option value="10">10</option>
+                <option value="11">11</option>
+                <option value="12">12</option>
+            </select>
+        </div>
+        <input type="hidden" name="type" value="{{ report }}" />
+        <button type="submit" class="btn btn-secondary">Pasirinkti</button>
+    </form>
+    <table class="table">
+        <thead>
+            <th scope="col">Pavadinimas</th>
+            <th scope="col">Kategorija</th>
+            <th scope="col">Pridėtas</th>
+            <th scope="col">Pašalintas</th>
+            <th scope="col">Vertė</th>
+        </thead>
+        <tbody>
+            {% for line in lines %}
+            <tr class="{% if line["deleted"] %}text-danger{% else %}text-success{% endif %}">
+                <td>{{ line["name"] }}</td>
+                <td>{{ line["category"] }}</td>
+                <td>{{ line["added"]|date("Y-m-d") }}</td>
+                <td>{{ line["deleted"]|date("Y-m-d") }}</td>
+                <td>{{ line["value"] }}</td>
+            </tr>
+            {% endfor %}
+            <tr class="border-top">
+                <td colspan="4" class="text-right"><b>Iš viso:</b></td> 
+                <td><b>{{ sum }}</b></td> 
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
+    {% if report == 3 %}
+    <table class="table">
+        <thead>
+            <th scope="col">Pavadinimas</th>
+            <th scope="col">Kategorija</th>
+            <th scope="col">Naudotojas</th>
+            <th scope="col">Paimta</th>
+            <th scope="col">Vertė</th>
+        </thead>
+        <tbody>
+            {% for line in lines %}
+            <tr>
+                <td>{{ line["name"] }}</td>
+                <td>{{ line["category"] }}</td>
+                <td>{{ line["username"] }} {{ line["usersurname"] }}</td>
+                <td>{{ line["taken"]|date("Y-m-d") }}</td>
+                <td>{{ line["value"] }}</td>
+            </tr>
+            {% endfor %}
+            <tr>
+                <td colspan="4" class="text-right"><b>Iš viso Naudojama:</b></td> 
+                <td><b>{{ sum }}</b></td> 
+            </tr>
+        </tbody>
+    </table>
+    {% endif %}
 </div>
 {% endblock %}
