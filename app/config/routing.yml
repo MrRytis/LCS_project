@@ -37,13 +37,13 @@ inventory-show:
   path: /inventory
   defaults: { _controller: AppBundle:Inventory:index }
 
-inventory-item-show:
-  path: /inventory/item
-  defaults: { _controller: AppBundle:Inventory:show }
-
 inventory-item-edit:
   path: /inventory/item/form
   defaults: { _controller: AppBundle:Inventory:form }
+
+inventory-item-show:
+  path: /inventory/item/{id}
+  defaults: { _controller: AppBundle:Inventory:show }
 
 inventory-category-show:
   path: /inventory/category
@@ -56,6 +56,10 @@ inventory-status-show:
 inventory-report:
   path: /inventory/report
   defaults: { _controller: AppBundle:Inventory:report }
+
+inventory-delete:
+  path: /inventory/delete/{id}
+  defaults: { _controller: AppBundle:Inventory:delete }
 
 # end of inventory subsystem
 # transportation subsystem

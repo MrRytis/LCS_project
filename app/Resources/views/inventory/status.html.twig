@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="col-lg-3 panel-group">
-    {% include 'inventory/side_menu.html.twig' %}
+    {{ include('inventory/side_menu.html.twig', { 'categories': categories, 'statuses': statuses }) }}
 </div>
 <div class="col-lg-4">
     <h2>Nauja Būsena</h2>
