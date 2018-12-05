@@ -1,39 +1,29 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div id="main-content">
-        <table class="table-simple">
-            <thead class="table-simple-row">
-            <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-header">Veiksmas</td>
+    <div class="col-lg-3 panel-group">
+        {% include 'Admin/side_menu.html.twig' %}
+    </div>
+    <div class="col-lg-9">
+        <table class="table">
+            <thead class="thead-dark">
+            <th scope="col">Pavadinimas</th>
+            <th scope="col">Veiksmas</th>
             </thead>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Be užpildo</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
+            <tbody>
+            {% for request in requests %}
+            <tr>
+                <td>{{ request.name }}</td>
+                <td>
+                    <form method="post" action="/pending">
+                        {#<input type="hidden" name="id" id="id" value="{{ request.id }}" />#}
+                        <input class="btn-link" type="submit" name="accept" value="Redaguoti" />
+                        <input class="btn-link" type="submit" name="reject" value="Pašalinti" />
+                    </form>
                 </td>
             </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Granulėmis</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
-                </td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Burbulinė plėvelė</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
-                </td>
-            </tr>
+            {% endfor %}
+            </tbody>
         </table>
     </div>
-    <div id="sidebar">
-    <!-- End Categories -->
-    {{ include ('Admin/side_menu.html.twig') }}
-    </div>
-    <!-- End Sidebar -->
-    <div class="cl">&nbsp;</div>
 {% endblock %}
