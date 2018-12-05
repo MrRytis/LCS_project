@@ -10,7 +10,7 @@
                     <h2>Tiekėjo Produkto Duomenys</h2>
                 </div>
                 <div class="container">
-                    <form action="/produkt/add_tiek_produkt{% if tiekItem is not null %}?id={{ tiekItem.id }}{% endif %}" method="Post">
+                    <form action="/produkt/add_tiek_produkt{% if tiekItem is not null %}?id={{ tiekItem.id }}{% endif %}{% if item is not null %}&edit=1&idP={{ item.id }}{% endif %}" method="Post">
 
                         <div class="form-group row">
                             <div class="col-sm-2">
@@ -19,7 +19,7 @@
                             <div class="col-sm-3">
                                 <select id="produkt" name="produkt"  class="form-control custom-select">
                                     {% for produktas in produkts %}
-                                        <option value="{{ produktas.id }}">{{ produktas.pavadinimas }}</option>
+                                        <option {% if item is not null %}{% if produktas.id == item.fkProduktasid.id %}selected{% endif %}{% endif %} value="{{ produktas.id }}">{{ produktas.pavadinimas }}</option>
                                     {% endfor %}
                                 </select>
                             </div>

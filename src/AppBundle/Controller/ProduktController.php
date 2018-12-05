@@ -84,7 +84,7 @@ class ProduktController extends AbstractController
             }
         }
         $medzGr  = $this->getDoctrine()
-            ->getRepository(MedziaguGrupes::class)->findAll();
+            ->getRepository(MedziaguGrupes::class)->findBy(array(), array('pavadinimas' => 'ASC'));
         return $this->render('produkt/medz_gr.html.twig', [
             'controller_name' => 'ProduktController',
             'medzGr'=>$medzGr,
@@ -109,7 +109,7 @@ class ProduktController extends AbstractController
         $medzGr  = $this->getDoctrine()
             ->getRepository(MedziaguGrupes::class)->findAll();
         $result = $this->getDoctrine()
-            ->getRepository(Produktai::class)->findAll();
+            ->getRepository(Produktai::class)->findBy(array(), array('pavadinimas' => 'ASC'));
         return $this->render('produkt/produkt.html.twig', [
             'controller_name' => 'ProduktController',
             'result'=>$result,
@@ -197,17 +197,32 @@ class ProduktController extends AbstractController
         $item= null;
         $tiekItem = $this->getDoctrine()->getRepository(Tiekejai::class)->find($_GET['id']);
         $user = $this->getUser();
-        if( $_SERVER["REQUEST_METHOD"] == "POST" ){
-            $produktItem = $this->getDoctrine()->getRepository(Produktai::class)->find($_POST["produkt"]);
-            $obj = new TiekejoProduktai();
-            $obj->setFkProduktasid($produktItem);
-            $obj->setFkTiekejasid($tiekItem);
-            $obj->setSukurimoData(new \DateTime('now'));
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($obj);
-            $em->flush();
-            header("Location: /tiek");
-            exit;
+        if(!empty($_GET["edit"]) && $_GET["edit"]==1){
+            $item = $this->getDoctrine()
+                ->getRepository(TiekejoProduktai::class)->find($_GET["idP"]);
+            if( $_SERVER["REQUEST_METHOD"] == "POST" ){
+                $produktItem = $this->getDoctrine()->getRepository(Produktai::class)->find($_POST["produkt"]);
+                $item->setFkProduktasid($produktItem);
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($item);
+                $em->flush();
+                header("Location: /tiek");
+                exit;
+            }
+        }
+        else{
+            if( $_SERVER["REQUEST_METHOD"] == "POST" ){
+                $produktItem = $this->getDoctrine()->getRepository(Produktai::class)->find($_POST["produkt"]);
+                $obj = new TiekejoProduktai();
+                $obj->setFkProduktasid($produktItem);
+                $obj->setFkTiekejasid($tiekItem);
+                $obj->setSukurimoData(new \DateTime('now'));
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($obj);
+                $em->flush();
+                header("Location: /tiek");
+                exit;
+            }
         }
         return $this->render('produkt/add_tiek_produkt.html.twig', [
             'controller_name' => 'ProduktController',
