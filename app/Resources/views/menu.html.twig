@@ -12,9 +12,12 @@
             <li><a href="/pending">Paskyros</a></li>
             {% endif %}
             <li><a href="/user">Profilis</a></li>
-            <li><a href="/medz_gr">Medžiagų grupės</a></li>
-            <li><a href="/tiek">Tiekėjai</a></li>
-            <li><a href="/produkt">Produktai</a></li>
+            {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                <li><a href="/medz_gr">Medžiagų grupės</a></li><li><a href="/tiek">Tiekėjai</a></li><li><a href="/produkt">Produktai</a></li>
+            {% endif %}
+            {% if is_granted('ROLE_DARBUOTOJAS') %}
+                <li><a href="/medz_gr">Medžiagų grupės</a></li><li><a href="/tiek">Tiekėjai</a></li><li><a href="/produkt">Produktai</a></li>
+            {% endif %}
             <li><a href="/admin">Valdiklis</a></li>
             <li><a href="/logout">Atsijungti</a></li>
         </ul>

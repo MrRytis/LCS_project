@@ -26,7 +26,9 @@
                 <td>
                     <ul>
                         <a href="/produkt/add_medz_gr?edit=1&id={{item.id}}">Redaguoti</a>
+                        {% if is_granted('ROLE_ADMINISTRATORIUS') %}
                         <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                        {% endif %}
                     </ul>
                 </td>
                 </thead>

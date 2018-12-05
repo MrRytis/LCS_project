@@ -21,7 +21,9 @@
             <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
         {% endif %}
             <button class="btn" onclick="window.location.href='/produkt/add_tiek'">Pridėti</button>
+        {% if is_granted('ROLE_ADMINISTRATORIUS') %}
             <button class="btn" onclick="window.location.href='/produkt/ataskaita'">Kurti ataskaita</button>
+        {% endif %}
         <button class="btn" data-toggle="modal" data-target="#filterModal">Filtruoti</button>
         <table class="table table-bordered">
             <thead >
@@ -86,7 +88,9 @@
                 <td >
                     <ul>
                         <a href="/produkt/add_tiek?edit=1&id={{item.id}}">Redaguoti</a>
+                {% if is_granted('ROLE_ADMINISTRATORIUS') %}
                         <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                    {% endif %}
                     </ul>
                     <ul>
                         <a href="/produkt/add_tiek_produkt?id={{ item.id }}">Pridėti produktą</a>
@@ -117,7 +121,9 @@
                                     <td >
                                         <ul>
                                            <a href="/produkt/add_tiek_produkt?id={{ item.id }}&edit=1&idP={{Tiekprodukt.id}}">Redaguoti</a>
-                                           <a href="" onclick="return funcText2({{Tiekprodukt.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                                            {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                                                <a href="" onclick="return funcText2({{Tiekprodukt.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                                            {% endif %}
                                         </ul>
                                     </td>
                                     </thead>
