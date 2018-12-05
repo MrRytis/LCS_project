@@ -85,10 +85,23 @@ class InventoryController extends AbstractController
             WHERE i.id = :id'
         )->setParameter('id', $id)->getOneOrNullResult();
 
+        $itemUse = $entityManager->createQuery(
+            'SELECT u
+            FROM AppBundle:ItemUse u
+            WHERE u.item = :item AND u.returned IS NULL'
+        )->setParameter('item', $item)->getOneOrNullResult();
+
+        $user = '';
+        if($itemUse)
+        {
+            $user = $itemUse->getWorker()->getAccount()->getName() . ' ' . $itemUse->getWorker()->getAccount()->getSurname();
+        }
+
         return $this->render('inventory/item.html.twig', [
             'statuses' => $this->getStatuses(),
             'categories' => $this->getCategories(),
-            'item' => $item
+            'item' => $item,
+            'user' => $user
         ]);
     }
 

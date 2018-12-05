@@ -26,6 +26,12 @@
             <th scope="row">Būsena</th>
             <td>{{ item.status.name}}</td>
         </tr>
+        {% if user != '' %}
+        <tr>
+            <th scope="row">Vartotojas</th>
+            <td>{{ user }}</td>
+        </tr>
+        {% endif %}
     </table>
     <a class="btn" href="/inventory/item/form?id={{ item.id }}">Redaguoti</a>
     <a class="btn" href="/inventory/delete/{{ item.id }}">Pašalinti</a>
