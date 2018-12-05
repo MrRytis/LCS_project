@@ -123,12 +123,20 @@ orders-payment:
   path: /orders/payment
   defaults: { _controller: AppBundle:Order:payment }
 
+orders-payment-add:
+  path: /orders/payment/add
+  defaults: { _controller: AppBundle:Order:addPaymentToDB }
+
+orders-new:
+  path: /orders/new
+  defaults: { _controller: AppBundle:Order:new }
+
 orders-list:
   path: /orders/list
   defaults: { _controller: AppBundle:Order:list }
 
-orders-edit:
-  path: /orders/edit
-  defaults: { _controller: AppBundle:Order:edit }
+orders-update:
+  path: /orders/update
+  defaults: { _controller: AppBundle:Order:updateOrder }
 
 #end of order subsystem

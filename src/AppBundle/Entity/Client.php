@@ -25,7 +25,7 @@ class Client
     /**
      * @var \AppBundle\Entity\LcsUser
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LcsUser")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\LcsUser", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyraid", referencedColumnName="id")
      * })

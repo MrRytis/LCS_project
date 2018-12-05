@@ -31,7 +31,7 @@ class Kiekiai
     /**
      * @var \AppBundle\Entity\Produktai
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Produktai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Produktai", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Produktasid", referencedColumnName="id")
      * })
@@ -41,7 +41,7 @@ class Kiekiai
     /**
      * @var \AppBundle\Entity\Uzsakymai
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Uzsakymai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Uzsakymai", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Uzsakymasid", referencedColumnName="id")
      * })
@@ -58,6 +58,94 @@ class Kiekiai
      */
     private $fkUzsakymasid1;
 
+    /**
+     * @return int
+     */
+    public function getKiekis()
+    {
+        return $this->kiekis;
+    }
 
+    /**
+     * @param int $kiekis
+     * @return Kiekiai
+     */
+    public function setKiekis($kiekis)
+    {
+        $this->kiekis = $kiekis;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Kiekiai
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return Produktai
+     */
+    public function getFkProduktasid()
+    {
+        return $this->fkProduktasid;
+    }
+
+    /**
+     * @param Produktai $fkProduktasid
+     * @return Kiekiai
+     */
+    public function setFkProduktasid($fkProduktasid)
+    {
+        $this->fkProduktasid = $fkProduktasid;
+        return $this;
+    }
+
+    /**
+     * @return Uzsakymai
+     */
+    public function getFkUzsakymasid()
+    {
+        return $this->fkUzsakymasid;
+    }
+
+    /**
+     * @param Uzsakymai $fkUzsakymasid
+     * @return Kiekiai
+     */
+    public function setFkUzsakymasid($fkUzsakymasid)
+    {
+        $this->fkUzsakymasid = $fkUzsakymasid;
+        return $this;
+    }
+
+    /**
+     * @return Uzsakymai
+     */
+    public function getFkUzsakymasid1()
+    {
+        return $this->fkUzsakymasid1;
+    }
+
+    /**
+     * @param Uzsakymai $fkUzsakymasid1
+     * @return Kiekiai
+     */
+    public function setFkUzsakymasid1($fkUzsakymasid1)
+    {
+        $this->fkUzsakymasid1 = $fkUzsakymasid1;
+        return $this;
+    }
 }
 

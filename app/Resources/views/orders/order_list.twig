@@ -1,74 +1,63 @@
 {% extends 'base.html.twig' %}
-
 {% block content %}
-    <div class="conteiner">
+    <div class="container">
         <div class="row">
             <div class="col-lg-3 panel-group">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <h2 class="my-4">Paieska</h2>
-                    </div>
-                    <div class="panel-body">
-                        <div class="list-group">
-                            <form action="#" method="post">
-                                <input type="text" class="field" />
-                                <input type="submit" class="bnt btn-primary" value="Ieskoti" />
-                            </form>
-                        </div>
-                    </div>
-                </div>
-
                 <div class="panel panel-default">
                     <div class="panel-heading">
                         <h2 class="my-4">Filtrai </h2>
                     </div>
                     <div class="panel-body">
                         <div class="list-group">
-                            <a href="#" class="list-group-item">Pagal kaina didejimo tvarka</a>
-                            <a href="#" class="list-group-item">Pagal kaina mazejimo tvarka</a>
-                            <a href="#" class="list-group-item">Pagal naujausias prekes</a>
-                            <a href="#" class="list-group-item">Pagal populiariausias prekes</a>
+                            <a href="/orders/list/date/asc" class="list-group-item">Pagal datą didėjimo tvarka</a>
+                            <a href="/orders/list/date/desc" class="list-group-item">Pagal datą mažėjimo tvarka</a>
                         </div>
                     </div>
                 </div>
             </div>
+            {% if orders %}
             <div class="col-lg-9">
-                <h2>Uzsakymas</h2>
+                <h2>Užsakymas</h2>
                 <table class="table table-bordered">
                     <thead>
                     <tr>
-                        <th>Pavadinimas</th>
-                        <th>Vertė</th>
-                        <th>Būsena</th>
-                        <th>Kategorija</th>
-                        <th>Veiksmas</th>
+                        <th>Užsakymo numeris</th>
+                        <th>Data</th>
+                        <th>Apmoketa</th>
+                        <th>Draudimas</th>
+                        <th>Sekimas</th>
+                        <th>Prekių peržiūra</th>
                     </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>John</td>
-                        <td>Doe</td>
-                        <td>john@example.com</td>
-                        <td>john@example.com</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>Mary</td>
-                        <td>Moe</td>
-                        <td>mary@example.com</td>
-                        <td>john@example.com</td>
-                        <td>john@example.com</td>
-                    </tr>
-                    <tr>
-                        <td>July</td>
-                        <td>Dooley</td>
-                        <td>july@example.com</td>
-                        <td>john@example.com</td>
-                        <td>john@example.com</td>
-                    </tr>
+                    {% for order in orders %}
+                        {% if order.apmokejimaBusena != 0 %}
+                        <tr>
+                            <td>#{{   order.id }}</td>
+                            <td>{{ order.data|date('Y-m-d') }}</td>
+                            {% if order.apmokejimaBusena == 1 %}
+                                <td>Taip</td>
+                            {% else %}
+                                <td>Ne</td>
+                            {% endif %}
+                            {% if order.draudimas == 1 %}
+                                <td>Taip</td>
+                            {% else %}
+                                <td>Ne</td>
+                            {% endif %}
+                            {% if order.sekimas == 1 %}
+                                <td>Taip</td>
+                            {% else %}
+                                <td>Ne</td>
+                            {% endif %}
+                            <td><a href="{{ path('list', {'id': order.id }) }}">Peržiūrėti</a></td>
+                        </tr>
+                        {% endif %}
+                    {% endfor %}
                     </tbody>
                 </table>
             </div>
+            {% else %}
+                <h2>Nėra sudarytų užsakymų</h2>
+            {% endif %}
         </div>
     </div>
 

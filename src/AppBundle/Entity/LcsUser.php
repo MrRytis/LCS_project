@@ -70,7 +70,7 @@ class LcsUser implements UserInterface, EquatableInterface
     /**
      * @var \AppBundle\Entity\AccountRequest
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AccountRequest")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\AccountRequest", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Paskyros_prasymasid", referencedColumnName="id")
      * })
@@ -80,7 +80,7 @@ class LcsUser implements UserInterface, EquatableInterface
     /**
      * @var \AppBundle\Entity\UserRole
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipas", referencedColumnName="id")
      * })
