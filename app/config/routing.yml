@@ -67,6 +67,10 @@ transportation:
 # end of transportation subsystem
 # admin part
 
+admin:
+  path: /admin
+  defaults: { _controller: AppBundle:Admin:index }
+
 admin-dimensions:
   path: /admin/dimensions
   defaults: { _controller: AppBundle:Admin:dimensions }
