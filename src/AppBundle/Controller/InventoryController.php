@@ -8,6 +8,9 @@ use Symfony\Component\HttpFoundation\Request;
 use AppBundle\Entity\Category;
 use AppBundle\Entity\Status;
 use AppBundle\Entity\Item;
+use AppBundle\Entity\ItemUse;
+use AppBundle\Entity\LcsUser;
+use AppBundle\Entity\Worker;
 
 class InventoryController extends AbstractController
 {
@@ -112,7 +115,7 @@ class InventoryController extends AbstractController
                 WHERE i.id = :id'
             )->setParameter('id', $id)->getOneOrNullResult();
 
-            //var_dump($foundItem);
+            $item = $foundItem;
         }
 
         if($request->isMethod('post'))
@@ -162,7 +165,78 @@ class InventoryController extends AbstractController
             }
             else // editing item
             {
+                $name = $request->request->get('name', '');
+                $price = $request->request->get('price', '');
+                $categoryId = $request->request->get('category', '');
+                $statusId = $request->request->get('status', '');
 
+                if($name === '')
+                {
+                    $error = 'Būtina įrašyti pavadinimą';
+                }
+                if($price === '')
+                {
+                    $error = 'Būtina įrašyti vertę';
+                }
+
+                if($error === '')
+                {
+                    $entityManager = $this->getDoctrine()->getManager();
+
+                    $editedItem = $entityManager->createQuery(
+                        'SELECT i
+                        FROM AppBundle:Item i
+                        WHERE i.id = :id'
+                    )->setParameter('id', $id)->getOneOrNullResult();
+
+                    $selectedCategory = $this->getDoctrine()->getRepository(Category::class)->find($categoryId);
+                    $selectedStatus = $this->getDoctrine()->getRepository(Status::class)->find($statusId);
+
+                    $oldStatus = $editedItem->getStatus();
+
+                    $editedItem->setName($name);
+                    $editedItem->setValue($price);
+                    $editedItem->setCategory($selectedCategory);
+                    $editedItem->setStatus($selectedStatus);
+                    
+                    $entityManager->persist($editedItem);
+                    $entityManager->flush();
+
+                    if($oldStatus->getId() !== $selectedStatus->getId())
+                    {
+                        if($selectedStatus->getName() === 'Laisvas') // returning item
+                        {
+                            $itemUse = $entityManager->createQuery(
+                                'SELECT i
+                                FROM AppBundle:ItemUse i
+                                WHERE i.returned IS NULL AND i.item = :itemid'
+                            )->setParameter('itemid', $id)->getOneOrNullResult();
+
+                            $itemUse->setReturned(new \DateTime('now'));
+
+                            $entityManager->persist($itemUse);
+                            $entityManager->flush();
+                        }
+                        else // take item for use
+                        {
+                            $worker = $entityManager->createQuery(
+                                'SELECT w
+                                FROM AppBundle:Worker w
+                                WHERE w.account = :user'
+                            )->setParameter('user', $this->getUser()->getId())->getOneOrNullResult();
+
+                            $itemUse = new ItemUse();
+                            $itemUse->setTaken(new \DateTime('now'));
+                            $itemUse->setWorker($worker);
+                            $itemUse->setItem($editedItem);
+
+                            $entityManager->persist($itemUse);
+                            $entityManager->flush();
+                        }
+                    }
+
+                    return $this->redirectToRoute('inventory-item-show', array('id' => $editedItem->getId()));
+                }
             }
         }
 

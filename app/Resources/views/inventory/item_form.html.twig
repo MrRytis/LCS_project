@@ -30,7 +30,7 @@
             <label for="status">Būsena</label>
             <select class="form-control" id="status" name="status" required>
                 {% for status in statuses %}
-                <option value="{{ status.id }}">{{ status.name }}</option>
+                <option value="{{ status.id }}" {% if status.id == item.status.id %}selected{% endif %}>{{ status.name }}</option>
                 {% endfor %}
             <select/>
         </div>
