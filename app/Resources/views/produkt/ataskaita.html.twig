@@ -36,8 +36,8 @@
                         <div class="col-sm-2">
                             <label for="produkt"><i class="fa fa-user"></i> Tiekėjas</label>
                         </div>
-                        <div col-sm-3>
-                            <select id="tiekejas" name="tiekejas"  class="custom-select">
+                        <div class="col-sm-3">
+                            <select id="tiekejas" name="tiekejas"  class="form-control custom-select">
                                     <option selected value="-1">Visi tiekėjai</option>
                                 {% for tiekejas in tiekejai %}
                                     <option value="{{ tiekejas.id }}">{{ tiekejas.vardas }}</option>

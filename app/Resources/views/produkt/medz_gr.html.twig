@@ -10,7 +10,9 @@
     </script>
     <div>
         <h2>Medžiagų grupės:</h2>
-        {% if error != "" %}<h3>{{ error }}</h3>{% endif %}
+        {% if error != "" %}
+            <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+        {% endif %}
         <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/add_medz_gr'">Pridėti</button>
 
         <table class="table table-bordered">
@@ -23,8 +25,8 @@
                 <td >{{ item.pavadinimas }}</td>
                 <td>
                     <ul>
-                        <a href="/produkt/add_medz_gr?edit=1&id={{item.id}}"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter"><img src="img/icons8-delete-50.png" width="15px" />Trinti</a>
+                        <a href="/produkt/add_medz_gr?edit=1&id={{item.id}}">Redaguoti</a>
+                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
                     </ul>
                 </td>
                 </thead>

@@ -2,7 +2,6 @@
 
 {% block content %}
 <div class="cl">&nbsp;</div>
-
     <script>
         function funcText(id) {
             document.getElementById('deleteID').value = id;
@@ -18,7 +17,9 @@
     <!-- Content -->
     <div>
         <h2>Tiekėjai:</h2>
-        {% if error != "" %}<h3>{{ error }}</h3>{% endif %}
+        {% if error != "" %}
+            <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+        {% endif %}
             <button class="btn" onclick="window.location.href='/produkt/add_tiek'">Pridėti</button>
             <button class="btn" onclick="window.location.href='/produkt/ataskaita'">Kurti ataskaita</button>
         <button class="btn" data-toggle="modal" data-target="#filterModal">Filtruoti</button>
@@ -36,6 +37,7 @@
             </thead>
             {% for item in result %}
                 {% set good = true %}
+                {% if filter == 1 %}
                 {% if dataNuo is not null %}
                     {% if item.sukurimoData|date("Y") < dataNuo|date("Y")  %}
                                 {% set good = false %}
@@ -70,6 +72,7 @@
                         {% endif %}
                     {% endif %}
                 {% endif %}
+                {% endif %}
                 {% if good %}
                 <thead >
                 <td ><a data-toggle="collapse" href="#collapse{{ item.id }}"><button class="btn">Rodyti produktus</button></a></td>
@@ -82,11 +85,11 @@
                 <td >{{ item.vadybininkoEPastas }}</td>
                 <td >
                     <ul>
-                        <a href="/produkt/add_tiek?edit=1&id={{item.id}}"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter"><img src="img/icons8-delete-50.png" width="15px" />Trinti</a>
+                        <a href="/produkt/add_tiek?edit=1&id={{item.id}}">Redaguoti</a>
+                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
                     </ul>
                     <ul>
-                        <a href="/produkt/add_tiek_produkt?id={{ item.id }}"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                        <a href="/produkt/add_tiek_produkt?id={{ item.id }}">Pridėti produktą</a>
                     </ul>
                 </td>
             </thead>
@@ -113,7 +116,7 @@
                                     </td>
                                     <td >
                                         <ul>
-                                           <a href="" onclick="return funcText2({{Tiekprodukt.id}})" data-toggle="modal" data-target="#exampleModalCenter"><img src="img/icons8-delete-50.png" width="15px" />Trinti</a>
+                                           <a href="" onclick="return funcText2({{Tiekprodukt.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
                                         </ul>
                                     </td>
                                     </thead>
@@ -156,6 +159,7 @@
                         <div hidden="hidden">
                             <input type="date" class="form-control"  id="datenuo" name="datenuo" value="{% if dataNuo is not null %}{{ dataNuo }}{% endif %}" hidden="hidden"/>
                             <input type="date" class="form-control"  id="dateiki" name="dateiki" value="{% if dataIki is not null %}{{ dataIki }}{% endif %}" hidden="hidden"/>
+                            <input type="number" class="form-control"  id="filter" name="filter" value="{% if filter ==1 %}1{% else %}0{% endif %}" hidden="hidden"/>
                         </div>
                         <input type="submit" class="btn btn-primary" value="Taip" class="btn">
                     </div>
@@ -194,10 +198,13 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Atgal</button>
                     <input id="deleteID" name="deleteID" value="-1" hidden="hidden">
                     <input id="deleteID2" name="deleteID2" value="-1" hidden="hidden">
-                    <button id="clickMe" type="submit" class="btn btn-primary" >Filter</button>
+                    <div hidden="hidden">
+                        <input type="number" class="form-control"  id="filter" name="filter" value="{% if filter ==1 %}1{% else %}0{% endif %}" hidden="hidden"/>
+                    </div>
+                    <button id="clickMe" type="submit" class="btn btn-primary" >Filtruoti</button>
                 </div>
             </div>
 

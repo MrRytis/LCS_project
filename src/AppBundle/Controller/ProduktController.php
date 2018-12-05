@@ -17,6 +17,7 @@ class ProduktController extends AbstractController
         $error = "";
         $dataNuo = null;
         $dataIki = null;
+        $filter = 0;
         if( $_SERVER["REQUEST_METHOD"] == "POST" ){
             if($_POST["deleteID"] != -1){
                 $item = $this->getDoctrine()->getRepository(Tiekejai::class)->find($_POST["deleteID"]);
@@ -29,15 +30,18 @@ class ProduktController extends AbstractController
                     $em->remove($item);
                     $em->flush();
                 }
+                $filter = $_POST["filter"];
             }elseif ($_POST["deleteID2"] != -1){
                 $item = $this->getDoctrine()->getRepository(TiekejoProduktai::class)->find($_POST["deleteID2"]);
                 $em = $this->getDoctrine()->getEntityManager();
 
                 $em->remove($item);
                 $em->flush();
+                $filter = $_POST["filter"];
             }elseif (isset($_GET['filter'])){
                 $dataNuo = $_POST["datenuo"];
                 $dataIki = $_POST["dateiki"];
+                $filter = $_GET['filter'];
             }
             if(isset($_POST["datenuo"]) && isset($_POST["dateiki"])){
                 $dataNuo = $_POST["datenuo"];
@@ -45,7 +49,7 @@ class ProduktController extends AbstractController
             }
         }
         $result = $this->getDoctrine()
-            ->getRepository(Tiekejai::class)->findAll();
+            ->getRepository(Tiekejai::class)->findBy(array(), array('sukurimoData' => 'DESC'));
         $itemData = $this->getDoctrine()
             ->getRepository(TiekejoProduktai::class)->findAll();
         $produkts  = $this->getDoctrine()
@@ -60,7 +64,8 @@ class ProduktController extends AbstractController
             'medzGr'=>$medzGr,
             'error'=>$error,
             'dataNuo'=>$dataNuo,
-            'dataIki'=>$dataIki
+            'dataIki'=>$dataIki,
+            'filter'=>$filter
             ] );
     }
     public function medz_grAction()
