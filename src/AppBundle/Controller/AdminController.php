@@ -186,11 +186,33 @@ class AdminController extends AbstractController
     }
     public function reportAction()
     {
-        $reports = $this->getDoctrine()->getRepository(AtaskaitosTipai::class)->findAll();
+        $em = $this->getDoctrine()->getManager();
+        $qb = $em->createQueryBuilder();
+        $orders = null;
+        $timeFrom = new \DateTime('now');
+        $timeTo = new \DateTime('now');
+        if( $_SERVER["REQUEST_METHOD"] == "POST" ) {
+            $timeFrom = $_POST["datenuo"];
+            $timeTo = $_POST["dateiki"];
+            $orders = $qb->select(array('o'))
+                ->from('AppBundle:Uzsakymai', 'o')
+                ->join('AppBundle:Transportavimai', 't')
+                ->where('o.id = t.fkUzsakymasid')
+                ->where('o.data > :timeFrom')
+                ->andWhere('o.data < :timeTo')
+                ->setParameter('timeFrom', $timeFrom)
+                ->setParameter('timeTo', $timeTo)
+                ->getQuery()
+                ->getResult();
+//            dump($orders);
+//            die();
+        }
+        $types = $this->getDoctrine()->getRepository(AtaskaitosTipai::class)->findAll();
 
         return $this->render('Admin/report.html.twig', [
             'controller_name' => 'AdminController',
-            'requests' => $reports,
+            'types' => $types,
+            'orders' => $orders
         ]);
     }
 }
