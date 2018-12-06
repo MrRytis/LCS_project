@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Entity\Produktai;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -23,7 +24,10 @@ class IndexController extends AbstractController
         $entityManager->persist($user);
         $entityManager->flush();
 
+        $product = $this->getDoctrine()->getRepository(Produktai::class)->findAll();
+
         return $this->render('index/index.html.twig', [
+            'products' => $product,
         ]);
     }
 }

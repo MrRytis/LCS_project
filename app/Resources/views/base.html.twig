@@ -74,34 +74,20 @@
                     <table class="table">
                         <thead class="thead-dark">
                         <tr>
-                            <th scope="col">#</th>
                             <th scope="col">Pavadinimas</th>
                             <th scope="col">Tipas</th>
                             <th scope="col">Kaina</th>
                         </tr>
                         </thead>
                         <tbody>
+                        {% for product in products %}
                         <tr>
-                            <th scope="row">1</th>
-                            <td>Striukė</td>
-                            <td>Moteriška</td>
-                            <td>EUR 58.99</td>
-                            <td><a  href="{{ path('add-to-order', {'id': 1 }) }}">Pridėti</a></td>
+                            <td>{{ product.pavadinimas }}</td>
+                            <td>{{ product.fkMedziaguGrupeid.pavadinimas }}</td>
+                            <td>{{ product.kaina }}</td>
+                            <td><a  href="{{ path('add-to-order', {'id': product.id }) }}">Pridėti</a></td>
                         </tr>
-                        <tr>
-                            <th scope="row">2</th>
-                            <td>Striukė</td>
-                            <td>Vyriška</td>
-                            <td>EUR 58.99</td>
-                            <td><a  href="{{ path('add-to-order', {'id': 1 }) }}">Pridėti</a></td>
-                        </tr>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>Striukė</td>
-                            <td>Vyriška</td>
-                            <td>EUR 58.99</td>
-                            <td><a  href="{{ path('add-to-order', {'id': 1 }) }}">Pridėti</a></td>
-                        </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
