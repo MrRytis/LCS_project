@@ -8,23 +8,67 @@
             <form method="post" action="/orders/payment/add">
                 <div>
                     <label for="name">Vardas, pavarde</label>
-                    <input type="text" id="name" name="name" placeholder="Vardenis Pavardenis">
+                    <input type="text" id="name" name="name" placeholder="Vardenis Pavardenis" required>
                 </div>
                 <div>
                     <label for="email">El. pastas</label>
-                    <input type="text" id="email" name="email" placeholder="vardenis@example.com">
+                    <input type="text" id="email" name="email" placeholder="vardenis@example.com" required>
                 </div>
                 <div>
                     <label for="adr">Adresas</label>
-                    <input type="text" id="adr" name="adr" placeholder="Kalnieciu 19a">
+                    <input type="text" id="adr" name="adr" placeholder="Kalnieciu 19a" required>
                 </div>
                 <div>
                     <label for="city">Miestas</label>
-                    <input type="text" id="city" name="city" placeholder="Kaunas">
+                    <input type="text" id="city" name="city" placeholder="Kaunas" required>
                 </div>
                 <div>
                     <label for="card">Kortelės numeris</label>
-                    <input type="text" id="card" name="card" placeholder="000000000">
+                    <input type="text" id="card" name="card" placeholder="000000000" required>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="name"><i class="fa fa-user"></i>Pristatymo adresas</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control"  id="pristatymoAdresas" name="pristatymoAdresas" placeholder="Pristatymo adresas"  required oninvalid="this.setCustomValidity('Įveskite pavadinimą!')" oninput="this.setCustomValidity('')">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="name"><i class="fa fa-user"></i>Išsiuntimo adresas</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="text" class="form-control"  id="issiuntimoAdresas" name="issiuntimoAdresas" placeholder="Išsiuntimo adresas"  required oninvalid="this.setCustomValidity('Įveskite pavadinimą!')" oninput="this.setCustomValidity('')">
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="name"><i class="fa fa-user"></i>Siuntimo būdas</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <select id="method" name="method">
+                            {% for m in methods %}
+                                <option selected>{{ m.name }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="name"><i class="fa fa-user"></i>Ar reikalingas draudimas</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="checkbox" id="insurance" name="insurance" checked="checked"/>
+                    </div>
+                </div>
+                <div class="form-group row">
+                    <div class="col-sm-2">
+                        <label for="name"><i class="fa fa-user"></i>Ar reikalingas siuntos sekimas</label>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="checkbox" id="tracking" name="tracking" checked="checked"/>
+                    </div>
                 </div>
                 <div>
                     <button type="submit" class="btn btn-secondary">Pabaigti</button>

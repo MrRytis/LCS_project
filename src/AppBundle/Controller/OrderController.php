@@ -86,6 +86,8 @@ class OrderController extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
 
+
+
         if($order == null)
         {
             $order = new Uzsakymai();
@@ -105,11 +107,6 @@ class OrderController extends AbstractController
         }
         else
         {
-            $order = new Uzsakymai();
-            $order->setData($order->getData());
-            $order->setApmokejimaBusena($order->getApmokejimoBusena());
-            $order->setFkKlientasid($client);
-
             $amount = new Kiekiai();
             $amount->setKiekis(1);
             $amount->setFkProduktasid($product);
@@ -142,23 +139,10 @@ class OrderController extends AbstractController
 
     public function paymentAction()
     {
-        if( $_SERVER["REQUEST_METHOD"] == "POST" ){
-            $obj = new Transportavimai();
-            $obj->setpristatymoAdresas($_POST["pristatymoAdresas"]);
-            $obj->setissiuntimoAdresas($_POST["issiuntimoAdresas"]);
-            $budas = $this->getDoctrine()
-                ->getRepository(SiuntimoBudai::class)->find($_POST["method"]);
-            $obj->setsiuntimoBudas($budas);
-            $obj->setFkUzsakymasid(0);//cia reikia normalu id uzsakymo paimt. Ryti padarysi?
-
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($obj);
-            $em->flush();
-            header("Location: /orders/order_payment");
-            exit;
-        }
+        $methods = $this->getDoctrine()->getRepository(SiuntimoBudai::class)->findAll();
         return $this->render('orders/order_payment.twig', [
             'controller_name' => 'OrderController',
+            'methods' => $methods,
         ]);
     }
 
@@ -182,6 +166,49 @@ class OrderController extends AbstractController
             FROM AppBundle:Uzsakymai u
             WHERE u.apmokejimaBusena = :apmokejimas AND u.fkKlientasid = :client')
             ->setParameter('apmokejimas', 0)->setParameter('client', $client->getId())->getOneOrNullResult();
+
+
+        if( $_SERVER["REQUEST_METHOD"] == "POST" ){
+            $obj = new Transportavimai();
+            $obj->setpristatymoAdresas($_POST["pristatymoAdresas"]);
+            $obj->setissiuntimoAdresas($_POST["issiuntimoAdresas"]);
+            $budas = $this->getDoctrine()
+                ->getRepository(SiuntimoBudai::class)->find($_POST["method"]);
+            $obj->setsiuntimoBudas($budas);
+            $obj->setFkUzsakymasid($order);//cia reikia normalu id uzsakymo paimt. Ryti padarysi?
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $user = $this->getUser();
+            $client = $entityManager->createQuery(
+                'SELECT c
+                FROM AppBundle:Client c
+                WHERE c.account = :user'
+            )->setParameter('user', $user->getId())->getOneOrNullResult();
+            $order = $entityManager->createQuery(
+                'SELECT u
+                    FROM AppBundle:Uzsakymai u
+                    WHERE u.apmokejimaBusena = :apmokejimas AND u.fkKlientasid = :client')
+                ->setParameter('apmokejimas', 0)->setParameter('client', $client->getId())->getOneOrNullResult();
+
+            $em = $this->getDoctrine()->getManager();
+            $or = $em->getRepository(Uzsakymai::class)->find($order->getId());
+            if($_POST["insurance"] == "on")
+            {
+                $or->setDraudimas(1);
+            }
+            if($_POST["tracking"])
+            {
+                $or->setSekimas(1);
+            }
+
+            $entityManager->flush();
+
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($obj);
+            $em->flush();
+        }
+
         if($request->isMethod('post'))
         {
             $cardNr = $request->request->get("card", "");
@@ -203,6 +230,16 @@ class OrderController extends AbstractController
             $payment->setKortelesNr($cardNr);
             $payment->setFkUzsakymasid($order);
             $payment->setFkKlientasid($client);
+
+            $pm = $entityManager->createQuery(
+                'SELECT a
+                FROM AppBundle:Atsiskaitymai a'
+            )->getOneOrNullResult();
+
+
+            $entityManager = $this->getDoctrine()->getManager();
+            $entityManager->remove($pm);
+            $entityManager->flush();
 
 
             $entityManager = $this->getDoctrine()->getManager();
