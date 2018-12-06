@@ -2,110 +2,220 @@
 
 {% block content %}
 <div class="cl">&nbsp;</div>
-
+    <script>
+        function funcText(id) {
+            document.getElementById('deleteID').value = id;
+            document.getElementById('deleteID2').value = -1;
+            return false;
+        }
+        function funcText2(id2) {
+            document.getElementById('deleteID').value = -1;
+            document.getElementById('deleteID2').value = id2;
+            return false;
+        }
+    </script>
     <!-- Content -->
     <div>
         <h2>Tiekėjai:</h2>
-        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/add_tiek'">Pridėti</button>
-        <button class="btn" style="width: 100px;" onclick="window.location.href='/produkt/ataskaita'">Kurti ataskaita</button>
-        <table class="table-simple">
-            <thead class="table-simple-row">
-                <td class="table-simple-header">Data</td>
-                <td class="table-simple-header">Tiekėjas</td>
-                <td class="table-simple-header">Firma</td>
-                <td class="table-simple-header">E. paštas</td>
-                <td class="table-simple-header">Vadybininkas</td>
-                <td class="table-simple-header">Vadybininko E. paštas</td>
-                <td class="table-simple-header"></td>
+        {% if error != "" %}
+            <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+        {% endif %}
+            <button class="btn" onclick="window.location.href='/produkt/add_tiek'">Pridėti</button>
+        {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+            <button class="btn" onclick="window.location.href='/produkt/ataskaita'">Kurti ataskaita</button>
+        {% endif %}
+        <button class="btn" data-toggle="modal" data-target="#filterModal">Filtruoti</button>
+        <table class="table table-bordered">
+            <thead >
+            <td ></td>
+                <td >Data</td>
+                <td >Tiekėjas</td>
+                <td >Firma</td>
+                <td >E. paštas</td>
+                <td >Faktūtors nr.</td>
+                <td >Vadybininkas</td>
+                <td >Vadybininko E. paštas</td>
+                <td ></td>
             </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2018-10-05</td>
-                <td class="table-simple-cell">Petras</td>
-                <td class="table-simple-cell">UAB "Worm"</td>
-                <td class="table-simple-cell">petras@worm.com</td>
-                <td class="table-simple-cell">Pietra</td>
-                <td class="table-simple-cell">pirtis@worm.com</td>
-                <td class="table-simple-cell">
+            {% for item in result %}
+                {% set good = true %}
+                {% if filter == 1 %}
+                {% if dataNuo is not null %}
+                    {% if item.sukurimoData|date("Y") < dataNuo|date("Y")  %}
+                                {% set good = false %}
+                    {% endif %}
+                    {% if item.sukurimoData|date("Y") == dataNuo|date("Y")  %}
+                        {% if item.sukurimoData|date("m") < dataNuo|date("m")  %}
+                                {% set good = false %}
+                        {% endif %}
+                    {% endif %}
+                    {% if item.sukurimoData|date("Y") == dataNuo|date("Y")  %}
+                        {% if item.sukurimoData|date("m") == dataNuo|date("m")  %}
+                            {% if item.sukurimoData|date("d") < dataNuo|date("d")  %}
+                                {% set good = false %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% if dataIki is not null %}
+                    {% if item.sukurimoData|date("Y") > dataIki|date("Y")  %}
+                            {% set good = false %}
+                    {% endif %}
+                    {% if item.sukurimoData|date("Y") == dataIki|date("Y")  %}
+                        {% if item.sukurimoData|date("m") > dataIki|date("m")  %}
+                                {% set good = false %}
+                        {% endif %}
+                    {% endif %}
+                    {% if item.sukurimoData|date("Y") == dataIki|date("Y")  %}
+                        {% if item.sukurimoData|date("m") == dataIki|date("m")  %}
+                            {% if item.sukurimoData|date("d") > dataIki|date("d")  %}
+                                {% set good = false %}
+                            {% endif %}
+                        {% endif %}
+                    {% endif %}
+                {% endif %}
+                {% endif %}
+                {% if good %}
+                <thead >
+                <td ><a data-toggle="collapse" href="#collapse{{ item.id }}"><button class="btn">Rodyti produktus</button></a></td>
+                <td >{{ item.sukurimoData|date("m/d/Y") }}</td>
+                <td >{{ item.vardas }}</td>
+                <td >{{ item.firmosPav }}</td>
+                <td >{{ item.ePastas }}</td>
+                <td >{{ item.fakturosNr }}</td>
+                <td >{{ item.vadybininkas }}</td>
+                <td >{{ item.vadybininkoEPastas }}</td>
+                <td >
                     <ul>
-                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
+                        <a href="/produkt/add_tiek?edit=1&id={{item.id}}">Redaguoti</a>
+                {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                        <a href="" onclick="return funcText({{item.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                    {% endif %}
                     </ul>
                     <ul>
-                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
+                        <a href="/produkt/add_tiek_produkt?id={{ item.id }}">Pridėti produktą</a>
                     </ul>
                 </td>
             </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2017-09-05</td>
-                <td class="table-simple-cell">Jonas</td>
-                <td class="table-simple-cell">UAB "Cat"</td>
-                <td class="table-simple-cell">jonas@cat.com</td>
-                <td class="table-simple-cell">Aistė</td>
-                <td class="table-simple-cell">aiste@cat.com</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                    <ul>
-                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
-                    </ul>
-                </td>
+            <thead>
+            <td colspan="9">
+                <div id="collapse{{ item.id }}" class="panel-collapse collapse">
+                    <div class="panel-body">
+                        <table class="table table-bordered">
+                            <thead>
+                            <td>Data</td>
+                            <td>Pavadinimas</td>
+                            <td>Medžiagų grupė</td>
+                            <td></td>
+                            </thead>
+                            {% for Tiekprodukt in itemData if Tiekprodukt.fkTiekejasid.id == item.id%}
+                                {% for produktas in produkts if produktas.id == Tiekprodukt.fkProduktasid.id %}
+                                    <thead>
+                                    <td>{{ Tiekprodukt.sukurimoData|date("m/d/Y") }}</td>
+                                    <td>{{ produktas.pavadinimas }}</td>
+                                    <td>
+                                    {% for medzGrupe in medzGr if medzGrupe.id == produktas.fkMedziaguGrupeid.id %}
+                                        {{ medzGrupe.pavadinimas }}
+                                    {% endfor %}
+                                    </td>
+                                    <td >
+                                        <ul>
+                                           <a href="/produkt/add_tiek_produkt?id={{ item.id }}&edit=1&idP={{Tiekprodukt.id}}">Redaguoti</a>
+                                            {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                                                <a href="" onclick="return funcText2({{Tiekprodukt.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                                            {% endif %}
+                                        </ul>
+                                    </td>
+                                    </thead>
+                                {% endfor %}
+                            {% else %}
+                                <thead>
+                                <td colspan="9">
+                                    Neturi jokių duomenų.
+                                </td>
+                                </thead>
+                            {% endfor %}
+                        </table>
+                    </div>
+                </div>
+            </td>
             </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2019-01-04</td>
-                <td class="table-simple-cell">Benas</td>
-                <td class="table-simple-cell">UAB "Dog"</td>
-                <td class="table-simple-cell">ben@dga.com</td>
-                <td class="table-simple-cell">Robert</td>
-                <td class="table-simple-cell">rb_rt@dga.com</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                    <ul>
-                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
-                    </ul>
-                </td>
-            </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2018-05-06</td>
-                <td class="table-simple-cell">Laima</td>
-                <td class="table-simple-cell">UAB "Cow"</td>
-                <td class="table-simple-cell">lm_ml@des.com</td>
-                <td class="table-simple-cell">Rita</td>
-                <td class="table-simple-cell">rita@des.com</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                    <ul>
-                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
-                    </ul>
-                </td>
-            </thead>
-            <thead class="table-simple-row">
-                <td class="table-simple-cell">2016-04-03</td>
-                <td class="table-simple-cell">Laura</td>
-                <td class="table-simple-cell">UAB "Pig"</td>
-                <td class="table-simple-cell">lr123@cr.com</td>
-                <td class="table-simple-cell">Rita</td>
-                <td class="table-simple-cell">rt1245asd@cr.com</td>
-                <td class="table-simple-cell">
-                    <ul>
-                        <a href="/produkt/add_tiek"><img src="css/images/icons8-edit-50.png" width="15px"/>Redaguoti</a>
-                        <a href="#"><img src="css/images/icons8-delete-50.png" width="15px"/>Trinti</a>
-                    </ul>
-                    <ul>
-                        <a href="/produkt/add_tiek_produkt"><img src="css/images/icons8-edit-50.png" width="15px"/>Pridėti produktą</a>
-                    </ul>
-                </td>
-            </thead>
+                {% endif %}
+            {% endfor %}
         </table>
     </div>
     <!-- End Content -->
 
+    <form action="/tiek" method="Post">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Trinimo patvirtinimas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Ar tikrai norinte ištrinti objektą?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Ne/Atgal</button>
+                        <input id="deleteID" name="deleteID" value="-1" hidden="hidden">
+                        <input id="deleteID2" name="deleteID2" value="-1" hidden="hidden">
+                        <div hidden="hidden">
+                            <input type="date" class="form-control"  id="datenuo" name="datenuo" value="{% if dataNuo is not null %}{{ dataNuo }}{% endif %}" hidden="hidden"/>
+                            <input type="date" class="form-control"  id="dateiki" name="dateiki" value="{% if dataIki is not null %}{{ dataIki }}{% endif %}" hidden="hidden"/>
+                            <input type="number" class="form-control"  id="filter" name="filter" value="{% if filter ==1 %}1{% else %}0{% endif %}" hidden="hidden"/>
+                        </div>
+                        <input type="submit" class="btn btn-primary" value="Taip" class="btn">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
     <div class="cl">&nbsp;</div>
+    <!-- Modal -->
+    <form action="/tiek?filter=1" method="post">
+    <div id="filterModal" class="modal fade" role="dialog">
+        <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title" id="exampleModalLongTitle">Filtravimas:</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body" >
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data nuo:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control"  id="datenuo" name="datenuo" value="{% if dataNuo is not null %}{{ dataNuo }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data iki:</label>
+                        </div>
+                        <div class="col-sm-5">
+                            <input type="date" class="form-control" id="dateiki" name="dateiki" value="{% if dataIki is not null %}{{ dataIki }}{% endif %}"required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Atgal</button>
+                    <input id="deleteID" name="deleteID" value="-1" hidden="hidden">
+                    <input id="deleteID2" name="deleteID2" value="-1" hidden="hidden">
+                    <div hidden="hidden">
+                        <input type="number" class="form-control"  id="filter" name="filter" value="{% if filter ==1 %}1{% else %}0{% endif %}" hidden="hidden"/>
+                    </div>
+                    <button id="clickMe" type="submit" class="btn btn-primary" >Filtruoti</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    </form>
 {% endblock %}

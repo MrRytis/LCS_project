@@ -7,22 +7,28 @@
         <div class="row">
             <div class="col-75">
                 <div class="container">
-                    <h2>Tiekėjo Duomenys</h2>
+                    <h2>Tiekėjo Produkto Duomenys</h2>
                 </div>
                 <div class="container">
-                    <form action="/produkt">
+                    <form action="/produkt/add_tiek_produkt{% if tiekItem is not null %}?id={{ tiekItem.id }}{% endif %}{% if item is not null %}&edit=1&idP={{ item.id }}{% endif %}" method="Post">
 
-                        <div class="row">
-                            <div class="col-50">
+                        <div class="form-group row">
+                            <div class="col-sm-2">
                                 <label for="produkt"><i class="fa fa-user"></i> Produktas</label>
-                                <select id="produkt" class="custom-select">
-                                    <option>INGATORP</option>
-                                    <option>GAMLARED</option>
-                                    <option>HENRIKSDAL</option>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="produkt" name="produkt"  class="form-control custom-select">
+                                    {% for produktas in produkts %}
+                                        <option {% if item is not null %}{% if produktas.id == item.fkProduktasid.id %}selected{% endif %}{% endif %} value="{{ produktas.id }}">{{ produktas.pavadinimas }}</option>
+                                    {% endfor %}
                                 </select>
                             </div>
                         </div>
-                        <input type="submit" value="Išsaugti" class="btn">
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="submit" value="Išsaugti" class="btn">
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

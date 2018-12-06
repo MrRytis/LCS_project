@@ -37,13 +37,13 @@ inventory-show:
   path: /inventory
   defaults: { _controller: AppBundle:Inventory:index }
 
-inventory-item-show:
-  path: /inventory/item
-  defaults: { _controller: AppBundle:Inventory:show }
-
 inventory-item-edit:
   path: /inventory/item/form
   defaults: { _controller: AppBundle:Inventory:form }
+
+inventory-item-show:
+  path: /inventory/item/{id}
+  defaults: { _controller: AppBundle:Inventory:show }
 
 inventory-category-show:
   path: /inventory/category
@@ -57,6 +57,10 @@ inventory-report:
   path: /inventory/report
   defaults: { _controller: AppBundle:Inventory:report }
 
+inventory-delete:
+  path: /inventory/delete/{id}
+  defaults: { _controller: AppBundle:Inventory:delete }
+
 # end of inventory subsystem
 # transportation subsystem
 
@@ -66,6 +70,10 @@ transportation:
 
 # end of transportation subsystem
 # admin part
+
+admin:
+  path: /admin
+  defaults: { _controller: AppBundle:Admin:index }
 
 admin-dimensions:
   path: /admin/dimensions
@@ -82,6 +90,19 @@ admin-shipping_methods:
 admin-report:
   path: /admin/report
   defaults: { _controller: AppBundle:Admin:report }
+
+admin-add_dimension:
+  path: /Admin/add_dimension
+  defaults: { _controller: AppBundle:Admin:add_dimension }
+
+admin-add_filler:
+  path: /Admin/add_filler
+  defaults: { _controller: AppBundle:Admin:add_filler }
+
+admin-shipping_method:
+  path: /Admin/add_shipping_method
+  defaults: { _controller: AppBundle:Admin:add_shipping_method }
+
 # end of admin part
 # produkt subsystem
 

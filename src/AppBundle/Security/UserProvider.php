@@ -17,9 +17,9 @@ class UserProvider extends EntityRepository implements UserProviderInterface
         return $this->getUser($username);
     }
 
-    public function refreshUser($user)
+    public function refreshUser(UserInterface $user)
     {
-        if(!$user instanceof $User)
+        if(!$user instanceof LcsUser)
         {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }

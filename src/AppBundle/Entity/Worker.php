@@ -39,6 +39,34 @@ class Worker
      */
     private $account;
 
+    public function setSalary($value)
+    {
+        $this->salary = $value;
+    }
 
+    public function getSalary()
+    {
+        return $this->salary;
+    }
+
+    public function setId($value)
+    {
+        $this->id = $value;
+    }
+
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    public function setAccount($value)
+    {
+        $this->account = $value;
+    }
+
+    public function getAccount()
+    {
+        return $this->account;
+    }
 }
 

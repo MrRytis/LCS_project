@@ -10,25 +10,55 @@
                     <h2>Tiekėjo Duomenys</h2>
                 </div>
                 <div class="container">
-                    <form action="/produkt">
-
-                        <div class="row">
-                            <div class="col-50">
-                                <label for="faktur">Fakturos nr.</label>
-                                <input type="number" id="faktur" name="faktur" placeholder="534375374">
-                                <label for="fname"><i class="fa fa-user"></i> Tiekėjas</label>
-                                <input type="text" id="fname" name="firstname" placeholder="Vardas Pavardenis">
-                                <label for="firm"><i class="fa fa-user"></i> Firma</label>
-                                <input type="text" id="firm" name="firm" placeholder="UAB Firma">
-                                <label for="email"><i class="fa fa-envelope"></i> El. pastas</label>
-                                <input type="email" id="email" name="email" placeholder="vardenis@example.com">
+                    <form action="/produkt/add_tiek{% if item is not null %}?edit=1&id={{ item.id }}{% endif %}" method="Post">
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="fknr"><i class="fa fa-user"></i> Faktūros nr.</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="number"class="form-control"  id="fknr" name="fknr" placeholder="" value="{% if item is not null %}{{ item.fakturosNr }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite numerį!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div><div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="tiekname"><i class="fa fa-user"></i> Tiekėjas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text"class="form-control"  id="tiekname" name="tiekname" placeholder="Vardas" value="{% if item is not null %}{{ item.vardas }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite tiekėjo vardą!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div><div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="firma"><i class="fa fa-user"></i> Firma</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text"class="form-control"  id="firma" name="firma" placeholder="UAB FIRMA" value="{% if item is not null %}{{ item.firmosPav }}{% endif %}">
+                            </div>
+                        </div><div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="emailTiek"><i class="fa fa-user"></i> El. paštas tiekėjo</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="email"class="form-control"  id="emailTiek" name="emailTiek" placeholder="unknown@web.com" value="{% if item is not null %}{{ item.ePastas }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite el. paštą!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div><div class="form-group row">
+                            <div class="col-sm-2">
                                 <label for="vadyb"><i class="fa fa-user"></i> Vadybininkas</label>
-                                <input type="text" id="vadyb" name="vadybin" placeholder="Vardas Pavardenis">
-                                <label for="vadybemail"><i class="fa fa-envelope"></i> Vadybininko El. pastas</label>
-                                <input type="email" id="vadybemail" name="vadybinemail" placeholder="vardenis@example.com">
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text"class="form-control"  id="vadyb" name="vadyb" placeholder="Vardenis" value="{% if item is not null %}{{ item.vadybininkas }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite vadybininko vardą!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div><div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="emailVadyb"><i class="fa fa-user"></i> Vadybininko el. paštas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="email"class="form-control"  id="emailVadyb" name="emailVadyb" placeholder="email@web.com" value="{% if item is not null %}{{ item.vadybininkoEPastas }}{% endif %}" required oninvalid="this.setCustomValidity('Įveskite vadybininko el. paštą!')" oninput="this.setCustomValidity('')">
                             </div>
                         </div>
-                        <input type="submit" value="Išsaugti" class="btn">
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="submit" value="Išsaugti" class="btn">
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>

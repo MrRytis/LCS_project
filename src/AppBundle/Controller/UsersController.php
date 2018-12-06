@@ -9,6 +9,7 @@ use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use AppBundle\Entity\LcsUser;
 use AppBundle\Entity\AccountRequest;
+use AppBundle\Entity\Worker;
 use AppBundle\Entity\UserRole;
 
 class UsersController extends AbstractController
@@ -21,10 +22,24 @@ class UsersController extends AbstractController
         $role = $user->getType()->getName() === 'ROLE_DARBUOTOJAS' ? 'Darbuotojas' : $role;
         $role = $user->getType()->getName() === 'ROLE_ADMINISTRATORIUS' ? 'Administratorius' : $role;
 
+        $salary = '';
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $worker = $entityManager->createQuery(
+            'SELECT w
+            FROM AppBundle:Worker w
+            WHERE w.account = :user'
+        )->setParameter('user', $user->getId())->getOneOrNullResult();
+
+        if($worker)
+        {
+            $salary = $worker->getSalary();
+        }
 
         return $this->render('users/index.html.twig', [
             'user' => $user,
-            'role' => $role
+            'role' => $role,
+            'salary' => $salary
         ]);
     }
 
@@ -151,11 +166,69 @@ class UsersController extends AbstractController
         ]);
     }
 
-    public function pendingAction()
+    public function pendingAction(Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(AccountRequest::class);
+        $workersRepository = $this->getDoctrine()->getRepository(Worker::class);
+        $entityManager = $this->getDoctrine()->getManager();
+
+        if($request->isMethod('post'))
+        {
+            $id = $request->request->get('id', '');
+            $action = $request->request->get('accept', '');
+            $action = $request->request->get('reject', $action);
+
+            $user = $this->getUser();
+            $worker = $workersRepository->createQueryBuilder('w')
+                ->where('w.account = :user')
+                ->setParameter('user', $user->getId())
+                ->getQuery()
+                ->getOneOrNullResult();
+
+            $accRequest = $repository->createQueryBuilder('r')
+                    ->where('r.id = :id')
+                    ->setParameter('id', $id)
+                    ->getQuery()
+                    ->getOneOrNullResult();
+            
+            if($accRequest)
+            {
+                $accRequest->setWorker($worker);
+                $accRequest->setAccepted($action === 'Patvirtinti');
+
+                $entityManager->persist($accRequest);
+                $entityManager->flush();
+
+                if($action === 'Patvirtinti')
+                {
+                    $newUser = new LcsUser();
+                    $newUser->setName($accRequest->getName());
+                    $newUser->setSurname($accRequest->getSurname());
+                    $newUser->setEmail($accRequest->getEmail());
+                    $newUser->setPassword($accRequest->getPassword());
+                    $newUser->setRegistration(new \DateTime('now'));
+                    $newUser->setAccountRequest($accRequest);
+                    $newUser->setType($accRequest->getType());
+
+                    $entityManager->persist($newUser);
+                    $entityManager->flush();
+
+                    $workerAcc = new Worker();
+                    $workerAcc->setSalary(500);
+                    $workerAcc->setAccount($newUser);
+
+                    $entityManager->persist($workerAcc);
+                    $entityManager->flush();
+                }
+            }
+            else
+            {
+
+            }
+        }
+
         $pendingAccounts = $repository->createQueryBuilder('u')
-            ->where('u.accepted = false')
+            ->where('u.accepted = false AND u.worker IS NULL')
             ->orderBy('u.applyDate', 'DESC')
             ->getQuery()
             ->getResult();

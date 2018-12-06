@@ -194,7 +194,7 @@ class LcsUser implements UserInterface, EquatableInterface
     public function eraseCredentials()
     { /* unused */}
 
-    public function isEqualTo($user)
+    public function isEqualTo(UserInterface $user)
     {
         if(!$user instanceof LcsUser)
         {

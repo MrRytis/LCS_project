@@ -28,6 +28,38 @@ class MedziaguGrupes
      */
     private $id;
 
+    /**
+     * @return string
+     */
+    public function getPavadinimas()
+    {
+        return $this->pavadinimas;
+    }
+
+    /**
+     * @param string $pavadinimas
+     */
+    public function setPavadinimas($pavadinimas)
+    {
+        $this->pavadinimas = $pavadinimas;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
 
 }
 

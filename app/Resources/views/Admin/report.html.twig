@@ -1,55 +1,73 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div id="main-content">
-        <form method="get" action="report">
-            <div>
-                <label class="user-form" for="type">Ataskaitos tipas</label>
-                <select class="user-form" id="type">
-                    <option>Trasportavimo</option>
-                </select>
+    <div class="col-lg-3 panel-group">
+        {% include 'Admin/side_menu.html.twig' %}
+    </div>
+    <div class="col-lg-9">
+        <div class="box">
+            <h2>Ataskaitos duomenys:</h2>
+            <div class="box-content">
+                <form action="/admin/report" method="post">
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data nuo:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control"  id="datenuo" name="datenuo" required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label>Data iki:</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <input type="date" class="form-control" id="dateiki" name="dateiki" required oninvalid="this.setCustomValidity('Įveskite teisingą datą!')" oninput="this.setCustomValidity('')"/>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-2">
+                            <label for="admin"><i class="fa fa-user"></i>Ataskaitos tipass</label>
+                        </div>
+                        <div class="col-sm-3">
+                            <select id="type" name="report"  class="form-control custom-select">
+                                <option selected value="-1">Visi tipai</option>
+                                {% for type in types %}
+                                    <option value="{{ type.id }}">{{ type.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <div class="col-sm-10">
+                            <input type="submit" value="Rodyti" class="btn">
+                        </div>
+                    </div>
+                </form>
             </div>
-            <div>
-                <label class="user-form" for="date">Nuo</label>
-                <input class="user-form" type="date" id="from_date" />
-            </div>
-            <div>
-                <label class="user-form" for="date">Iki</label>
-                <input class="user-form" type="date" id="to_date" />
-            </div>
-            <button type="submit" class="btn login">Rodyti</button>
-        </form>
-        <table class="table-simple">
-            <thead class="table-simple-row">
-            <td class="table-simple-header">Užsakymo data</td>
-            <td class="table-simple-header">Vertė</td>
-            <td class="table-simple-header">Siuntimo būdas</td>
+        </div>
+
+
+
+
+
+
+
+        <table class="table">
+            <thead class="thead-dark">
+                <th scope="col">Užsakymo data</th>
+                <th scope="col">Apmokejimo Busena</th>
+                <th scope="col">Pakuotės Užpildas</th>
             </thead>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">02/11/2018</td>
-                <td class="table-simple-cell">50</td>
-                <td class="table-simple-cell">Paštu</td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">05/07/2018</td>
-                <td class="table-simple-cell">20</td>
-                <td class="table-simple-cell">Kurjeriu</td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">13/04/2018</td>
-                <td class="table-simple-cell">500</td>
-                <td class="table-simple-cell">Paštu</td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-header table-total-label">Iš viso:</td>
-                <td class="table-simple-cell table-total-value">570</td>
-            </tr>
+            <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.data|date('Y-m-d')  }}</td>
+                    <td>{{ order.apmokejimaBusena }}</td>
+                    <td>{{ order.pakuotesUzpildas }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
         </table>
     </div>
-    <div id="sidebar">
-    <!-- End Categories -->
-    {{ include ('Admin/side_menu.html.twig') }}
-    </div>
-    <!-- End Sidebar -->
-    <div class="cl">&nbsp;</div>
 {% endblock %}

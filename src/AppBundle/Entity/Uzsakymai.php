@@ -50,9 +50,9 @@ class Uzsakymai
     private $id;
 
     /**
-     * @var \AppBundle\Entity\Klientai
+     * @var \AppBundle\Entity\Client
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Klientai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Klientasid", referencedColumnName="id")
      * })
@@ -78,6 +78,150 @@ class Uzsakymai
      * })
      */
     private $pakuotesUzpildas;
+
+    /**
+     * @return \DateTime
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param \DateTime $data
+     * @return Uzsakymai
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isApmokejimaBusena()
+    {
+        return $this->apmokejimaBusena;
+    }
+
+    /**
+     * @param bool $apmokejimaBusena
+     * @return Uzsakymai
+     */
+    public function setApmokejimaBusena($apmokejimaBusena)
+    {
+        $this->apmokejimaBusena = $apmokejimaBusena;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isDraudimas()
+    {
+        return $this->draudimas;
+    }
+
+    /**
+     * @param bool $draudimas
+     * @return Uzsakymai
+     */
+    public function setDraudimas($draudimas)
+    {
+        $this->draudimas = $draudimas;
+        return $this;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isSekimas()
+    {
+        return $this->sekimas;
+    }
+
+    /**
+     * @param bool $sekimas
+     * @return Uzsakymai
+     */
+    public function setSekimas($sekimas)
+    {
+        $this->sekimas = $sekimas;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Uzsakymai
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return Klientai
+     */
+    public function getFkKlientasid()
+    {
+        return $this->fkKlientasid;
+    }
+
+    /**
+     * @param Klientai $fkKlientasid
+     * @return Uzsakymai
+     */
+    public function setFkKlientasid($fkKlientasid)
+    {
+        $this->fkKlientasid = $fkKlientasid;
+        return $this;
+    }
+
+    /**
+     * @return Matmenys
+     */
+    public function getPakuotesIsmatavimai()
+    {
+        return $this->pakuotesIsmatavimai;
+    }
+
+    /**
+     * @param Matmenys $pakuotesIsmatavimai
+     * @return Uzsakymai
+     */
+    public function setPakuotesIsmatavimai($pakuotesIsmatavimai)
+    {
+        $this->pakuotesIsmatavimai = $pakuotesIsmatavimai;
+        return $this;
+    }
+
+    /**
+     * @return Uzpildai
+     */
+    public function getPakuotesUzpildas()
+    {
+        return $this->pakuotesUzpildas;
+    }
+
+    /**
+     * @param Uzpildai $pakuotesUzpildas
+     * @return Uzsakymai
+     */
+    public function setPakuotesUzpildas($pakuotesUzpildas)
+    {
+        $this->pakuotesUzpildas = $pakuotesUzpildas;
+        return $this;
+    }
 
 
 }
