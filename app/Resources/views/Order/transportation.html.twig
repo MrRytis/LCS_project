@@ -1,38 +1,69 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <form method="get" action="/main">
-        <div>
-            <label class="user-form" for="category">Pakuotės matmenys</label>
-            <select class="user-form" id="category">
-                <option selected>Maža pakuotė</option>
-                <option selected>Vidutinė pakuotė</option>
-                <option selected>Didelė pakuotė</option>
-            </select>
+    <div class="cl">&nbsp;</div>
+    <div>
+        <div class="row">
+            <div class="col-75">
+                <div class="container">
+                    <h2> Trasnportavimo nustatymai</h2>
+                </div>
+                <div class="container">
+                    <form method="Post" action="/orders/payment">
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="name"><i class="fa fa-user"></i>Pristatymo adresas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control"  id="pristatymoAdresas" name="pristatymoAdresas" placeholder="Pristatymo adresas"  required oninvalid="this.setCustomValidity('Įveskite pavadinimą!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="name"><i class="fa fa-user"></i>Išsiuntimo adresas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="text" class="form-control"  id="issiuntimoAdresas" name="issiuntimoAdresas" placeholder="Išsiuntimo adresas"  required oninvalid="this.setCustomValidity('Įveskite pavadinimą!')" oninput="this.setCustomValidity('')">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="name"><i class="fa fa-user"></i>Siuntimo būdas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <select id="method" name="method">
+                                    {% for m in methods %}
+                                        <option selected>{{ m.name }}</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="name"><i class="fa fa-user"></i>Ar reikalingas draudimas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="insurance" name="insurance" checked="checked"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-2">
+                                <label for="name"><i class="fa fa-user"></i>Ar reikalingas siuntos sekimas</label>
+                            </div>
+                            <div class="col-sm-3">
+                                <input type="checkbox" id="tracking" name="tracking" checked="checked"/>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-sm-10">
+                                <input type="submit" value="Išsaugti" class="btn">
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div>
-            <label class="user-form" for="status">Užpildai</label>
-            <select class="user-form" id="status">
-                <option selected>Be užpildo</option>
-                <option selected>Putplastis</option>
-            </select>
-        </div>
-        <div>
-            <label class="user-form" for="status">Siuntimo b0das</label>
-            <select class="user-form" id="status">
-                <option selected>Paštu</option>
-                <option selected>Kurjeriu</option>
-            </select>
-        </div>
-        <div>
-            <label class="user-form" for="status">Ar reikalingas draudimas</label>
-            <input class="user-form" type="checkbox" name="insurance" value="" checked="checked" />
-        </div>
-        <div>
-            <label class="user-form" for="status">Ar reikalingas siuntos sekimas</label>
-            <input class="user-form" type="checkbox" name="tracking" value="" checked="checked" />
-        </div>
-        <button type="submit" class="btn login">Patvirtinti</button>
-    </form>
+    </div>
+    <!-- End Content -->
     <div class="cl">&nbsp;</div>
 {% endblock %}
