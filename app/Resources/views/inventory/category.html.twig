@@ -1,19 +1,19 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div id="main-content">
-    <form method="get" action="/inventory">
-        <div>
-            <label class="user-form" for="name">Pavadinimas</label>
-            <input class="user-form" type="text" id="name" />
+<div class="col-lg-3 panel-group">
+    {{ include('inventory/side_menu.html.twig', { 'categories': categories, 'statuses': statuses }) }}
+</div>
+<div class="col-lg-4">
+    <h2>Nauja kategorija</h2>
+    {{ include('error_msg.html.twig', { 'msg': error }) }}
+    {{ include('success_msg.html.twig', { 'msg': success }) }}
+    <form method="post" action="/inventory/category">
+        <div class="form-group">
+            <label for="name">Pavadinimas</label>
+            <input class="form-control" type="text" name="name" id="name" />
         </div>
-        <button type="submit" class="btn login">Patvirtinti</button>
+        <button type="submit" class="btn btn-secondary">Patvirtinti</button>
     </form>
 </div>
-<!-- Sidebar -->
-<div id="sidebar">
-{{ include ('inventory/side_menu.html.twig') }}
-</div>
-<!-- End Sidebar -->
-<div class="cl">&nbsp;</div>
 {% endblock %}

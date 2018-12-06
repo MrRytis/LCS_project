@@ -29,6 +29,12 @@
                 <th scope="row">Užsiregistruota:</th>
                 <td>{{ user.registration|date("Y-m-d") }}</td>
             </tr>
+            {% if salary != '' %}
+            <tr>
+                <th scope="row">Atlyginimas:</th>
+                <td>{{ salary }}</td>
+            </tr>
+            {% endif %}
         </tbody>
     </table>
 </div>

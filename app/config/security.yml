@@ -30,8 +30,11 @@ security:
     access_control:
         - { path: /main, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /user, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
-        - { path: /pending, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
-        - { path: /inventory, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
+        - { path: /pending, roles: ROLE_ADMINISTRATORIUS }
+        - { path: /inventory/category, roles: ROLE_ADMINISTRATORIUS }
+        - { path: /inventory/status, roles: ROLE_ADMINISTRATORIUS }
+        - { path: /inventory/report, roles: ROLE_ADMINISTRATORIUS }
+        - { path: /inventory, roles: [ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /transportation, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /admin, roles: [ROLE_KLIENTAS, ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }
         - { path: /produkt, roles: [ ROLE_DARBUOTOJAS, ROLE_ADMINISTRATORIUS] }

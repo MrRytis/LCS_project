@@ -1,12 +1,29 @@
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="my-4">Paieska</h2>
+        <h4>Veiksmai</h4>
+    </div>
+    <div class="panel-body">
+        <div class="panel-body">
+            <div class="list-group">
+                <a href="/inventory/item/form" class="list-group-item">Naujas Daiktas</a>
+                {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                <a href="/inventory/status" class="list-group-item">Nauja Būsena</a>
+                <a href="/inventory/category" class="list-group-item">Nauja Kategorija</a>
+                <a href="/inventory/report" class="list-group-item">Ataskaitos</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h4 class="my-4">Paieška</h4>
     </div>
     <div class="panel-body">
         <div class="list-group">
-            <form action="#" method="post">
-                <input type="text" class="field" />
-                <input type="submit" class="bnt btn-primary" value="Ieskoti" />
+            <form action="/inventory" method="get">
+                <input class="form-control" type="text" name="search" />
+                <input style="margin-top: 5px; float: right;" type="submit" class="btn btn-secondary" value="Ieškoti" />
             </form>
         </div>
     </div>
@@ -15,37 +32,26 @@
 <!-- Categories -->
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h2 class="my-4">Kategorijos</h2>
+        <h4 class="my-4">Kategorijos</h4>
     </div>
     <div class="panel-body">
         <div class="list-group">
-            <form action="#" method="post">
-                <ul>
-                    <li><input type="checkbox" id="Naudojamas" name="Naudojamas" value="Naudojamas"/>Naudojamas</li>
-                    <li><input type="checkbox" id="Laisvas" name="Laisvas" value="Laisvas" />Laisvas</li>
-                    <li><input type="checkbox" id="Baldai" name="Baldai" value="Baldai" />Baldai</li>
-                    <li><input type="checkbox" id="Technika" name="Technika" value="Technika" />Technika</li>
-                    <li><input type="checkbox" id="Sukvežimiai" name="Sukvežimiai" value="Sukvežimiai" />Sukvežimiai</li>
+            <form action="/inventory" method="get">
+                <ul class="list-unstyled">
+                    {% if statuses is defined %}
+                    {% for status in statuses %}
+                    <li><input type="checkbox" name="statuses[]" value="{{ status.id }}" />{{ status.name }}</li>
+                    {% endfor %}
+                    {% endif %}
+                    {% if categories is defined %}
+                    {% for category in categories %}
+                    <li><input type="checkbox" name="categories[]" value="{{ category.id }}" />{{ category.name }}</li>
+                    {% endfor %}
+                    {% endif %}
                 </ul>
-                <input type="submit" class="search-submit" value="Filtruoti" />
+                <input type="submit" style="margin-top: 5px; float: right;" class="btn btn-secondary" value="Filtruoti" />
             </form>
         </div>
 
-    </div>
-</div>
-
-<div class="panel panel-default">
-    <div class="panel-heading">
-        <h2 class="my-4">Veiksmaia</h2>
-    </div>
-    <div class="panel-body">
-        <div class="panel-body">
-            <div class="list-group">
-                <a href="/inventory/item/form" class="list-group-item">Naujas Daiktas</a>
-                <a href="/inventory/report" class="list-group-item">Ataskaito</a>
-                <a href="/inventory/report" class="list-group-item">Būsenos</a>
-                <a href="/inventory/category" class="list-group-item">Kategorijos</a>
-            </div>
-        </div>
     </div>
 </div>
