@@ -33,6 +33,42 @@ class ItrauktiI
      */
     private $fkAtaskaitaataskaitosNumeris;
 
+    /**
+     * @return int
+     */
+    public function getFkUzsakymasid()
+    {
+        return $this->fkUzsakymasid;
+    }
+
+    /**
+     * @param int $fkUzsakymasid
+     * @return ItrauktiI
+     */
+    public function setFkUzsakymasid($fkUzsakymasid)
+    {
+        $this->fkUzsakymasid = $fkUzsakymasid;
+        return $this;
+    }
+
+    /**
+     * @return Ataskaitos
+     */
+    public function getFkAtaskaitaataskaitosNumeris()
+    {
+        return $this->fkAtaskaitaataskaitosNumeris;
+    }
+
+    /**
+     * @param Ataskaitos $fkAtaskaitaataskaitosNumeris
+     * @return ItrauktiI
+     */
+    public function setFkAtaskaitaataskaitosNumeris($fkAtaskaitaataskaitosNumeris)
+    {
+        $this->fkAtaskaitaataskaitosNumeris = $fkAtaskaitaataskaitosNumeris;
+        return $this;
+    }
+
 
 }
 

@@ -1,39 +1,57 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-    <div id="main-content">
-        <table class="table-simple">
-            <thead class="table-simple-row">
-            <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-header">Veiksmas</td>
+    <script>
+        function funcText(id) {
+            document.getElementById('deleteID').value = id;
+            return false;
+        }
+    </script>
+    <div class="col-lg-3 panel-group">
+        {% include 'Admin/side_menu.html.twig' %}
+    </div>
+    <div class="col-lg-9">
+        <button class="btn" style="width: 100px;" onclick="window.location.href='/Admin/add_dimension'">Pridėti</button>
+        <table class="table">
+            <thead class="thead-dark">
+            <th scope="col">Pavadinimas</th>
+            <th scope="col">Veiksmas</th>
             </thead>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Didelė</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
-                </td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Vidutinė</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
-                </td>
-            </tr>
-            <tr class="table-simple-row">
-                <td class="table-simple-cell">Maža</td>
-                <td class="table-simple-cell">
-                    <a class="table-action" href="#">Redaguoti</a>
-                    <a class="table-action" href="#">Pašalinti</a>
-                </td>
-            </tr>
+            <tbody>
+            {% for request in requests %}
+                <tr>
+                    <td>{{ request.name }}</td>
+                    <td>
+                        <a href="/Admin/add_dimension?edit=1&id={{request.id}}">Redaguoti</a>
+                        {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+                            <a href="" onclick="return funcText({{request.id}})" data-toggle="modal" data-target="#exampleModalCenter">Trinti</a>
+                        {% endif %}
+                    </td>
+                </tr>
+            {% endfor %}
+            </tbody>
         </table>
     </div>
-    <div id="sidebar">
-    <!-- End Categories -->
-    {{ include ('Admin/side_menu.html.twig') }}
-    </div>
-    <!-- End Sidebar -->
-    <div class="cl">&nbsp;</div>
+    <form action="/admin/dimensions" method="Post">
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Trinimo patvirtinimas</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        Ar tikrai norinte ištrinti objektą?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-secondary" data-dismiss="modal">Ne/Atgal</button>
+                        <input id="deleteID" name="deleteID" value="" hidden="hidden">
+                        <input type="submit" class="btn btn-primary" value="Taip">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 {% endblock %}
