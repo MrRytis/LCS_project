@@ -86,6 +86,19 @@ admin-shipping_methods:
 admin-report:
   path: /admin/report
   defaults: { _controller: AppBundle:Admin:report }
+
+admin-add_dimension:
+  path: /Admin/add_dimension
+  defaults: { _controller: AppBundle:Admin:add_dimension }
+
+admin-add_filler:
+  path: /Admin/add_filler
+  defaults: { _controller: AppBundle:Admin:add_filler }
+
+admin-shipping_method:
+  path: /Admin/add_shipping_method
+  defaults: { _controller: AppBundle:Admin:add_shipping_method }
+
 # end of admin part
 # produkt subsystem
 
