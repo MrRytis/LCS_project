@@ -1,40 +1,39 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
-<div id="main-content">
-    <table class="table-simple">
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Pavadinimas</td>
-            <td class="table-simple-cell">Stalas</td>
+<div class="col-lg-3 panel-group">
+    {{ include('inventory/side_menu.html.twig', { 'categories': categories, 'statuses': statuses }) }}
+</div>
+<div class="col-lg-6">
+    <table class="table">
+        <tr>
+            <th scope="row">Pavadinimas</th>
+            <td>{{ item.name }}</td>
         </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Vertė</td>
-            <td class="table-simple-cell">50</td>
+        <tr>
+            <th scope="row">Vertė</th>
+            <td>{{ item.value }}</td>
         </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Pridėta</td>
-            <td class="table-simple-cell">2018-02-31</td>
+        <tr>
+            <th scope="row">Pridėta</th>
+            <td>{{ item.added|date("Y-m-d")}}</td>
         </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Kategorija</td>
-            <td class="table-simple-cell">Baldai</td>
+        <tr>
+            <th scope="row">Kategorija</th>
+            <td>{{ item.category.name }}</td>
         </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Būsena</td>
-            <td class="table-simple-cell">Naudojamas</td>
+        <tr>
+            <th scope="row">Būsena</th>
+            <td>{{ item.status.name}}</td>
         </tr>
-        <tr class="table-simple-row">
-            <td class="table-simple-header">Vartotojas</td>
-            <td class="table-simple-cell">Vardenis Pavardenis</td>
+        {% if user != '' %}
+        <tr>
+            <th scope="row">Vartotojas</th>
+            <td>{{ user }}</td>
         </tr>
+        {% endif %}
     </table>
-    <a class="btn" href="/inventory/item/form">Redaguoti</a>
-    <a class="btn" href="/inventory">Pašalinti</a>
+    <a class="btn" href="/inventory/item/form?id={{ item.id }}">Redaguoti</a>
+    <a class="btn" href="/inventory/delete/{{ item.id }}">Pašalinti</a>
 </div>
-<!-- Sidebar -->
-<div id="sidebar">
-{{ include ('inventory/side_menu.html.twig') }}
-</div>
-<!-- End Sidebar -->
-<div class="cl">&nbsp;</div>
 {% endblock %}

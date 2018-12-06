@@ -22,10 +22,24 @@ class UsersController extends AbstractController
         $role = $user->getType()->getName() === 'ROLE_DARBUOTOJAS' ? 'Darbuotojas' : $role;
         $role = $user->getType()->getName() === 'ROLE_ADMINISTRATORIUS' ? 'Administratorius' : $role;
 
+        $salary = '';
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $worker = $entityManager->createQuery(
+            'SELECT w
+            FROM AppBundle:Worker w
+            WHERE w.account = :user'
+        )->setParameter('user', $user->getId())->getOneOrNullResult();
+
+        if($worker)
+        {
+            $salary = $worker->getSalary();
+        }
 
         return $this->render('users/index.html.twig', [
             'user' => $user,
-            'role' => $role
+            'role' => $role,
+            'salary' => $salary
         ]);
     }
 
