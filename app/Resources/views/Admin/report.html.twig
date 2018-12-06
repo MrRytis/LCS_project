@@ -8,7 +8,7 @@
         <div class="box">
             <h2>Ataskaitos duomenys:</h2>
             <div class="box-content">
-                <form action="/Admin/Report" method="post">
+                <form action="/admin/report" method="post">
                     <div class="form-group row">
                         <div class="col-sm-2">
                             <label>Data nuo:</label>
@@ -32,7 +32,7 @@
                         <div class="col-sm-3">
                             <select id="type" name="report"  class="form-control custom-select">
                                 <option selected value="-1">Visi tipai</option>
-                                {% for type in requests %}
+                                {% for type in types %}
                                     <option value="{{ type.id }}">{{ type.name }}</option>
                                 {% endfor %}
                             </select>
@@ -56,17 +56,17 @@
         <table class="table">
             <thead class="thead-dark">
                 <th scope="col">Užsakymo data</th>
-                <th scope="col">Vertė</th>
-                <th scope="col">Siuntimo būdas</th>
+                <th scope="col">Apmokejimo Busena</th>
+                <th scope="col">Pakuotės Užpildas</th>
             </thead>
             <tbody>
-            {#{% for request in requests %}#}
-                {#<tr>#}
-                    {#<td>{{ request.date }}</td>#}
-                    {#<td>{{ request.price }}</td>#}
-                    {#<td>{{ request.method }}</td>#}
-                {#</tr>#}
-            {#{% endfor %}#}
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.data|date('Y-m-d')  }}</td>
+                    <td>{{ order.apmokejimaBusena }}</td>
+                    <td>{{ order.pakuotesUzpildas }}</td>
+                </tr>
+            {% endfor %}
             </tbody>
         </table>
     </div>
