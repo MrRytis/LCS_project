@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Client;
 
 /**
  * Atsiskaitymai
@@ -53,15 +54,121 @@ class Atsiskaitymai
     private $fkUzsakymasid;
 
     /**
-     * @var \AppBundle\Entity\Klientai
+     * @var \AppBundle\Entity\Client
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Klientai")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Klientasid", referencedColumnName="id")
      * })
      */
     private $fkKlientasid;
 
+    /**
+     * @return float
+     */
+    public function getSuma()
+    {
+        return $this->suma;
+    }
 
+    /**
+     * @param float $suma
+     * @return Atsiskaitymai
+     */
+    public function setSuma($suma)
+    {
+        $this->suma = $suma;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getKortelesNr()
+    {
+        return $this->kortelesNr;
+    }
+
+    /**
+     * @param string $kortelesNr
+     * @return Atsiskaitymai
+     */
+    public function setKortelesNr($kortelesNr)
+    {
+        $this->kortelesNr = $kortelesNr;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getData()
+    {
+        return $this->data;
+    }
+
+    /**
+     * @param \DateTime $data
+     * @return Atsiskaitymai
+     */
+    public function setData($data)
+    {
+        $this->data = $data;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     * @return Atsiskaitymai
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return Uzsakymai
+     */
+    public function getFkUzsakymasid()
+    {
+        return $this->fkUzsakymasid;
+    }
+
+    /**
+     * @param Uzsakymai $fkUzsakymasid
+     * @return Atsiskaitymai
+     */
+    public function setFkUzsakymasid($fkUzsakymasid)
+    {
+        $this->fkUzsakymasid = $fkUzsakymasid;
+        return $this;
+    }
+
+    /**
+     * @return Client
+     */
+    public function getFkKlientasid()
+    {
+        return $this->fkKlientasid;
+    }
+
+    /**
+     * @param Client $fkKlientasid
+     * @return Atsiskaitymai
+     */
+    public function setFkKlientasid($fkKlientasid)
+    {
+        $this->fkKlientasid = $fkKlientasid;
+        return $this;
+    }
 }
 

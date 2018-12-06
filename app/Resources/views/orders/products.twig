@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-9">
+                <h2>Prekės</h2>
+                <table class="table table-bordered">
+                    <thead>
+                    <tr>
+                        <th>Pavadinimas</th>
+                        <th>Kaina</th>
+                        <th>Kiekis</th>
+                    </tr>
+                    {% for product in products %}
+                        <tr>
+                            <td>{{   product.fkProduktasid.pavadinimas }}</td>
+                            <td>{{ product.fkProduktasid.kaina }}</td>
+                            <td>{{  product.kiekis }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <input type="submit" value="Atgal" class="btn" onclick="window.location.href='/orders/list'">
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -68,7 +68,7 @@ class AccountRequest
     /**
      * @var \AppBundle\Entity\Worker
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Worker")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Worker", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Darbuotojasid", referencedColumnName="id")
      * })
@@ -78,101 +78,175 @@ class AccountRequest
     /**
      * @var \AppBundle\Entity\UserRole
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\UserRole", fetch="EAGER")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="Tipas", referencedColumnName="id")
      * })
      */
     private $type;
 
-    public function setName($value)
-    {
-        $this->name = $value;
-    }
-
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
-    public function setSurname($value)
+    /**
+     * @param string $name
+     * @return AccountRequest
+     */
+    public function setName($name)
     {
-        $this->surname = $value;
+        $this->name = $name;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getSurname()
     {
         return $this->surname;
     }
 
-    public function setEmail($value)
+    /**
+     * @param string $surname
+     * @return AccountRequest
+     */
+    public function setSurname($surname)
     {
-        $this->email = $value;
+        $this->surname = $surname;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getEmail()
     {
         return $this->email;
     }
 
-    public function setPassword($value)
+    /**
+     * @param string $email
+     * @return AccountRequest
+     */
+    public function setEmail($email)
     {
-        $this->password = $value;
+        $this->email = $email;
+        return $this;
     }
 
+    /**
+     * @return string
+     */
     public function getPassword()
     {
         return $this->password;
     }
 
-    public function setApplyDate($value)
+    /**
+     * @param string $password
+     * @return AccountRequest
+     */
+    public function setPassword($password)
     {
-        $this->applyDate = $value;
+        $this->password = $password;
+        return $this;
     }
 
+    /**
+     * @return \DateTime
+     */
     public function getApplyDate()
     {
         return $this->applyDate;
     }
 
-    public function setId($value)
+    /**
+     * @param \DateTime $applyDate
+     * @return AccountRequest
+     */
+    public function setApplyDate($applyDate)
     {
-        $this->id = $value;
+        $this->applyDate = $applyDate;
+        return $this;
     }
 
+    /**
+     * @return bool
+     */
+    public function isAccepted()
+    {
+        return $this->accepted;
+    }
+
+    /**
+     * @param bool $accepted
+     * @return AccountRequest
+     */
+    public function setAccepted($accepted)
+    {
+        $this->accepted = $accepted;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
 
-    public function setAccepted($value)
+    /**
+     * @param int $id
+     * @return AccountRequest
+     */
+    public function setId($id)
     {
-        $this->accepted = $value;
+        $this->id = $id;
+        return $this;
     }
 
-    public function getAccepted()
-    {
-        return $this->accepted;
-    }
-
-    public function setWorker($value)
-    {
-        $this->worker = $value;
-    }
-
+    /**
+     * @return \AppBundle\Entity\Worker
+     */
     public function getWorker()
     {
         return $this->worker;
     }
 
-    public function setType($value)
+    /**
+     * @param \AppBundle\Entity\Worker $worker
+     * @return AccountRequest
+     */
+    public function setWorker($worker)
     {
-        $this->type = $value;
+        $this->worker = $worker;
+        return $this;
     }
 
+    /**
+     * @return \AppBundle\Entity\UserRole
+     */
     public function getType()
     {
         return $this->type;
     }
+
+    /**
+     * @param \AppBundle\Entity\UserRole $type
+     * @return AccountRequest
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+        return $this;
+    }
+
+
 }
 

@@ -38,10 +38,12 @@ class MedziaguGrupes
 
     /**
      * @param string $pavadinimas
+     * @return MedziaguGrupes
      */
     public function setPavadinimas($pavadinimas)
     {
         $this->pavadinimas = $pavadinimas;
+        return $this;
     }
 
     /**
@@ -54,10 +56,12 @@ class MedziaguGrupes
 
     /**
      * @param int $id
+     * @return MedziaguGrupes
      */
     public function setId($id)
     {
         $this->id = $id;
+        return $this;
     }
 
 

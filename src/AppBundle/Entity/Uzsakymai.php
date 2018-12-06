@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use AppBundle\Entity\Client;
+
 
 /**
  * Uzsakymai
@@ -52,7 +54,7 @@ class Uzsakymai
     /**
      * @var \AppBundle\Entity\Client
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Client", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Klientasid", referencedColumnName="id")
      * })
@@ -170,7 +172,7 @@ class Uzsakymai
     }
 
     /**
-     * @return Klientai
+     * @return Client
      */
     public function getFkKlientasid()
     {
@@ -178,7 +180,7 @@ class Uzsakymai
     }
 
     /**
-     * @param Klientai $fkKlientasid
+     * @param Client $fkKlientasid
      * @return Uzsakymai
      */
     public function setFkKlientasid($fkKlientasid)

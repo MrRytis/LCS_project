@@ -124,12 +124,92 @@ class Produktai
     /**
      * @var \AppBundle\Entity\MedziaguGrupes
      *
-     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\MedziaguGrupes")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\MedziaguGrupes", cascade={"persist"})
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="fk_Medziagu_grupeid", referencedColumnName="id")
      * })
      */
     private $fkMedziaguGrupeid;
+
+    /**
+     * @return string
+     */
+    public function getPavadinimas()
+    {
+        return $this->pavadinimas;
+    }
+
+    /**
+     * @param string $pavadinimas
+     */
+    public function setPavadinimas($pavadinimas)
+    {
+        $this->pavadinimas = $pavadinimas;
+    }
+
+    /**
+     * @return float
+     */
+    public function getKaina()
+    {
+        return $this->kaina;
+    }
+
+    /**
+     * @param float $kaina
+     */
+    public function setKaina($kaina)
+    {
+        $this->kaina = $kaina;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSukurimoData()
+    {
+        return $this->sukurimoData;
+    }
+
+    /**
+     * @param \DateTime $sukurimoData
+     */
+    public function setSukurimoData($sukurimoData)
+    {
+        $this->sukurimoData = $sukurimoData;
+    }
+
+    /**
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param int $id
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+    }
+
+    /**
+     * @return MedziaguGrupes
+     */
+    public function getFkMedziaguGrupeid()
+    {
+        return $this->fkMedziaguGrupeid;
+    }
+
+    /**
+     * @param MedziaguGrupes $fkMedziaguGrupeid
+     */
+    public function setFkMedziaguGrupeid($fkMedziaguGrupeid)
+    {
+        $this->fkMedziaguGrupeid = $fkMedziaguGrupeid;
+    }
 
 
 }

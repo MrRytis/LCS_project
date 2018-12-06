@@ -28,24 +28,42 @@ class UserRole
      */
     private $id;
 
-    public function setName($value)
-    {
-        $this->name = $value;
-    }
-
+    /**
+     * @return string
+     */
     public function getName()
     {
         return $this->name;
     }
 
-    public function setId($value)
+    /**
+     * @param string $name
+     * @return UserRole
+     */
+    public function setName($name)
     {
-        $this->id = $value;
+        $this->name = $name;
+        return $this;
     }
 
+    /**
+     * @return int
+     */
     public function getId()
     {
         return $this->id;
     }
+
+    /**
+     * @param int $id
+     * @return UserRole
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+
 }
 
