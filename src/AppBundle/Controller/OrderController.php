@@ -62,40 +62,36 @@ class OrderController extends AbstractController
      */
     public function newAddAction($id)
     {
-        $new_order = $this->getDoctrine()->getRepository(Uzsakymai::class)->findBy(
-            array("apmokejimaBusena" => false)
-        );
+        $entityManager = $this->getDoctrine()->getManager();
+        $user = $this->getUser();
+        $client = $entityManager->createQuery(
+            'SELECT c
+        FROM AppBundle:Client c
+        WHERE c.account = :user'
+        )->setParameter('user', $user->getId())->getOneOrNullResult();
+
+        $order = $entityManager->createQuery(
+            'SELECT u
+            FROM AppBundle:Uzsakymai u
+            WHERE u.apmokejimaBusena = :apmokejimas AND u.fkKlientasid = :client')
+            ->setParameter('apmokejimas', 0)->setParameter('client', $client->getId())->getOneOrNullResult();
+
+        $product = $entityManager->createQuery(
+            'SELECT p
+            FROM AppBundle:Produktai p
+            WHERE p.id = :id'
+        )->setParameter('id', $id)->getOneOrNullResult();
 
         $entityManager = $this->getDoctrine()->getManager();
 
-        if($new_order == null)
+        if($order == null)
         {
-            $cl = $this->getDoctrine()->getRepository(Client::class)->find(1);
-
-            $client = new Client();
-            $client->setId($cl->getId());
-            $client->setAccount($cl->getAccount());
-
             $order = new Uzsakymai();
             $order->setData(new \DateTime('now'));
             $order->setApmokejimaBusena(false);
             $order->setFkKlientasid($client);
 
             $entityManager->persist($order);
-//            $entityManager->flush();
-
-            $pr = $this->getDoctrine()->getRepository(Produktai::class)->find($id);
-
-            $group = new MedziaguGrupes();
-            $group->setPavadinimas($pr->getFkMedziaguGrupeid()->getPavadinimas());
-            $group->setId($pr->getFkMedziaguGrupeid()->getId());
-
-            $product = new Produktai();
-            $product->setId($pr->getId());
-            $product->setKaina($pr->getKaina());
-            $product->setPavadinimas($pr->getPavadinimas());
-            $product->setSukurimoData($pr->getSukurimoData());
-            $product->setFkMedziaguGrupeid($group);
 
             $amount = new Kiekiai();
             $amount->setKiekis(1);
@@ -107,28 +103,9 @@ class OrderController extends AbstractController
         }
         else
         {
-            $pr = $this->getDoctrine()->getRepository(Produktai::class)->find($id);
-
-            $group = new MedziaguGrupes();
-            $group->setPavadinimas($pr->getFkMedziaguGrupeid()->getPavadinimas());
-            $group->setId($pr->getFkMedziaguGrupeid()->getId());
-
-            $product = new Produktai();
-            $product->setId($pr->getId());
-            $product->setKaina($pr->getKaina());
-            $product->setPavadinimas($pr->getPavadinimas());
-            $product->setSukurimoData($pr->getSukurimoData());
-            $product->setFkMedziaguGrupeid($group);
-
-            $cl = $this->getDoctrine()->getRepository(Client::class)->find(1);
-
-            $client = new Client();
-            $client->setId($cl->getId());
-            $client->setAccount($cl->getAccount);
-
             $order = new Uzsakymai();
-            $order->setData($new_order->getData());
-            $order->setApmokejimaBusena($new_order->getApmokejimoBusena());
+            $order->setData($order->getData());
+            $order->setApmokejimaBusena($order->getApmokejimoBusena());
             $order->setFkKlientasid($client);
 
             $amount = new Kiekiai();
