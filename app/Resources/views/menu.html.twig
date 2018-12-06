@@ -20,6 +20,7 @@
             {% endif %}
             <li><a href="/logout">Atsijungti</a></li>
         </ul>
+            {% if is_granted('ROLE_KLIENTAS') %}
         <ul class="nav navbar-nav navbar-right">
             <div>
                 <a href="/orders/new" class="cart-link">Jusu uzsakymas</a>
@@ -29,5 +30,6 @@
             {#<li class="nav-item"><a class="nav-link" href="/login"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>#}
             {#<li class="nav-item"><a class="nav-link" href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>#}
         </ul>
+                    {% endif %}
     </div>
 </nav>
