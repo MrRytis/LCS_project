@@ -1,14 +1,13 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    <div class="col-lg-3 panel-group">
+        {% include 'Admin/side_menu.html.twig' %}
+    </div>
     <div id="main-content">
         <div align="center">
             <h2>Administratoriaus valdymo skydas</h2>
         </div>
     </div>
-
-    <div id="sidebar">
-    {{ include ('Admin/side_menu.html.twig') }}
-    </div>
-    <div class="cl">&nbsp;</div>
+    
 {% endblock %}

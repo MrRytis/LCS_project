@@ -52,6 +52,96 @@ class Ataskaitos
      */
     private $tipas;
 
+    /**
+     * @return \DateTime
+     */
+    public function getNuoKada()
+    {
+        return $this->nuoKada;
+    }
+
+    /**
+     * @param \DateTime $nuoKada
+     * @return Ataskaitos
+     */
+    public function setNuoKada($nuoKada)
+    {
+        $this->nuoKada = $nuoKada;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getIkiKada()
+    {
+        return $this->ikiKada;
+    }
+
+    /**
+     * @param \DateTime $ikiKada
+     * @return Ataskaitos
+     */
+    public function setIkiKada($ikiKada)
+    {
+        $this->ikiKada = $ikiKada;
+        return $this;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getSukurimoData()
+    {
+        return $this->sukurimoData;
+    }
+
+    /**
+     * @param \DateTime $sukurimoData
+     * @return Ataskaitos
+     */
+    public function setSukurimoData($sukurimoData)
+    {
+        $this->sukurimoData = $sukurimoData;
+        return $this;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAtaskaitosNumeris()
+    {
+        return $this->ataskaitosNumeris;
+    }
+
+    /**
+     * @param int $ataskaitosNumeris
+     * @return Ataskaitos
+     */
+    public function setAtaskaitosNumeris($ataskaitosNumeris)
+    {
+        $this->ataskaitosNumeris = $ataskaitosNumeris;
+        return $this;
+    }
+
+    /**
+     * @return AtaskaitosTipai
+     */
+    public function getTipas()
+    {
+        return $this->tipas;
+    }
+
+    /**
+     * @param AtaskaitosTipai $tipas
+     * @return Ataskaitos
+     */
+    public function setTipas($tipas)
+    {
+        $this->tipas = $tipas;
+        return $this;
+    }
+
 
 }
 

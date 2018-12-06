@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+    {% if is_granted('ROLE_ADMINISTRATORIUS') %}
+        <div class="col-lg-3 panel-group">
+            {% include 'users/side_menu.html.twig' %}
+        </div>
+    {% endif %}
 <div class="col-lg-6">
     <table class="table">
         <tbody>
