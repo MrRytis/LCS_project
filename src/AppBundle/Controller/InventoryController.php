@@ -11,6 +11,8 @@ use AppBundle\Entity\Item;
 use AppBundle\Entity\ItemUse;
 use AppBundle\Entity\LcsUser;
 use AppBundle\Entity\Worker;
+use AppBundle\Entity\Client;
+use Doctrine\DBAL\DBALException;
 
 class InventoryController extends AbstractController
 {
@@ -21,6 +23,10 @@ class InventoryController extends AbstractController
         $categories = $request->query->get('categories', '');
         $entityManager = $this->getDoctrine()->getManager();
         $items = array();
+
+        $flashbag = $this->get('session')->getFlashBag();
+        $success = $flashbag->get('success', array(''))[0];
+        $error = $flashbag->get('error', array(''))[0];
 
         if($statuses !== '' && $categories !== '')
         {
@@ -64,12 +70,14 @@ class InventoryController extends AbstractController
                 'SELECT i
                 FROM AppBundle:Item i
                 WHERE LOWER(i.name) LIKE :word_start OR LOWER(i.name) LIKE :name_start AND i.deleted IS NULL'
-            )->setParameter('word_start', '% ' . strtolower($search) . '%')
-            ->setParameter('name_start', strtolower($search) . '%')
+            )->setParameter('word_start', '% ' . mb_strtolower($search, 'UTF-8') . '%')
+            ->setParameter('name_start', mb_strtolower($search, 'UTF-8') . '%')
             ->getResult();
         }
 
         return $this->render('inventory/index.html.twig', [
+            'success' => $success,
+            'error' => $error,
             'statuses' => $this->getStatuses(),
             'categories' => $this->getCategories(),
             'items' => $items
@@ -139,6 +147,15 @@ class InventoryController extends AbstractController
                 $statuses = $this->getStatuses();
                 $status = $statuses[0];
 
+                for($i = 0; $i < count($statuses); $i = $i + 1)
+                {
+                    if($statuses[$i]->getName() === 'Laisvas')
+                    {
+                        $status = $statuses[$i];
+                        break;
+                    }
+                }
+
                 $name = $request->request->get('name', '');
                 $price = $request->request->get('price', '');
                 $categoryId = $request->request->get('category', '');
@@ -150,6 +167,13 @@ class InventoryController extends AbstractController
                 if($price === '')
                 {
                     $error = 'Būtina įrašyti vertę';
+                }
+                if(!is_numeric($price))
+                {
+                    $error = 'Vertė turi būti skaičius';
+                }
+                if(is_numeric($price) && $price <= 0) {
+                    $error = 'Vertė turi būti teigiama';
                 }
 
                 if($error === '')
@@ -253,8 +277,6 @@ class InventoryController extends AbstractController
             }
         }
 
-        //var_dump($item);
-
         return $this->render('inventory/item_form.html.twig', [
             'statuses' => $this->getStatuses(),
             'categories' => $this->getCategories(),
@@ -268,21 +290,42 @@ class InventoryController extends AbstractController
     {
         if($id !== '')
         {
-            $entityManager = $this->getDoctrine()->getManager();
-            $item = $entityManager->createQuery(
-                'SELECT i
-                FROM AppBundle:Item i
-                WHERE i.id = :id'
-            )->setParameter('id', $id)->getOneOrNullResult();
-
-            if($item)
+            try
             {
-                $item->setDeleted(new \DateTime('now'));
+                $entityManager = $this->getDoctrine()->getManager();
+                $item = $entityManager->createQuery(
+                    'SELECT i
+                    FROM AppBundle:Item i
+                    WHERE i.id = :id AND i.deleted IS NULL'
+                )->setParameter('id', $id)->getOneOrNullResult();
 
-                $entityManager->persist($item);
-                $entityManager->flush();
+                if($item)
+                {
+                    if($item->getStatus()->getName() === 'Laisvas')
+                    {
+                        $item->setDeleted(new \DateTime('now'));
+
+                        $entityManager->persist($item);
+                        $entityManager->flush();
+    
+                        $this->addFlash('success', 'Daiktas pašalintas');
+                    }
+                    else
+                    {
+                        $this->addFlash('error', 'Daiktas turi būti laisvas');
+                    }
+                }
+                else
+                {
+                    $this->addFlash('error', 'Daiktas nerastas');
+                }
+            }
+            catch(DBALException $e)
+            {
+                $this->addFlash('error', 'Klaida pašalinant daiktą');
             }
         }
+
 
         return $this->redirectToRoute('inventory-show');
     }
@@ -302,13 +345,20 @@ class InventoryController extends AbstractController
             }
             else
             {
-                $entityManager = $this->getDoctrine()->getManager();
-                $category = new Category();
-                $category->setName($name);
-                $entityManager->persist($category);
-                $entityManager->flush();
+                try
+                {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $category = new Category();
+                    $category->setName($name);
+                    $entityManager->persist($category);
+                    $entityManager->flush();
 
-                $success = 'Kategorija sukurta';
+                    $success = 'Kategorija sukurta';
+                }
+                catch(DBALException $e)
+                {
+                    $error = 'Tokia kategorija jau egzistuoja';
+                }
             }
         }
 
@@ -335,13 +385,20 @@ class InventoryController extends AbstractController
             }
             else
             {
-                $entityManager = $this->getDoctrine()->getManager();
-                $status = new Status();
-                $status->setName($name);
-                $entityManager->persist($status);
-                $entityManager->flush();
+                try
+                {
+                    $entityManager = $this->getDoctrine()->getManager();
+                    $status = new Status();
+                    $status->setName($name);
+                    $entityManager->persist($status);
+                    $entityManager->flush();
 
-                $success = 'Būsena sukurta';
+                    $success = 'Būsena sukurta';
+                }
+                catch (DBALException $e)
+                {
+                    $error = 'Tokia būsena jau yra';
+                }
             }
         }
 

@@ -1,10 +1,22 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+<script>
+function funcText(id) {
+    var url = `/inventory/delete/${id}`;
+    console.log(url);
+    document.getElementById('deleteID').href = url;
+    console.log(document.getElementById('deleteID').href);
+    return false;
+}
+</script>
 <div class="col-lg-3 panel-group">
     {{ include('inventory/side_menu.html.twig', { 'categories': categories, 'statuses': statuses }) }}
 </div>
 <div class="col-lg-9">
+    {{ include('error_msg.html.twig', { 'msg': error }) }}
+    {{ include('success_msg.html.twig', { 'msg': success }) }}
+    {% if items|length > 0 %}
     <table class="table">
         <thead class="thead-dark">
             <th scope="col">Pavadinimas</th>
@@ -22,11 +34,36 @@
                 <td>{{ item.category.name }}</td>
                 <td>
                     <a class="btn btn-link" href="/inventory/item/form?id={{ item.id }}">Redaguoti</a>
-                    <a class="btn btn-link" href="/inventory/delete/{{ item.id }}">Pašalinti</a>
+                    <a class="btn btn-link" href="" onclick="return funcText({{ item.id }})" data-toggle="modal" data-target="#deleteModal">Pašalinti</a>
                 </td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <span class="col-lg-12 alert alert-info">Daiktų sąrašas tuščias</span>
+    {% endif %}
 </div>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Šalinimo patvirtinimas</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Ar tikrai norinte ištrinti objektą?
+            </div>
+            <div class="modal-footer">
+                <a class="btn btn-primary" href="" id="deleteID">Taip</a>
+                <button type="submit" class="btn btn-secondary" data-dismiss="modal">Ne</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="cl">&nbsp;</div>
+<!-- End Modal -->
 {% endblock %}
