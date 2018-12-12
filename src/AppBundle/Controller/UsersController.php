@@ -10,7 +10,9 @@ use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use AppBundle\Entity\LcsUser;
 use AppBundle\Entity\AccountRequest;
 use AppBundle\Entity\Worker;
+use AppBundle\Entity\Client;
 use AppBundle\Entity\UserRole;
+use Doctrine\DBAL\DBALException;
 
 class UsersController extends AbstractController
 {
@@ -62,6 +64,8 @@ class UsersController extends AbstractController
         $lastSurname = '';
         $error = false;
         $errorMsgs = array();
+        $successMsg = '';
+        $registered = false;
 
         if($request->isMethod('post'))
         {
@@ -120,54 +124,72 @@ class UsersController extends AbstractController
                 $user = new LcsUser();
                 $encoded = $encoder->encodePassword($user, $password);
 
-                $accRequest = new AccountRequest();
-                $accRequest->setEmail($lastEmail);
-                $accRequest->setName($lastName);
-                $accRequest->setSurname($lastSurname);
-                $accRequest->setPassword($encoded);
-                $accRequest->setApplyDate(new \DateTime('now'));
-                $accRequest->setType($role);
-
-                if($foundType === 'ROLE_KLIENTAS')
+                try
                 {
-                    $accRequest->setAccepted(true);
-                    $entityManager->persist($accRequest);
+                    $accRequest = new AccountRequest();
+                    $accRequest->setEmail($lastEmail);
+                    $accRequest->setName($lastName);
+                    $accRequest->setSurname($lastSurname);
+                    $accRequest->setPassword($encoded);
+                    $accRequest->setApplyDate(new \DateTime('now'));
+                    $accRequest->setType($role);
 
-                    $user->setEmail($lastEmail);
-                    $user->setName($lastName);
-                    $user->setSurname($lastSurname);
-                    $user->setPassword($encoded);
-                    $user->setRegistration(new \DateTime('now'));
-                    $user->setType($role);
-                    $user->setAccountRequest($accRequest);
+                    if($foundType === 'ROLE_KLIENTAS')
+                    {
+                        $accRequest->setAccepted(true);
+                        $entityManager->persist($accRequest);
 
-                    $entityManager->persist($user);
-                    $entityManager->flush();
+                        $user->setEmail($lastEmail);
+                        $user->setName($lastName);
+                        $user->setSurname($lastSurname);
+                        $user->setPassword($encoded);
+                        $user->setRegistration(new \DateTime('now'));
+                        $user->setType($role);
+                        $user->setAccountRequest($accRequest);
 
-                    return $this->redirectToRoute('login');
+                        $entityManager->persist($user);
+                        $entityManager->flush();
+
+                        $client = new Client();
+                        $client->setAccount($user);
+                        $entityManager->persist($client);
+                        $entityManager->flush();
+
+                        $successMsg = 'Registracija sėkminga';
+                    }
+                    else
+                    {
+                        $accRequest->setAccepted(false);
+                        $entityManager->persist($accRequest);
+                        $entityManager->flush();
+
+                        $successMsg = 'Registracija sėkminga. Laukite paskyros patvirtinimo';
+                    }
+
+                    $registered = true;
                 }
-                else
+                catch(DBALException $e)
                 {
-                    $accRequest->setAccepted(false);
-                    $entityManager->persist($accRequest);
-                    $entityManager->flush();
-
-                    return $this->redirectToRoute('login');
+                    $error = true;
+                    $errorMsgs[] = 'Vartotojas jau egzistuoja';
                 }
             }
         }
 
         return $this->render('users/register.html.twig', [
+            'success' => $successMsg,
             'error' => $error,
             'error_msgs' => $errorMsgs,
             'last_email' => $lastEmail,
             'last_name' => $lastName,
             'last_surname' => $lastSurname,
+            'registered' => $registered
         ]);
     }
 
     public function pendingAction(Request $request)
     {
+        $alerts = array();
         $repository = $this->getDoctrine()->getRepository(AccountRequest::class);
         $workersRepository = $this->getDoctrine()->getRepository(Worker::class);
         $entityManager = $this->getDoctrine()->getManager();
@@ -193,6 +215,7 @@ class UsersController extends AbstractController
             
             if($accRequest)
             {
+                $message = 'Vartotojas atmestas';
                 $accRequest->setWorker($worker);
                 $accRequest->setAccepted($action === 'Patvirtinti');
 
@@ -219,11 +242,15 @@ class UsersController extends AbstractController
 
                     $entityManager->persist($workerAcc);
                     $entityManager->flush();
+
+                    $message = 'Vartotojas patvirtintas';
                 }
+
+                $alerts[] = [ 'key' => '1', 'type' => 'success', 'message' => 'Pakeitimas įvykdytas. ' . $message ];
             }
             else
             {
-
+                $alerts[] = [ 'key' => '1', 'type' => 'danger', 'message' => 'Vartotojas nerastas'];
             }
         }
 
@@ -234,6 +261,7 @@ class UsersController extends AbstractController
             ->getResult();
 
         return $this->render('users/pending.html.twig', [
+            'alerts' => $alerts,
             'requests' => $pendingAccounts
         ]);
     }

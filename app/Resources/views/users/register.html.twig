@@ -15,6 +15,7 @@
         </ul>
     </div>
     {% endif %}
+    {% if registered == false %}
     <form method="post" action="/register">
         <div class="form-group">
             <label for="name">Vardas</label>
@@ -47,5 +48,9 @@
         <button type="submit" class="btn btn-secondary">Registruotis</button>
         <a href="/login" class="btn btn-link">Atgal</a>
     </form>
+    {% else %}
+    <div class="alert alert-success">{{ success }}</div>
+    <a href="/login" class="btn btn-secondary">Prisijungti</a>
+    {% endif %}
 </div>
 {% endblock %}

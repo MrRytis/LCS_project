@@ -1,7 +1,9 @@
 {% extends 'base.html.twig' %}
 
 {% block content %}
+{% include 'alert.html.twig' with alerts %}
 <div class="col-lg-16">
+    {% if requests|length > 0 %}
     <table class="table">
         <thead class="thead-dark">
             <th scope="col">Vardas</th>
@@ -35,5 +37,8 @@
             {% endfor %}
         </tbody>
     </table>
+    {% else %}
+    <span>Paraiškų nerasta</span>
+    {% endif %}
 </div>
 {% endblock %}

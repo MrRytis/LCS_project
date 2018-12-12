@@ -7,7 +7,9 @@
             <li><a href="/main">Prekes</a></li>
             <li><a  href="/transportation">Transportavimas</a></li>
             <li><a href="/orders/list">Mano užsakymai</a></li>
+            {% if is_granted('ROLE_ADMINISTRATORIUS') or is_granted('ROLE_DARBUOTOJAS') %}
             <li><a href="/inventory">Inventorius</a></li>
+            {% endif %}
             {% if is_granted('ROLE_ADMINISTRATORIUS') %}
             <li><a href="/pending">Paskyros</a></li>
             {% endif %}
