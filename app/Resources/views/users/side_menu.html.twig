@@ -5,7 +5,9 @@
     <div class="panel-body">
         <div class="panel-body">
             <div class="list-group">
+                {% if is_granted('ROLE_ADMINISTRATORIUS') or is_granted('ROLE_DARBUOTOJAS') %}
                 <a href="/admin" class="list-group-item">Keliauti į valdymo skydą</a>
+                {% endif %}
             </div>
         </div>
     </div>

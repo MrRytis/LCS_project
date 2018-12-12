@@ -11,6 +11,10 @@
         {% include 'Admin/side_menu.html.twig' %}
     </div>
     <div class="col-lg-9">
+        <h2>Užpildai:</h2>
+        {% if error != "" %}
+            <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+        {% endif %}
         <button class="btn" style="width: 100px;" onclick="window.location.href='/Admin/add_filler'">Pridėti</button>
         <table class="table">
             <thead class="thead-dark">

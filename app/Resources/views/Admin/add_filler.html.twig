@@ -4,10 +4,14 @@
     <div class="cl">&nbsp;</div>
     <div>
         <div class="row">
-            <div class="col-75">
+            <div class="col-lg-3 panel-group">
+                {% include 'Admin/side_menu.html.twig' %}
+            </div>
+            <div class="col-lg-9">
                 <div class="container">
                     <h2> Užpildo Duomenys</h2>
                 </div>
+                {{ include('success_msg.html.twig', { 'msg': success }) }}
                 <div class="container">
                     <form action="/Admin/add_filler{% if item is not null %}?edit=1&id={{ item.id }}{% endif %}" method="Post">
                         <div class="form-group row">
