@@ -16,8 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class OrderController extends AbstractController
 {
-    public function newAction()
+    public function newAction(Request $request)
     {
+        $referer = $request->headers->get('referer');
+        $msg = null;
+        if($referer == 'http://127.0.0.1:8000/order_new/remove/*')
+        {
+            $msg = "Istrynta sekmingai";
+        }
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $client = $entityManager->createQuery(
@@ -26,11 +32,6 @@ class OrderController extends AbstractController
         WHERE c.account = :user'
         )->setParameter('user', $user->getId())->getOneOrNullResult();
 
-//        $cl = $this->getDoctrine()->getRepository(Client::class)->find($client->getId());
-//        $or = $this->getDoctrine()->getRepository(Uzsakymai::class)->findBy(
-//            array("apmokejimaBusena" => false),
-//            array("fkKlientasid" => $cl)
-//        );
         $order = $entityManager->createQuery(
             'SELECT u
             FROM AppBundle:Uzsakymai u
@@ -52,6 +53,7 @@ class OrderController extends AbstractController
             'controller_name' => 'OrderController',
             'new_orders' => $products,
             'suma' => $suma,
+            'msg' => $msg,
         ]);
     }
 
@@ -71,6 +73,8 @@ class OrderController extends AbstractController
         FROM AppBundle:Client c
         WHERE c.account = :user'
         )->setParameter('user', $user->getId())->getOneOrNullResult();
+
+
 
         $order = $entityManager->createQuery(
             'SELECT u
@@ -271,8 +275,15 @@ class OrderController extends AbstractController
         return $this->redirect("/orders/list");
     }
 
-    public function listAction()
+    public function listAction(Request $request)
     {
+        $referer = $request->headers->get('referer');
+        $msg = null;
+        if($referer == 'http://127.0.0.1:8000/orders/payment')
+        {
+           $msg = "Apmoketa sekmingai";
+        }
+
         $entityManager = $this->getDoctrine()->getManager();
         $user = $this->getUser();
         $client = $entityManager->createQuery(
@@ -289,6 +300,7 @@ class OrderController extends AbstractController
         return $this->render('orders/order_list.twig', [
             'controller_name' => 'OrderController',
             'orders' => $orders,
+            'msg' => $msg,
         ]);
     }
 

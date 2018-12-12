@@ -4,6 +4,11 @@
     <div id="container">
         <div class="row">
             <div class="col-lg-9">
+                {% if msg %}
+                    <div class="alert alert-success">
+                        {{ msg }}
+                    </div>
+                {% endif %}
                 {% if new_orders %}
                 <h2>Naujas užsakymas</h2>
                 <table class="table table-bordered">
@@ -11,7 +16,7 @@
                     <tr>
                         <th>Prekės pavadinimas</th>
                         <th>Tipas</th>
-                        <th>Kiekis</th>
+                        {#<th>Kiekis</th>#}
                         <th>Suma</th>
                         <th>Trinti</th>
                     </tr>
@@ -19,7 +24,7 @@
                         <tr>
                             <td>{{   order.fkProduktasid.pavadinimas }}</td>
                             <td>{{ order.fkProduktasid.fkMedziaguGrupeid.pavadinimas }}</td>
-                            <td><input type="number" id="kiekis" name="kieks"></td>
+                            {#<td><input type="number" id="kiekis" name="kiekis"></td>#}
                             <td>{{  order.fkProduktasid.kaina }} EUR</td>
                             <td><a  href="{{ path('remove-from-order', {'id': order.id }) }}">Išimti</a></td>
                         </tr>
