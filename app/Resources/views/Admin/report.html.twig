@@ -7,6 +7,9 @@
     <div class="col-lg-9">
         <div class="box">
             <h2>Ataskaitos duomenys:</h2>
+            {% if error != "" %}
+                <div class="alert alert-danger text-left"><span>{{ error }}</span></div>
+            {% endif %}
             <div class="box-content">
                 <form action="/admin/report" method="post">
                     <div class="form-group row">
