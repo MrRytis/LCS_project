@@ -258,7 +258,7 @@ class ProduktController extends AbstractController
                     ->getRepository(MedziaguGrupes::class)->find($_POST["medzGrSelect"]);
                 $obj = new Produktai();
                 $obj->setPavadinimas($_POST["name"]);
-                $obj->setKaina(0);
+                $obj->setKaina(rand(1, 10000)/100);
                 $obj->setSukurimoData(new \DateTime('now'));
                 $obj->setFkMedziaguGrupeid($medzItem);
 
