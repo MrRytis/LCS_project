@@ -547,6 +547,24 @@ ALTER TABLE `vartotoju_roles`
 --
 
 --
+-- AUTO_INCREMENT for table `matmenys`
+--
+ALTER TABLE `matmenys`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `siuntimo_budai`
+--
+ALTER TABLE `siuntimo_budai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `uzpildai`
+--
+ALTER TABLE `uzpildai`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `ataskaitos`
 --
 ALTER TABLE `ataskaitos`
