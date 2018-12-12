@@ -46,6 +46,7 @@ class AdminController extends AbstractController
     }
     public function add_dimensionAction()
     {
+        $success = '';
         $item= null;
         if(!empty($_GET["edit"]) && $_GET["edit"]==1){
             $item = $this->getDoctrine()
@@ -67,13 +68,13 @@ class AdminController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($obj);
                 $em->flush();
-                header("Location: /admin/dimensions");
-                exit;
+                $success = 'Matmuo sukurtas';
             }
         }
         return $this->render('Admin/add_dimension.html.twig', [
             'controller_name' => 'AdminController',
-            'item'=>$item
+            'item'=>$item,
+            'success'=>$success
         ]);
     }
     public function fillerAction()
@@ -100,6 +101,7 @@ class AdminController extends AbstractController
     }
     public function add_fillerAction()
     {
+        $success = '';
         $item= null;
         if(!empty($_GET["edit"]) && $_GET["edit"]==1){
             $item = $this->getDoctrine()
@@ -121,13 +123,13 @@ class AdminController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($obj);
                 $em->flush();
-                header("Location: /admin/filler");
-                exit;
+                $success = 'Užpildas sukurtas';
             }
         }
         return $this->render('Admin/add_filler.html.twig', [
             'controller_name' => 'AdminController',
-            'item'=>$item
+            'item'=>$item,
+            'success'=>$success
         ]);
     }
     public function shipping_methodsAction()
@@ -154,6 +156,7 @@ class AdminController extends AbstractController
     }
     public function add_shipping_methodAction()
     {
+        $success = '';
         $item= null;
         if(!empty($_GET["edit"]) && $_GET["edit"]==1){
             $item = $this->getDoctrine()
@@ -175,17 +178,18 @@ class AdminController extends AbstractController
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($obj);
                 $em->flush();
-                header("Location: /admin/shipping_methods");
-                exit;
+                $success = 'Siuntimo būdas sukurtas';
             }
         }
         return $this->render('Admin/add_shipping_method.html.twig', [
             'controller_name' => 'AdminController',
-            'item'=>$item
+            'item'=>$item,
+            'success'=>$success
         ]);
     }
     public function reportAction()
     {
+        $error="";
         $em = $this->getDoctrine()->getManager();
         $qb = $em->createQueryBuilder();
         $orders = null;
@@ -206,13 +210,19 @@ class AdminController extends AbstractController
                 ->getResult();
 //            dump($orders);
 //            die();
+            if (sizeof($orders) < 1) {
+                $error = "Negalime parodyti ataskaitps pagal tokiu kriterijus";
+            }
         }
         $types = $this->getDoctrine()->getRepository(AtaskaitosTipai::class)->findAll();
+
+
 
         return $this->render('Admin/report.html.twig', [
             'controller_name' => 'AdminController',
             'types' => $types,
-            'orders' => $orders
+            'orders' => $orders,
+            'error'=>$error
         ]);
     }
 }
