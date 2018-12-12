@@ -1,6 +1,11 @@
 {% extends 'base.html.twig' %}
 {% block content %}
     <div class="container">
+        {% if msg %}
+            <div class="alert alert-success">
+                {{ msg }}
+            </div>
+        {% endif %}
         <div class="row">
             <div class="col-lg-3 panel-group">
                 <div class="panel panel-default">
@@ -15,6 +20,7 @@
                     </div>
                 </div>
             </div>
+
             {% if orders %}
             <div class="col-lg-9">
                 <h2>Užsakymas</h2>
